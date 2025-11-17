@@ -1,0 +1,21 @@
+{
+  "name": "dev-workflow",
+  "description": "Integrated development lifecycle combining spec-driven development with code quality, git workflow, documentation, and systematic testing",
+  "version": "1.0.0",
+  "author": {
+    "name": "[Your Name]",
+    "email": "[Your Email]"
+  },
+  "homepage": "[Repository URL]",
+  "repository": "[Repository URL]",
+  "license": "MIT",
+  "keywords": [
+    "development",
+    "workflow",
+    "spec-driven",
+    "tdd",
+    "code-quality",
+    "git",
+    "documentation"
+  ]
+}
