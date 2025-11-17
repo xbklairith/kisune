@@ -1,0 +1,29 @@
+# Documentation and planning (project-specific)
+docx/
+
+# Example plugins (reference only)
+examples/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node modules (if any MCP servers use them)
+node_modules/
+
+# Python (if any scripts use Python)
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Logs
+*.log
+logs/
