@@ -1,7 +1,6 @@
 ---
 name: strategy-research
 description: Research and document trading strategies systematically. Guide hypothesis formation, edge identification, and strategy documentation. Activates when exploring new trading ideas or refining existing strategies.
-version: 1.0.0
 ---
 
 # Strategy Research Skill

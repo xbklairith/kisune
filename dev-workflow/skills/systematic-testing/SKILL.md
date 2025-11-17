@@ -1,10 +1,6 @@
 ---
 name: systematic-testing
 description: Guide test-driven development, generate tests, and provide systematic debugging framework. Activates when writing tests, debugging issues, or investigating failures. Integrates with superpowers TDD and debugging skills if available.
-version: 1.0.0
-dependencies:
-  - superpowers:test-driven-development (if available)
-  - superpowers:systematic-debugging (if available)
 ---
 
 # Systematic Testing Skill

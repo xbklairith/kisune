@@ -1,7 +1,6 @@
 ---
 name: documentation
 description: Generate and maintain documentation - function docs, API specs, architecture diagrams, and code explanations. Activates when user requests documentation, explanations, or mentions docs/README.
-version: 1.0.0
 ---
 
 # Documentation Skill

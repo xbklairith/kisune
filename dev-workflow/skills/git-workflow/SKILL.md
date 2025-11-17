@@ -1,7 +1,6 @@
 ---
 name: git-workflow
 description: Manage git operations with best practices - smart commits, branch management, PR creation, and deployment helpers. Activates during git operations or when user mentions commits, branches, or pull requests.
-version: 1.0.0
 ---
 
 # Git Workflow Skill

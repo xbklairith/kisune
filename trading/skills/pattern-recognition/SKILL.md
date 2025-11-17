@@ -1,7 +1,6 @@
 ---
 name: pattern-recognition
 description: Identify chart patterns, trading setups, and market conditions across multiple timeframes and markets. Helps document pattern characteristics and success criteria.
-version: 1.0.0
 ---
 
 # Pattern Recognition Skill

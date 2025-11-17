@@ -1,10 +1,6 @@
 ---
 name: spec-driven
 description: Guide feature development through structured phases - requirements (EARS format), design, tasks (TDD), and execution. Activates when user mentions feature planning, specs, requirements, or uses /dev-workflow:spec command.
-version: 1.0.0
-dependencies:
-  - superpowers:brainstorming (if available)
-  - superpowers:writing-plans (if available)
 ---
 
 # Spec-Driven Development Skill

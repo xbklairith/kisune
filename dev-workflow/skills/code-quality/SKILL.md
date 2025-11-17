@@ -1,7 +1,6 @@
 ---
 name: code-quality
 description: Perform code reviews, suggest refactorings, enforce best practices, and identify code smells. Activates when reviewing code, before commits, or when user requests refactoring/optimization.
-version: 1.0.0
 ---
 
 # Code Quality Skill

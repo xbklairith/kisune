@@ -1,7 +1,6 @@
 ---
 name: market-analysis
 description: Analyze stocks, crypto, forex, and commodities using technical indicators, fundamentals, sentiment, and quantitative methods. Activates when user requests market analysis or chart interpretation.
-version: 1.0.0
 ---
 
 # Market Analysis Skill
