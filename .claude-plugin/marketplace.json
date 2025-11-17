@@ -1,0 +1,22 @@
+{
+  "name": "kisune",
+  "description": "Advanced trading and development workflow plugins for Claude Code",
+  "owner": {
+    "name": "xb",
+    "email": "xb@kisune.dev"
+  },
+  "plugins": [
+    {
+      "name": "trading",
+      "description": "Multi-market trading analysis and strategy research toolkit for advanced traders",
+      "version": "1.0.0",
+      "source": "./trading"
+    },
+    {
+      "name": "dev-workflow",
+      "description": "Integrated development lifecycle combining spec-driven development with code quality, git workflow, documentation, and systematic testing",
+      "version": "1.0.0",
+      "source": "./dev-workflow"
+    }
+  ]
+}

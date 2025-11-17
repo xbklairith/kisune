@@ -3,11 +3,11 @@
   "description": "Integrated development lifecycle combining spec-driven development with code quality, git workflow, documentation, and systematic testing",
   "version": "1.0.0",
   "author": {
-    "name": "[Your Name]",
-    "email": "[Your Email]"
+    "name": "Kisune",
+    "email": "kisune@example.com"
   },
-  "homepage": "[Repository URL]",
-  "repository": "[Repository URL]",
+  "homepage": "https://github.com/xb/kisune",
+  "repository": "https://github.com/xb/kisune",
   "license": "MIT",
   "keywords": [
     "development",
