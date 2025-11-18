@@ -4,7 +4,7 @@ Integrated development lifecycle plugin for Claude Code combining spec-driven de
 
 ## Overview
 
-The Dev-Workflow plugin provides a comprehensive, systematic approach to software development from initial concept through production deployment. It integrates five core skills that work together to ensure high-quality, well-tested, properly documented code.
+The Dev-Workflow plugin provides a comprehensive, systematic approach to software development from initial concept through production deployment. It integrates eight specialized skills that work together seamlessly to ensure high-quality, well-tested, properly documented code with no external dependencies.
 
 ### What This Plugin Does
 
@@ -52,30 +52,61 @@ The Dev-Workflow plugin provides a comprehensive, systematic approach to softwar
 
 ## Core Skills
 
-### 1. Spec-Driven Development
+The plugin includes 8 integrated skills organized into planning, implementation, and quality categories.
 
-**Activation:** User mentions features, requirements, specs, or uses `/dev-workflow:spec`
+### Planning & Design Skills
 
-**Purpose:** Guide feature development through five structured phases
+#### 1. Spec-Driven Planning
 
-**Five Phases:**
+**Activation:** User mentions features, requirements, specs, design, or uses `/dev-workflow:spec`
+
+**Purpose:** Guide feature planning through three structured phases (Feature Creation → Requirements → Design)
+
+**Three Planning Phases:**
 
 1. **Feature Creation**
    - Creates directory structure: `docx/features/[NN-feature-name]/`
-   - Initializes template files
+   - Initializes template files (requirements.md, design.md, tasks.md)
    - Establishes feature tracking
 
 2. **Requirements Definition (EARS Format)**
    - Uses EARS (Easy Approach to Requirements Syntax)
    - Five requirement types: Event-Driven, State-Driven, Ubiquitous, Conditional, Optional
    - Systematic questioning to elicit complete requirements
+   - Optional: Activates `brainstorming` skill for scope exploration
    - Captures functional and non-functional requirements
 
 3. **Technical Design**
+   - Optional: Activates `brainstorming` skill for architectural exploration
    - Proposes 2-3 architectural approaches with trade-offs
    - Presents recommendation with reasoning
    - Creates comprehensive design document
    - Includes data flow, API contracts, security, performance
+
+#### 2. Brainstorming
+
+**Activation:** User has rough idea needing refinement, during requirements or design phases
+
+**Purpose:** Refine rough ideas into clear requirements or designs through collaborative questioning
+
+**Key Features:**
+- One question at a time (no overwhelming)
+- Explores 2-3 alternatives before recommending
+- Presents information incrementally (200-300 word sections)
+- Validates each section before proceeding
+- Dual-phase usage:
+  - **Phase 2 (Requirements):** Explores WHAT to build, clarifies scope
+  - **Phase 3 (Design):** Explores HOW to build, compares architectures
+
+### Implementation Skills
+
+#### 3. Spec-Driven Implementation
+
+**Activation:** Design is complete, user ready to implement, or uses `/dev-workflow:spec tasks/execute`
+
+**Purpose:** Guide implementation through task breakdown and execution with TDD
+
+**Two Implementation Phases:**
 
 4. **Task Breakdown (TDD)**
    - Breaks design into Red-Green-Refactor tasks
@@ -84,10 +115,33 @@ The Dev-Workflow plugin provides a comprehensive, systematic approach to softwar
    - Clear acceptance criteria
 
 5. **Execution**
-   - Follows TDD cycle for each task
-   - Auto-triggers code quality reviews
+   - Activates `test-driven-development` skill for TDD enforcement
+   - Follows strict RED-GREEN-REFACTOR cycle
+   - Auto-triggers code quality reviews before commits
    - Uses smart git commits
    - Status checkpoints every 2-3 tasks
+
+#### 4. Test-Driven Development (TDD)
+
+**Activation:** During implementation phase, writing any production code
+
+**Purpose:** Enforce strict TDD discipline (test first, watch fail, minimal code to pass)
+
+**Core Principle:** NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
+
+**Red-Green-Refactor Cycle:**
+- **RED:** Write failing test describing desired behavior
+- **Verify RED:** Run test - MUST fail for expected reason
+- **GREEN:** Write minimal code to make test pass
+- **Verify GREEN:** Run test - MUST pass, all tests stay green
+- **REFACTOR:** Clean up code while keeping tests green
+- **Repeat:** Next test for next behavior
+
+**Strict Enforcement:**
+- Write code before test? Delete it. Start over.
+- No "keep as reference" - delete means delete
+- Addresses all common rationalizations
+- Verification checklist before marking work complete
 
 **EARS Format Examples:**
 
@@ -108,7 +162,9 @@ Optional:
 WHERE premium subscription is active the system SHALL enable advanced analytics
 ```
 
-### 2. Code Quality
+### Quality Skills
+
+#### 5. Code Quality
 
 **Activation:** User says "review this code", mentions refactoring, or before commits
 
@@ -158,7 +214,7 @@ WHERE premium subscription is active the system SHALL enable advanced analytics
 - Code metrics (complexity, coverage, maintainability)
 - Action items with checkboxes
 
-### 3. Git Workflow
+#### 6. Git Workflow
 
 **Activation:** User commits code, mentions branches/PRs, or git operations
 
@@ -194,7 +250,7 @@ WHERE premium subscription is active the system SHALL enable advanced analytics
 - Confirms destructive operations
 - Prevents force push to main/master
 
-### 4. Documentation
+#### 7. Documentation
 
 **Activation:** User says "document this", asks "how does this work?", mentions docs/README
 
@@ -239,7 +295,7 @@ WHERE premium subscription is active the system SHALL enable advanced analytics
 - Edge cases handled
 - Performance considerations
 
-### 5. Systematic Testing
+#### 8. Systematic Testing
 
 **Activation:** User implements functionality, tests fail, mentions debugging/TDD
 
@@ -468,18 +524,33 @@ This plugin integrates and extends existing spec-driven commands:
 - Integrated TDD methodology
 - Consistent file structure
 
-### Integration with Superpowers Plugin
+### Self-Contained Skill Ecosystem
 
-The dev-workflow plugin optionally integrates with [superpowers](https://github.com/anthropics/superpowers) skills when available:
+The dev-workflow plugin is fully self-contained with integrated supporting skills:
 
-**Optional Dependencies:**
-- `superpowers:brainstorming` - Enhanced design phase with Socratic exploration
-- `superpowers:writing-plans` - Plan generation support
-- `superpowers:test-driven-development` - Enhanced TDD guidance
-- `superpowers:systematic-debugging` - Advanced debugging framework
+**Planning & Design Skills:**
+- `spec-driven-planning` - Feature creation, requirements gathering (EARS), technical design
+- `brainstorming` - Collaborative exploration for requirements and design (WHAT and HOW)
 
-**Auto-Detection:**
-The plugin automatically detects if superpowers skills are available and uses them when appropriate. Works standalone without these dependencies.
+**Implementation Skills:**
+- `spec-driven-implementation` - Task breakdown and execution with TDD
+- `test-driven-development` - Strict RED-GREEN-REFACTOR TDD enforcement
+
+**Quality Skills:**
+- `code-quality` - Systematic code review and refactoring suggestions
+- `git-workflow` - Smart commits, branch management, PR creation
+- `documentation` - Code, API, and architecture documentation generation
+- `systematic-testing` - Testing guidance and systematic debugging framework
+
+**Skill Integration:**
+Skills automatically activate and work together based on context. For example:
+- Requirements phase can activate `brainstorming` for scope exploration
+- Design phase can activate `brainstorming` for architectural exploration
+- Implementation phase activates `test-driven-development` for TDD enforcement
+- Before commits, `code-quality` auto-triggers for review
+- Git operations use `git-workflow` for smart commit messages
+
+**No External Dependencies Required** - All skills are included in the plugin.
 
 ## Example Workflows
 
@@ -718,11 +789,19 @@ MIT License
 
 ## Version History
 
-v1.0.0 (Initial Release)
+**v1.1.0 (Current)**
+- Split spec-driven into planning and implementation phases
+- Added self-contained brainstorming and test-driven-development skills
+- Eight integrated skills working seamlessly together
+- Two slash commands (/dev-workflow:spec, /dev-workflow:review)
+- Three comprehensive templates
+- Self-contained with no external dependencies
+- Complete documentation
+
+**v1.0.0 (Initial Release)**
 - Five core skills (spec-driven, code-quality, git-workflow, documentation, systematic-testing)
 - Two slash commands (/spec, /review)
 - Three comprehensive templates
-- Optional superpowers integration
 - Complete documentation
 
 ## Support

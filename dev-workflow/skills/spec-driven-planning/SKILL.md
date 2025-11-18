@@ -1,24 +1,26 @@
 ---
-name: spec-driven
-description: Guide feature development through structured phases - requirements (EARS format), design, tasks (TDD), and execution. Activates when user mentions feature planning, specs, requirements, or uses /dev-workflow:spec command.
+name: spec-driven-planning
+description: Create feature structure, define requirements using EARS format, and generate technical design. Activates when user mentions feature planning, requirements gathering, specifications, design, architecture, or uses planning commands.
+allowed-tools: Read, Write, Glob, Grep
 ---
 
-# Spec-Driven Development Skill
+# Spec-Driven Planning Skill
 
 ## Purpose
 
-Guide feature development through five structured phases: Feature Creation → Requirements (EARS) → Design → Tasks (TDD) → Execution. This systematic approach ensures clear requirements, thoughtful design, and test-driven implementation.
+Guide feature planning through three structured phases: Feature Creation → Requirements (EARS) → Technical Design. This systematic approach ensures clear requirements and thoughtful design before implementation begins.
 
 ## Activation Triggers
 
 Activate this skill when:
 - User says "create a new feature"
 - User mentions "requirements", "specifications", or "specs"
-- User uses `/dev-workflow:spec` command
-- User asks to plan a feature
+- User uses `/dev-workflow:spec` command with planning options
+- User asks to plan or design a feature
 - User says "I need to build [feature]"
+- User mentions "architecture" or "technical design"
 
-## Five-Phase Workflow
+## Three-Phase Planning Workflow
 
 ### Phase 1: Feature Creation
 
@@ -53,6 +55,12 @@ Next step: Define requirements using EARS format
 ### Phase 2: Requirements Definition (EARS Format)
 
 **Goal:** Capture clear, testable requirements using EARS methodology
+
+**Brainstorming Integration (Optional):**
+- If user has rough idea but unclear requirements, activate `brainstorming` skill
+- Helps clarify what to build vs. what's out of scope
+- Explores different feature scopes through collaborative questioning
+- Determines must-haves vs. nice-to-haves
 
 **EARS Format Explained:**
 
@@ -142,7 +150,7 @@ Update `docx/features/[NN-feature-name]/requirements.md` with:
 **Process:**
 
 1. **Brainstorming Integration**
-   - If `superpowers:brainstorming` available, activate it
+   - Activate `brainstorming` skill for collaborative design exploration
    - Explore 2-3 different architectural approaches
    - Discuss trade-offs for each approach
 
@@ -213,154 +221,13 @@ Wait for explicit user approval before proceeding.
 
 ---
 
-### Phase 4: Task Breakdown (TDD Focus)
+## Next Steps
 
-**Goal:** Break design into small, testable tasks following Red-Green-Refactor
-
-**Task Structure:**
-
-Each task follows TDD cycle:
-```
-[ ] Task N: [Description]
-    [ ] RED: Write failing test for [functionality]
-    [ ] GREEN: Implement minimal code to pass test
-    [ ] REFACTOR: Clean up and optimize
-
-    Acceptance Criteria:
-    [ ] [Specific criterion 1]
-    [ ] [Specific criterion 2]
-```
-
-**Task Sizing Guidelines:**
-- Each task should take 30-60 minutes
-- If longer, break into subtasks
-- Each task must be independently testable
-- Each task produces working, tested code
-
-**Task Categories:**
-
-1. **Component Tasks**
-   - Implement individual components
-   - One component per task or split if large
-
-2. **Integration Tasks**
-   - Connect components
-   - Test component interactions
-   - Verify data flow
-
-3. **Error Handling Tasks**
-   - Implement error scenarios
-   - Test edge cases
-   - Verify error messages
-
-4. **Documentation Tasks**
-   - Write docstrings
-   - Update README
-   - Create API docs
-
-5. **Final Verification Tasks**
-   - Code review
-   - Performance testing
-   - Security review
-   - Manual testing
-
-**Output:**
-Update `docx/features/[NN-feature-name]/tasks.md` with:
-- Implementation approach summary
-- Organized task list with checkboxes
-- Acceptance criteria for each task
-- Notes section for implementation considerations
-
-**User Confirmation:**
-> "Tasks defined with TDD cycle. Ready to begin implementation?"
-
----
-
-### Phase 5: Execution
-
-**Goal:** Execute tasks systematically with quality gates
-
-**Execution Workflow:**
-
-For each task:
-
-1. **Mark Task as In Progress**
-   - Update checkbox from `[ ]` to `[→]` or add comment
-
-2. **RED Phase**
-   - Write failing test
-   - Run test suite to verify failure
-   - Commit: `test: Add test for [functionality]`
-
-3. **GREEN Phase**
-   - Write minimal implementation
-   - Run tests until passing
-   - Don't optimize yet
-   - Commit: `feat: Implement [functionality]`
-
-4. **REFACTOR Phase**
-   - Clean up code
-   - Remove duplication
-   - Improve naming
-   - Run tests to ensure still passing
-   - Commit: `refactor: Optimize [component]`
-
-5. **Mark Task Complete**
-   - Update checkbox to `[x]`
-   - Update acceptance criteria checkboxes
-
-**Status Checkpoints:**
-
-Every 2-3 completed tasks, provide status update:
-
-```
-🔄 Checkpoint Update:
-- ✅ Tests: [N/N] passing
-- ✅ Type check: No errors
-- ✅ Lint: Clean
-- 📝 Completed tasks: [X/Y]
-- 🎯 Next: [Next task description]
-
-[Confidence: X.X]
-```
-
-**Auto-Trigger Code Quality Review:**
-
-Before each commit:
-- Auto-activate `code-quality` skill
-- Review changes for issues
-- Address critical findings before commit
-
-**Integration Points:**
-
-- Use `superpowers:test-driven-development` if available for TDD guidance
-- Use `git-workflow` skill for smart commits
-- Use `code-quality` skill for pre-commit reviews
-
-**Completion Criteria:**
-
-Feature is complete when:
-- [ ] All tasks checked off
-- [ ] All tests passing
-- [ ] No linter errors
-- [ ] No type errors
-- [ ] Code review passed
-- [ ] Documentation updated
-- [ ] Manual testing complete
-
-**Final Output:**
-```
-✅ Feature Complete: [Feature Name]
-
-Summary:
-- Total tasks: [N]
-- Tests added: [N]
-- Test coverage: [X%]
-- Commits: [N]
-- Files changed: [N]
-
-Ready to create PR or merge to main?
-```
+After design approval, use `/dev-workflow:spec tasks` or `/dev-workflow:spec execute` to activate the `spec-driven-implementation` skill, which will:
+- Break down your design into TDD tasks with Red-Green-Refactor cycles
+- Guide systematic execution with quality gates
+- Track progress with checkbox updates
+- Integrate with code-quality and git-workflow skills
 
 ---
 
@@ -372,7 +239,7 @@ Ready to create PR or merge to main?
 
 **Assistant:**
 ```
-Activating spec-driven skill for feature development.
+Activating spec-driven-planning skill for feature planning.
 
 Let me create the feature structure:
 
@@ -409,7 +276,7 @@ Let me ask some questions to capture clear requirements:
 
 **Assistant:**
 ```
-Activating spec-driven skill at Phase 3: Design
+Activating spec-driven-planning skill at Phase 3: Design
 
 Found latest feature: docx/features/01-user-authentication/
 
@@ -419,13 +286,11 @@ Requirements already defined. Let me propose architectural approaches:
 Pros: Stateless, scalable, works across services
 Cons: Token invalidation complexity, larger payload
 Complexity: Medium
-Timeline: 3-4 days
 
 **Option B: Session-Based Authentication**
 Pros: Simple invalidation, smaller cookies, familiar pattern
 Cons: Requires session storage, scaling challenges
 Complexity: Low
-Timeline: 2-3 days
 
 Recommendation: Option A (JWT-Based)
 Reasoning: Better for microservices, future-proof, industry standard
@@ -435,20 +300,11 @@ Proceed with JWT-based design?
 
 ---
 
-## Integration with Existing `/x:spec/*` Commands
-
-This skill replaces and enhances existing commands:
-- `/x:spec:create` → Phase 1: Feature Creation
-- `/x:spec:requirements` → Phase 2: Requirements (EARS)
-- `/x:spec:design` → Phase 3: Technical Design
-- `/x:spec:tasks` → Phase 4: Task Breakdown
-- `/x:spec:execute` → Phase 5: Execution
-
 ## Notes
 
 - Always request explicit approval between phases
 - Use EARS format strictly for requirements
-- Maintain checkbox tracking throughout
-- Integrate with other skills (code-quality, git-workflow, systematic-testing)
-- Create clear, actionable tasks
-- Follow TDD cycle religiously during execution
+- Focus on "what" and "how", not "doing"
+- Create clear, complete documentation before implementation
+- Explore multiple architectural options before recommending one
+- Wait for user approval before activating implementation skill
