@@ -380,6 +380,23 @@ WHERE premium subscription is active the system SHALL enable advanced analytics
 /dev-workflow:spec list
 ```
 
+**Shortcut Commands:** Direct access to specific phases
+
+```bash
+# Phase shortcuts (equivalent to /dev-workflow:spec [phase])
+/dev-workflow:spec:create           # Create new feature
+/dev-workflow:spec:requirements     # Define requirements (EARS)
+/dev-workflow:spec:design           # Generate technical design
+/dev-workflow:spec:tasks            # Break down into TDD tasks
+/dev-workflow:spec:execute          # Execute implementation
+/dev-workflow:spec:list             # List all features
+
+# With arguments
+/dev-workflow:spec:create "user authentication"
+/dev-workflow:spec:requirements 01-user-auth
+/dev-workflow:spec:execute 01-user-auth
+```
+
 **Interactive Menu:**
 ```
 📋 Spec-Driven Development Workflow
@@ -789,7 +806,13 @@ MIT License
 
 ## Version History
 
-**v1.1.0 (Current)**
+**v1.2.0 (Current)**
+- Added 6 shortcut commands for direct phase access (/dev-workflow:spec:create, :requirements, :design, :tasks, :execute, :list)
+- Fixed skill activation to use explicit Skill tool invocation
+- Prevents command collision with global /x:spec:* commands
+- Enhanced routing logic for reliable skill triggering
+
+**v1.1.0**
 - Split spec-driven into planning and implementation phases
 - Added self-contained brainstorming and test-driven-development skills
 - Eight integrated skills working seamlessly together
