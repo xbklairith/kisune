@@ -1,6 +1,6 @@
 ---
 name: spec-driven-planning
-description: Create feature structure, define requirements using EARS format, and generate technical design. Activates when user mentions feature planning, requirements gathering, specifications, design, architecture, or uses planning commands.
+description: Use when planning new features or need structured requirements - creates feature structure, elicits EARS requirements through systematic questioning, proposes architectural approaches with trade-offs. Activates when user mentions "new feature", "requirements", "specs", "design", "architecture", or uses /dev-workflow:spec commands (create, requirements, design).
 allowed-tools: Read, Write, Glob, Grep
 ---
 
@@ -57,10 +57,15 @@ Next step: Define requirements using EARS format
 **Goal:** Capture clear, testable requirements using EARS methodology
 
 **Brainstorming Integration (Optional):**
-- If user has rough idea but unclear requirements, activate `brainstorming` skill
+- If user has rough idea but unclear requirements, use Skill tool to invoke: `dev-workflow:brainstorming`
 - Helps clarify what to build vs. what's out of scope
 - Explores different feature scopes through collaborative questioning
 - Determines must-haves vs. nice-to-haves
+
+**How to activate:**
+```
+Use Skill tool: Skill(skill: "dev-workflow:brainstorming")
+```
 
 **EARS Format Explained:**
 
@@ -150,9 +155,14 @@ Update `docx/features/[NN-feature-name]/requirements.md` with:
 **Process:**
 
 1. **Brainstorming Integration**
-   - Activate `brainstorming` skill for collaborative design exploration
+   - Use Skill tool to invoke: `dev-workflow:brainstorming` for collaborative design exploration
    - Explore 2-3 different architectural approaches
    - Discuss trade-offs for each approach
+
+   **How to activate:**
+   ```
+   Use Skill tool: Skill(skill: "dev-workflow:brainstorming")
+   ```
 
 **UltraThink for Complex Designs:**
 Before proposing technical approaches, activate deep thinking when:

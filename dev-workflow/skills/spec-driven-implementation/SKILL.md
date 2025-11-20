@@ -1,8 +1,7 @@
 ---
 name: spec-driven-implementation
-description: Break down technical design into TDD tasks with Red-Green-Refactor cycles and execute implementation with checkbox tracking. Activates when design is complete and user is ready to implement, or mentions tasks, execution, TDD, or implementation.
-allowed-tools: Read, Write, Edit,MultiEdit, Glob, Grep, Bash, TodoWrite, TodoRead
-
+description: Use when ready to implement designed features - breaks design into TDD tasks (Red-Green-Refactor), tracks progress with checkboxes in tasks.md, enforces strict testing discipline. Activates when user says "implement this", "let's code", "start execution", mentions "tasks", "TDD", or uses /dev-workflow:spec commands (tasks, execute).
+allowed-tools: Read, Write, Edit, MultiEdit, Glob, Grep, Bash, TodoWrite, TodoRead
 ---
 
 # Spec-Driven Implementation Skill
@@ -307,15 +306,32 @@ Every 2-3 completed tasks, provide status update:
 **Auto-Trigger Code Quality Review:**
 
 Before each commit:
-- Auto-activate `code-quality` skill
+- Use Skill tool to invoke: `dev-workflow:code-quality`
 - Review changes for issues
 - Address critical findings before commit
 
+**How to activate:**
+```
+Use Skill tool: Skill(skill: "dev-workflow:code-quality")
+```
+
 **Integration Points:**
 
-- Activate `test-driven-development` skill for strict TDD guidance
-- Use `git-workflow` skill for smart commits
-- Use `code-quality` skill for pre-commit reviews
+- Use Skill tool to invoke: `dev-workflow:test-driven-development` for strict TDD guidance
+- Use Skill tool to invoke: `dev-workflow:git-workflow` for smart commits
+- Use Skill tool to invoke: `dev-workflow:code-quality` for pre-commit reviews
+
+**How to activate integration skills:**
+```
+# For TDD enforcement
+Use Skill tool: Skill(skill: "dev-workflow:test-driven-development")
+
+# For git operations
+Use Skill tool: Skill(skill: "dev-workflow:git-workflow")
+
+# For code review
+Use Skill tool: Skill(skill: "dev-workflow:code-quality")
+```
 
 **Completion Criteria:**
 
@@ -518,7 +534,12 @@ If during implementation you discover:
 **STOP implementation and return to planning:**
 > "Implementation blocked: [issue]. Need to revisit [requirements/design]. Use `/dev-workflow:spec [requirements/design]` to update planning documents."
 
-Then use `spec-driven-planning` skill to update planning documents before continuing implementation.
+Then use Skill tool to invoke: `dev-workflow:spec-driven-planning` to update planning documents before continuing implementation.
+
+**How to return to planning:**
+```
+Use Skill tool: Skill(skill: "dev-workflow:spec-driven-planning")
+```
 
 ---
 
@@ -541,8 +562,8 @@ Then use `spec-driven-planning` skill to update planning documents before contin
 ### Implementation Guidelines
 
 - Provide checkpoint updates every 2-3 tasks
-- Auto-trigger code-quality before commits
-- Use git-workflow skill for smart commit messages
+- Use Skill tool to invoke: `dev-workflow:code-quality` before commits
+- Use Skill tool to invoke: `dev-workflow:git-workflow` for smart commit messages
 - Follow TDD cycle religiously (RED → GREEN → REFACTOR)
 - Stop and return to planning if design issues discovered
 

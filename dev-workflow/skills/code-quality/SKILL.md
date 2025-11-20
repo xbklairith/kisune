@@ -1,6 +1,6 @@
 ---
 name: code-quality
-description: Perform code reviews, suggest refactorings, enforce best practices, and identify code smells. Activates when reviewing code, before commits, or when user requests refactoring/optimization.
+description: Use when reviewing code or before commits - runs 25-point quality checklist (structure, errors, security, performance, testing), identifies code smells, suggests refactorings with examples. Activates when user says "review this", "check my code", mentions "refactor", "optimize", "code quality", or before git commits.
 ---
 
 # Code Quality Skill

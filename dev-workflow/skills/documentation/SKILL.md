@@ -1,6 +1,6 @@
 ---
 name: documentation
-description: Generate and maintain documentation - function docs, API specs, architecture diagrams, and code explanations. Activates when user requests documentation, explanations, or mentions docs/README.
+description: Use when writing or updating documentation - generates function docs, API specs, architecture diagrams (Mermaid), READMEs, code explanations. Activates when user says "document this", "write README", "explain this code", mentions "docs", "documentation", "API docs", or asks "how does this work?".
 ---
 
 # Documentation Skill

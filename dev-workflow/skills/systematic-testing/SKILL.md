@@ -1,6 +1,6 @@
 ---
 name: systematic-testing
-description: Guide test-driven development, generate tests, and provide systematic debugging framework. Activates when writing tests, debugging issues, or investigating failures. Integrates with  TDD and debugging skills if available.
+description: Use when writing tests, debugging failures, or investigating bugs - provides TDD guidance, test generation patterns, systematic debugging framework. Activates when user says "write tests", "this test fails", "debug this", mentions "TDD", "test coverage", or encounters errors/bugs.
 ---
 
 # Systematic Testing Skill
@@ -24,7 +24,12 @@ Activate this skill when:
 
 ### 1. Test-Driven Development (TDD)
 
-**For complete TDD workflow, activate the `test-driven-development` skill.**
+**For complete TDD workflow, use Skill tool to invoke: `dev-workflow:test-driven-development`**
+
+**How to activate:**
+```
+Use Skill tool: Skill(skill: "dev-workflow:test-driven-development")
+```
 
 The `test-driven-development` skill provides:
 - Full RED-GREEN-REFACTOR cycle explanation

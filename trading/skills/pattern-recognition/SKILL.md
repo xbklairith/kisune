@@ -1,6 +1,6 @@
 ---
 name: pattern-recognition
-description: Identify chart patterns, trading setups, and market conditions across multiple timeframes and markets. Helps document pattern characteristics and success criteria.
+description: Use when identifying chart patterns or setups - recognizes candlestick patterns (head and shoulders, double top/bottom, triangles), documents pattern library with entry/exit criteria. Activates when user says "what pattern is this", "is this a flag", "document this setup", mentions pattern names, or uses /trading:pattern command.
 ---
 
 # Pattern Recognition Skill

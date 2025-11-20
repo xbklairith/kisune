@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: Use when creating or developing features before writing code or implementation plans - refines rough ideas into fully-formed designs through collaborative questioning, alternative exploration, and incremental validation. Activates during design and planning phases.
+description: Use when exploring unclear requirements or architectural decisions - refines rough ideas into clear requirements/designs through collaborative questioning (one at a time), explores alternatives, validates incrementally. Activates when user has vague feature idea, mentions "not sure about", "exploring options", "what approach", or during spec-driven requirements/design phases.
 allowed-tools: Read, Write, Glob, Grep
 ---
 

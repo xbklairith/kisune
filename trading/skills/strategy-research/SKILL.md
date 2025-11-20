@@ -1,6 +1,6 @@
 ---
 name: strategy-research
-description: Research and document trading strategies systematically. Guide hypothesis formation, edge identification, and strategy documentation. Activates when exploring new trading ideas or refining existing strategies.
+description: Use when developing or documenting trading strategies - guides edge hypothesis formation, validates statistical significance, documents strategy rules systematically (entry, exit, risk management). Activates when user says "research this strategy", "document my approach", "test this idea", mentions "trading strategy", "edge", or uses /trading:research command.
 ---
 
 # Strategy Research Skill

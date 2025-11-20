@@ -1,6 +1,6 @@
 ---
 name: test-driven-development
-description: Use when implementing any feature or bugfix, before writing implementation code - write the test first, watch it fail, write minimal code to pass. Ensures tests actually verify behavior by requiring failure first. Activates during implementation phase.
+description: Use when implementing features/bugfixes to enforce strict TDD discipline - enforces RED (write failing test), GREEN (minimal code), REFACTOR cycle with no exceptions. Prevents "test after" trap, catches rationalizations. Activates when user says "implement", "let's code", "write this feature", mentions "TDD", or during spec-driven execution phase.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
