@@ -28,14 +28,16 @@ Activate this skill when:
 
 **Process:**
 1. Parse feature name from user input
-2. Check existing features: `ls docx/features/`
+2. Check existing features using Bash tool: `ls docx/features/`
 3. Determine next number (NN) for feature directory
-4. Create directory: `docx/features/[NN-feature-name]/`
+4. Create directory using Bash tool: `mkdir -p docx/features/[NN-feature-name]`
 5. Copy templates from plugin to feature directory:
-   - requirements.md
-   - design.md
-   - tasks.md
-6. Initialize placeholder content with feature name
+   - Use Read tool: `dev-workflow/templates/requirements.md`
+   - Use Write tool: `docx/features/[NN-feature-name]/requirements.md` (replace [Feature Name] with actual name)
+   - Use Read tool: `dev-workflow/templates/design.md`
+   - Use Write tool: `docx/features/[NN-feature-name]/design.md` (replace [Feature Name] with actual name)
+   - Use Read tool: `dev-workflow/templates/tasks.md`
+   - Use Write tool: `docx/features/[NN-feature-name]/tasks.md` (replace [Feature Name] with actual name)
 
 **Output:**
 ```

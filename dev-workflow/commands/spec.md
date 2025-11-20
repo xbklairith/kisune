@@ -33,6 +33,7 @@ What would you like to do? (1-6)
 
 **Planning Phase Arguments:**
 ```
+/dev-workflow:spec create            → Activate spec-driven-planning (Phase 1)
 /dev-workflow:spec "feature-name"    → Activate spec-driven-planning (Phase 1)
 /dev-workflow:spec requirements      → Activate spec-driven-planning (Phase 2)
 /dev-workflow:spec design            → Activate spec-driven-planning (Phase 3)
@@ -55,7 +56,7 @@ What would you like to do? (1-6)
 
 Based on user's menu choice or argument:
 
-**Options 1-3** or args **[feature-name, requirements, design]:**
+**Options 1-3** or args **[create, feature-name, requirements, design]:**
 → Use the Skill tool to invoke: `dev-workflow:spec-driven-planning`
 
 **Options 4-5** or args **[tasks, execute]:**
