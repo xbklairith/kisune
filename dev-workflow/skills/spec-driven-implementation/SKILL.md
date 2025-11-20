@@ -59,6 +59,25 @@ Each task follows TDD cycle:
 - Each task must be independently testable
 - Each task produces working, tested code
 
+**UltraThink Before Task Breakdown:**
+Before breaking design into tasks, activate deep thinking if:
+- Design involves complex algorithms or data structures
+- Integration points between components are unclear
+- Multiple implementation strategies are possible
+- Edge cases and error handling are non-trivial
+
+> 🗣 Say: "Let me ultrathink the implementation strategy before breaking this into tasks."
+
+**Questions to ultrathink:**
+- What's the simplest implementation that satisfies requirements?
+- Which parts are most likely to change?
+- Where are the hidden complexities?
+- What assumptions might break during implementation?
+- How will we test each component in isolation?
+- What could we build incrementally vs. all at once?
+
+**After UltraThink:** Create focused, testable tasks that validate assumptions early.
+
 **Task Categories:**
 
 1. **Component Tasks**

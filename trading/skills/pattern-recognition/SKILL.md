@@ -506,6 +506,27 @@ When a user describes a chart:
 
 ## Pattern Quality Assessment
 
+**UltraThink Pattern Validity:**
+Before confirming pattern identification, use deep thinking when:
+- Pattern structure is ambiguous or messy
+- Multiple patterns could apply
+- Pattern occurs at unusual market location
+- Volume doesn't confirm pattern expectation
+- Higher timeframe conflicts with pattern
+
+> 🗣 Say: "Pattern identification is ambiguous. Let me ultrathink whether this is a valid setup."
+
+**Question pattern fundamentals:**
+- Am I forcing a pattern where none exists? (pattern shopping)
+- Why would this pattern work HERE specifically?
+- What's the base rate for this pattern type?
+- What would invalidate this pattern quickly?
+- Is this a textbook pattern or marginal case?
+- What's the strongest argument this pattern will FAIL?
+- Would I trade this with real money today?
+
+**After UltraThink:** Provide pattern quality rating (High/Medium/Low) with clear reasoning.
+
 **High-Quality Patterns:**
 - Clear, well-formed structure
 - Occurs at significant S/R level

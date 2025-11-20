@@ -28,6 +28,27 @@ Activate this skill when the user:
 - Note key timeframe context (higher timeframes guide lower timeframes)
 - Identify major support/resistance zones
 
+**UltraThink for Complex Market Conditions:**
+Before analyzing, activate deep thinking when:
+- Multiple timeframes show conflicting signals
+- Major S/R levels are unclear or overlapping
+- Market is in transition between regimes
+- Indicators give contradictory readings
+- High-impact news events are pending
+
+> 🗣 Say: "Market conditions are complex. Let me ultrathink the market structure before providing analysis."
+
+**During UltraThink, question:**
+- What's the dominant force driving price? (trend, range, news, manipulation)
+- Which timeframe matters most right now?
+- What are market participants thinking?
+- What would invalidate my analysis?
+- Am I seeing what I want to see (confirmation bias)?
+- What's the contrarian view, and why might it be right?
+- If I were wrong about the trend, what would I be missing?
+
+**After UltraThink:** Provide analysis with confidence levels and invalidation points clearly stated.
+
 ### 2. Technical Indicator Analysis
 
 **RSI (Relative Strength Index):**

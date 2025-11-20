@@ -154,6 +154,25 @@ Update `docx/features/[NN-feature-name]/requirements.md` with:
    - Explore 2-3 different architectural approaches
    - Discuss trade-offs for each approach
 
+**UltraThink for Complex Designs:**
+Before proposing technical approaches, activate deep thinking when:
+- Architecture involves multiple services or complex data flows
+- Trade-offs between approaches aren't obvious
+- Design impacts security, performance, or scalability
+- Requirements seem contradictory or incomplete
+
+> 🗣 Say: "This design requires deep thinking. Let me ultrathink the architectural fundamentals before proposing approaches."
+
+**During UltraThink, question:**
+- Are we solving the right problem?
+- What are we assuming that might be wrong?
+- What could break at scale?
+- What's the simplest architecture that works?
+- What are the hidden costs of each approach?
+- What would we do differently if starting from scratch?
+
+**After UltraThink:** Present approaches with explicit reasoning about architectural trade-offs and scalability considerations.
+
 2. **Approach Comparison**
    Present options with trade-offs:
 

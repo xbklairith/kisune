@@ -194,6 +194,27 @@ Systematically go through:
 4. Performance (5 checks)
 5. Testing (5 checks)
 
+**UltraThink Architectural Issues:**
+If review reveals fundamental architectural problems, activate deep thinking:
+
+> 🗣 Say: "This code has architectural issues. Let me ultrathink whether refactoring or redesign is needed."
+
+**When to UltraThink:**
+- Code violates multiple principles (SRP, DRY, YAGNI)
+- Tight coupling makes testing difficult
+- Similar logic duplicated across multiple files
+- Error handling is scattered and inconsistent
+- Performance issues suggest wrong data structure/algorithm
+
+**Question deeply:**
+- Is this a symptom of wrong architecture?
+- Would refactoring fix root cause or just move complexity?
+- What would this look like if designed from scratch?
+- What's preventing clean separation of concerns?
+- Is the domain model wrong?
+
+**After UltraThink:** Recommend tactical fixes (refactor) vs. strategic redesign with clear reasoning.
+
 ### Step 4: Generate Review Report
 
 ## Review Output Format

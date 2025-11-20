@@ -24,6 +24,29 @@ The goal is to move from a vague idea to a well-documented, testable strategy wi
 
 ### Phase 1: Edge Hypothesis Formation
 
+**UltraThink for Edge Hypothesis:**
+Before defining the edge, activate deep thinking:
+
+> 🗣 Say: "Let me ultrathink the fundamental edge hypothesis before we document this strategy."
+
+**Question from first principles:**
+- Why would this edge exist in efficient markets?
+- What market participants create this inefficiency?
+- Why hasn't this edge been arbitraged away?
+- What's our edge over professional traders?
+- What assumptions am I making about market structure?
+- Is this a real edge or data-fitting coincidence?
+- What market regime change would invalidate this edge?
+
+**Red flags that require UltraThink:**
+- Edge based on single indicator or pattern
+- Works only in specific historical period
+- No clear explanation WHY it should work
+- Requires perfect timing or execution
+- Based on curve-fitting or optimization
+
+**After UltraThink:** Formulate edge hypothesis with clear explanation of the market mechanism being exploited.
+
 **Core Questions to Ask:**
 
 1. **What is the edge?**
@@ -140,6 +163,22 @@ Risk Management:
 - Avoid in trending markets (if mean-reversion strategy)
 
 ### Phase 3: Edge Validation
+
+**UltraThink Critical Validation:**
+Edge validation is where most strategies fail. Question deeply:
+
+> 🗣 Say: "Let me ultrathink the edge validation before confirming this strategy is viable."
+
+**Questions to ultrathink:**
+- Am I rationalizing because I want this to work?
+- What's the strongest argument AGAINST this strategy?
+- Would I trade this with real money today?
+- What do I know that the market doesn't know?
+- If this edge is real, why aren't others exploiting it?
+- What's my confirmation bias hiding from me?
+- What would change my mind about this edge?
+
+**After UltraThink:** Provide honest assessment of edge validity with clear invalidation criteria.
 
 **Critical thinking questions:**
 

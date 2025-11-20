@@ -201,6 +201,27 @@ To create an effective skill, clearly understand concrete examples of how it wil
 
 **Conclude when:** Clear sense of the functionality the skill should support.
 
+**UltraThink Skill Design:**
+Before creating skill structure, activate deep thinking:
+
+> 🗣 Say: "Let me ultrathink what this skill should really accomplish and how it fits the ecosystem."
+
+**Question fundamentals:**
+- Is this really a skill, or project-specific documentation?
+- What's the reusable pattern vs. one-off solution?
+- How will future Claude discover and activate this skill?
+- What could go wrong if agents misinterpret this skill?
+- Are we solving the right problem?
+- What similar skills exist, and how does this differ?
+- What are we NOT including, and why?
+
+**For discipline-enforcing skills, ultrathink:**
+- What rationalizations will agents use to circumvent this?
+- How can we make the "right thing" the easy thing?
+- What pressure scenarios will test this skill?
+
+**After UltraThink:** Create skill that addresses reusable patterns with clear activation triggers.
+
 ### Step 2: Planning Reusable Contents
 
 For each concrete example, analyze:

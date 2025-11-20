@@ -41,6 +41,24 @@ Activate this skill when:
 - Only one question per message - if a topic needs more exploration, break it into multiple questions
 - Focus on understanding: purpose, constraints, success criteria
 
+**When to UltraThink:**
+Before proposing architectural approaches, activate deep thinking if:
+- Multiple valid solutions exist with significant trade-offs
+- Decision has long-term architectural implications
+- Requirements involve complex system interactions
+- Security or performance are critical concerns
+
+> 🗣 Say: "Let me ultrathink this before proposing approaches. I'll question fundamentals and consider implications from first principles."
+
+**During UltraThink:**
+- Question assumptions about requirements
+- Consider second-order effects of each approach
+- Think about what could go wrong (pre-mortem)
+- Evaluate against similar systems you've seen
+- Consider future maintainability and evolution
+
+**After UltraThink:** Provide approaches with clear reasoning about trade-offs and long-term implications.
+
 **Exploring approaches:**
 - Propose 2-3 different approaches with trade-offs
 - Present options conversationally with your recommendation and reasoning
