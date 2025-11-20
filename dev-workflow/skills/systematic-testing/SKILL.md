@@ -22,231 +22,26 @@ Activate this skill when:
 
 ## Core Capabilities
 
-### 1. Test-Driven Development (RED-GREEN-REFACTOR)
+### 1. Test-Driven Development (TDD)
 
-**TDD Philosophy:**
+**For complete TDD workflow, activate the `test-driven-development` skill.**
 
-Write the test BEFORE writing implementation code. This ensures:
-- Tests actually verify behavior (not written to pass existing code)
-- Code is testable by design
-- Requirements are clear before coding
-- Regression protection from day one
+The `test-driven-development` skill provides:
+- Full RED-GREEN-REFACTOR cycle explanation
+- Strict TDD enforcement and discipline
+- Anti-patterns and rationalizations to avoid
+- Detailed examples and verification checklist
 
-**The RED-GREEN-REFACTOR Cycle:**
+**Quick TDD Summary:**
+1. **RED:** Write failing test first
+2. **GREEN:** Write minimal code to pass
+3. **REFACTOR:** Clean up while tests stay green
 
-```
-┌─────────────────────────────────────┐
-│  RED: Write Failing Test            │
-│  - Define expected behavior         │
-│  - Run test, verify it fails        │
-│  - Commit test                      │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────┐
-│  GREEN: Make Test Pass              │
-│  - Write minimal implementation     │
-│  - Run test, verify it passes       │
-│  - Don't optimize yet               │
-│  - Commit implementation            │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────┐
-│  REFACTOR: Improve Code             │
-│  - Clean up implementation          │
-│  - Remove duplication               │
-│  - Improve naming                   │
-│  - Run tests, verify still passing  │
-│  - Commit refactor                  │
-└──────────────┬──────────────────────┘
-               │
-               └──────> Repeat for next feature
-```
-
-### Phase 1: RED - Write Failing Test
-
-**Goal:** Define expected behavior before implementation
-
-**Process:**
-
-1. **Understand Requirement**
-   - What should this function/feature do?
-   - What are the inputs and outputs?
-   - What are the edge cases?
-
-2. **Write Test Describing Behavior**
-   ```javascript
-   // Example: Testing a login function
-   describe('login', () => {
-     it('should return access token for valid credentials', async () => {
-       // Arrange: Set up test data
-       const email = 'user@example.com';
-       const password = 'SecureP@ss123';
-
-       // Act: Call the function
-       const result = await login(email, password);
-
-       // Assert: Verify expected behavior
-       expect(result).toHaveProperty('accessToken');
-       expect(result.accessToken).toBeTruthy();
-       expect(result.user.email).toBe(email);
-     });
-   });
-   ```
-
-3. **Run Test - Verify Failure**
-   ```bash
-   npm test
-
-   # Expected output:
-   # ✗ should return access token for valid credentials
-   #   ReferenceError: login is not defined
-   ```
-
-   **Important:** Test MUST fail for the right reason!
-   - If function doesn't exist: "not defined" ✓
-   - If function returns wrong value: assertion failure ✓
-   - If test passes: Something is wrong! ✗
-
-4. **Commit Test**
-   ```bash
-   git add tests/auth/login.test.js
-   git commit -m "test: Add test for login with valid credentials"
-   ```
-
-### Phase 2: GREEN - Make Test Pass
-
-**Goal:** Write minimal code to pass test
-
-**Process:**
-
-1. **Write Minimal Implementation**
-   ```javascript
-   // Simplest possible implementation
-   async function login(email, password) {
-     // TODO: Add actual logic
-     return {
-       accessToken: 'fake-token',
-       user: { email }
-     };
-   }
-   ```
-
-   Don't worry about:
-   - Edge cases yet
-   - Performance optimization
-   - Perfect design
-   - Additional features
-
-   Focus only on: Make this ONE test pass
-
-2. **Run Test - Verify Pass**
-   ```bash
-   npm test
-
-   # Expected output:
-   # ✓ should return access token for valid credentials
-   ```
-
-3. **Commit Implementation**
-   ```bash
-   git add src/auth/login.js
-   git commit -m "feat: Implement basic login function"
-   ```
-
-**Anti-pattern to Avoid:**
-Don't write implementation and tests simultaneously. Always test first!
-
-### Phase 3: REFACTOR - Improve Code
-
-**Goal:** Clean up code while maintaining passing tests
-
-**Process:**
-
-1. **Identify Improvements**
-   - Duplicated code to extract
-   - Unclear variable names
-   - Complex logic to simplify
-   - Magic numbers to name
-
-2. **Refactor While Tests Pass**
-   ```javascript
-   // Before refactor
-   async function login(email, password) {
-     const user = await db.query('SELECT * FROM users WHERE email = $1', [email]);
-     if (user && bcrypt.compareSync(password, user.password)) {
-       const token = jwt.sign({ id: user.id }, 'secret', { expiresIn: '1h' });
-       return { accessToken: token, user: { email: user.email } };
-     }
-     throw new Error('Invalid credentials');
-   }
-
-   // After refactor
-   async function login(email, password) {
-     const user = await findUserByEmail(email);
-     await validatePassword(password, user.password);
-
-     const accessToken = generateAccessToken(user.id);
-     const userProfile = sanitizeUserProfile(user);
-
-     return { accessToken, user: userProfile };
-   }
-
-   // Extracted helpers
-   async function findUserByEmail(email) {
-     const user = await db.query('SELECT * FROM users WHERE email = $1', [email]);
-     if (!user) throw new Error('Invalid credentials');
-     return user;
-   }
-
-   async function validatePassword(provided, hashed) {
-     const isValid = await bcrypt.compare(provided, hashed);
-     if (!isValid) throw new Error('Invalid credentials');
-   }
-
-   function generateAccessToken(userId) {
-     return jwt.sign(
-       { id: userId },
-       process.env.JWT_SECRET,
-       { expiresIn: JWT_EXPIRY }
-     );
-   }
-
-   function sanitizeUserProfile(user) {
-     return {
-       id: user.id,
-       email: user.email,
-       name: user.name
-       // Never include password hash!
-     };
-   }
-   ```
-
-3. **Run Tests After Each Change**
-   ```bash
-   # After each refactor step
-   npm test
-
-   # All tests must still pass
-   # ✓ should return access token for valid credentials
-   ```
-
-4. **Commit Refactor**
-   ```bash
-   git add src/auth/login.js src/auth/helpers.js
-   git commit -m "refactor: Extract login helper functions"
-   ```
-
-**Refactoring Rules:**
-- Tests must pass before AND after refactor
-- Only refactor when tests are green
-- Make small changes and test frequently
-- Don't add features during refactor
+This skill focuses on test generation strategies and systematic debugging. For TDD methodology details, use the dedicated skill.
 
 ---
 
-## 2. Test Generation
+### 2. Test Generation
 
 **Goal:** Generate comprehensive test suites covering all scenarios
 

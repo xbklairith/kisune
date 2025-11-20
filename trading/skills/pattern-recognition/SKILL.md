@@ -40,7 +40,8 @@ Activate this skill when the user:
 **Invalidation:**
 - Price breaks above right shoulder high
 
-**Example Documentation:**
+**Use Write tool** to document this pattern in your pattern library using the following template:
+
 ```markdown
 ## Head and Shoulders
 
@@ -210,7 +211,8 @@ Activate this skill when the user:
 **Stop:** Below retested level (for long)
 **Target:** Next major resistance/support level
 
-**Example Documentation:**
+**Use Write tool** to document this pattern in your pattern library using the following template:
+
 ```markdown
 ## Breakout Retest
 
@@ -339,7 +341,7 @@ This alignment (all bullish patterns across timeframes) = high-probability setup
 
 ## Pattern Documentation Template
 
-Use this template to build your personal pattern library:
+**Use Write tool** to add entries to your personal pattern library (e.g., `patterns/[pattern-name].md`) using this template:
 
 ```markdown
 # [Pattern Name]
@@ -499,8 +501,8 @@ When a user describes a chart:
    - Invalidation level
 
 4. **Document (optional):**
-   - Add to user's pattern library
-   - Use template above
+   - **Use Write tool** to add to user's pattern library (e.g., `patterns/[pattern-name].md`)
+   - Use template from "Pattern Documentation Template" section above
 
 ## Pattern Quality Assessment
 

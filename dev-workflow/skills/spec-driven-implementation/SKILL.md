@@ -1,7 +1,8 @@
 ---
 name: spec-driven-implementation
 description: Break down technical design into TDD tasks with Red-Green-Refactor cycles and execute implementation with checkbox tracking. Activates when design is complete and user is ready to implement, or mentions tasks, execution, TDD, or implementation.
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite
+allowed-tools: Read, Write, Edit,MultiEdit, Glob, Grep, Bash, TodoWrite, TodoRead
+
 ---
 
 # Spec-Driven Implementation Skill
@@ -106,29 +107,157 @@ Update `docx/features/[NN-feature-name]/tasks.md` with:
 For each task:
 
 1. **Mark Task as In Progress**
-   - Update checkbox from `[ ]` to `[→]` or add comment
+
+   **Use Edit tool** on `docx/features/[NN-feature-name]/tasks.md`:
+
+   - Find the task header: `[ ] Task N: [description]`
+   - Replace with: `[→] Task N: [description]`
+   - Also mark the RED phase checkbox as `[→]`
+
+   **Example Edit call:**
+   ```
+   Edit tool:
+     file: docx/features/01-user-auth/tasks.md
+     old_string: "[ ] Task 3: Implement JWT validation"
+     new_string: "[→] Task 3: Implement JWT validation"
+   ```
 
 2. **RED Phase**
-   - Write failing test
-   - Run test suite to verify failure
+
+   - Write failing test for the specific functionality
+   - Run test suite to verify failure (test MUST fail)
+   - **Use Edit tool** to check off RED phase: `[ ] RED: ...` → `[x] RED: ...`
    - Commit: `test: Add test for [functionality]`
 
 3. **GREEN Phase**
-   - Write minimal implementation
-   - Run tests until passing
-   - Don't optimize yet
+
+   - Write minimal implementation to make test pass
+   - Run tests until passing (all tests MUST pass)
+   - Don't optimize yet (just make it work)
+   - **Use Edit tool** to check off GREEN phase: `[ ] GREEN: ...` → `[x] GREEN: ...`
    - Commit: `feat: Implement [functionality]`
 
 4. **REFACTOR Phase**
-   - Clean up code
-   - Remove duplication
-   - Improve naming
+
+   - Clean up code (remove duplication, improve naming)
    - Run tests to ensure still passing
+   - **Use Edit tool** to check off REFACTOR phase: `[ ] REFACTOR: ...` → `[x] REFACTOR: ...`
    - Commit: `refactor: Optimize [component]`
 
 5. **Mark Task Complete**
-   - Update checkbox to `[x]`
-   - Update acceptance criteria checkboxes
+
+   **Use Edit tool** on `docx/features/[NN-feature-name]/tasks.md`:
+
+   - Change task header: `[→] Task N: ...` → `[x] Task N: ...`
+   - Verify all acceptance criteria are checked: `[x]`
+   - Update Progress Summary section (see instructions below)
+
+### Task Tracking Protocol
+
+**CRITICAL: Use Edit tool to update tasks.md - don't just announce progress.**
+
+#### Workflow Summary
+
+```
+Start Phase 5
+    ↓
+Edit: Status "Not Started" → "In Progress"
+    ↓
+For each task:
+    ↓
+    Edit: [ ] Task N → [→] Task N
+    Edit: [ ] RED → [→] RED
+    ↓
+    Write failing test
+    ↓
+    Edit: [→] RED → [x] RED
+    Edit: [ ] GREEN → [→] GREEN
+    ↓
+    Implement code
+    ↓
+    Edit: [→] GREEN → [x] GREEN
+    Edit: [ ] REFACTOR → [→] REFACTOR
+    ↓
+    Refactor code
+    ↓
+    Edit: [→] REFACTOR → [x] REFACTOR
+    Edit: [→] Task N → [x] Task N
+    Edit: Update Progress Summary
+    ↓
+Next task or finish
+    ↓
+Edit: Status "In Progress" → "Complete"
+```
+
+#### Edit Tool Usage Pattern
+
+**Always follow this pattern for every task:**
+
+1. **Before starting any task:**
+   ```
+   Use Edit tool to change [ ] → [→] in tasks.md
+   ```
+
+2. **After completing each phase (RED/GREEN/REFACTOR):**
+   ```
+   Use Edit tool to change [→] → [x] for that phase
+   Use Edit tool to change [ ] → [→] for next phase
+   ```
+
+3. **After completing full task:**
+   ```
+   Use Edit tool to change [→] → [x] for task header
+   Use Edit tool to update Progress Summary counts
+   ```
+
+4. **Don't skip these Edit calls** - they're not optional suggestions, they're required operations.
+
+#### Announcing vs. Modifying
+
+**Wrong (Just Announcing):**
+```
+✅ Task 1 complete
+Moving to Task 2...
+```
+
+**Right (Actually Modifying + Announcing):**
+```
+[Using Edit tool to mark Task 1 complete: [→] → [x]]
+[Using Edit tool to update Progress Summary: Completed 1/10]
+✅ Task 1 complete
+
+[Using Edit tool to mark Task 2 in progress: [ ] → [→]]
+Starting Task 2: JWT token generation...
+```
+
+#### Progress Summary Maintenance
+
+The Progress Summary section must stay synchronized:
+
+**Before any tasks start:**
+```markdown
+- Total Tasks: 10
+- Completed: 0/10
+- In Progress: None
+```
+
+**After Task 1 starts:**
+```markdown
+- Total Tasks: 10
+- Completed: 0/10
+- In Progress: Task 1 - User model with password hashing
+```
+
+**After Task 1 completes:**
+```markdown
+- Total Tasks: 10
+- Completed: 1/10
+- In Progress: Task 2 - JWT token generation
+```
+
+**Use Edit tool** to update these fields after every task completion.
+
+---
 
 **Status Checkpoints:**
 
@@ -144,6 +273,17 @@ Every 2-3 completed tasks, provide status update:
 
 [Confidence: X.X]
 ```
+
+---
+
+### Quick Reference
+
+**Edit patterns already detailed above. Key reminders:**
+- Update Status header when starting/completing implementation
+- Use Grep to count tasks if needed: `grep -c "^\- \[x\] Task" tasks.md`
+- Update test coverage optionally: Run `npm run test:coverage` and Edit tasks.md
+
+---
 
 **Auto-Trigger Code Quality Review:**
 
@@ -282,25 +422,56 @@ Tasks defined. Ready to begin implementation?
 ```
 Activating Phase 5: Execution
 
+[Using Edit tool on docx/features/01-user-authentication/tasks.md]
+[Changing "**Status:** Not Started" to "**Status:** In Progress"]
+
+[Using Edit tool to mark Task 1 in progress]
+[Changing "[ ] Task 1: User model with password hashing" to "[→] Task 1: User model with password hashing"]
+
+[Using Edit tool to mark RED phase in progress]
+[Changing "    [ ] RED: Test password hashing on save" to "    [→] RED: Test password hashing on save"]
+
 Starting Task 1: User model with password hashing
 
 RED Phase: Writing failing test...
-[Creates test file with failing test]
+[Creates test file tests/models/user.test.js with failing test]
 Running tests... ❌ 1 failing (expected)
+
+[Using Edit tool to check off RED phase]
+[Changing "    [→] RED: Test password hashing on save" to "    [x] RED: Test password hashing on save"]
 
 Commit: test: Add test for user password hashing
 
+[Using Edit tool to mark GREEN phase in progress]
+[Changing "    [ ] GREEN: Implement bcrypt hashing" to "    [→] GREEN: Implement bcrypt hashing"]
+
 GREEN Phase: Implementing minimal code...
-[Implements password hashing]
+[Implements password hashing in src/models/user.js]
 Running tests... ✅ All passing
+
+[Using Edit tool to check off GREEN phase]
+[Changing "    [→] GREEN: Implement bcrypt hashing" to "    [x] GREEN: Implement bcrypt hashing"]
 
 Commit: feat: Implement user password hashing with bcrypt
 
+[Using Edit tool to mark REFACTOR phase in progress]
+[Changing "    [ ] REFACTOR: Extract hashing to utility" to "    [→] REFACTOR: Extract hashing to utility"]
+
 REFACTOR Phase: Extracting to utility...
-[Refactors code]
+[Refactors code to src/utils/crypto.js]
 Running tests... ✅ All passing
 
+[Using Edit tool to check off REFACTOR phase]
+[Changing "    [→] REFACTOR: Extract hashing to utility" to "    [x] REFACTOR: Extract hashing to utility"]
+
 Commit: refactor: Extract password hashing to utility module
+
+[Using Edit tool to mark Task 1 complete]
+[Changing "[→] Task 1: User model with password hashing" to "[x] Task 1: User model with password hashing"]
+
+[Using Edit tool to update Progress Summary]
+[Changing "- Completed: 0/10" to "- Completed: 1/10"]
+[Changing "- In Progress: Task 1 - User model with password hashing" to "- In Progress: Task 2 - JWT token generation"]
 
 ✅ Task 1 complete
 
@@ -334,10 +505,41 @@ Then use `spec-driven-planning` skill to update planning documents before contin
 
 ## Notes
 
-- NEVER write production code without a failing test first
-- Mark tasks in progress and completed for visibility
+### Critical Requirements
+
+- **NEVER write production code without a failing test first**
+- **ALWAYS use Edit tool to update tasks.md checkboxes** - don't just announce progress
+- **ALWAYS use Edit tool to update Progress Summary** after each task completion
+- **Use Edit tool to update Status header** when starting/completing implementation
+
+### Task Tracking Best Practices
+
+- **Mark in progress:** Use Edit tool to change `[ ]` → `[→]` before starting task
+- **Mark complete:** Use Edit tool to change `[→]` → `[x]` after finishing task
+- **Update Progress Summary:** Use Edit tool after every task to keep counts accurate
+- **File updates are mandatory:** Actually modify tasks.md, don't just announce
+
+### Implementation Guidelines
+
 - Provide checkpoint updates every 2-3 tasks
 - Auto-trigger code-quality before commits
 - Use git-workflow skill for smart commit messages
 - Follow TDD cycle religiously (RED → GREEN → REFACTOR)
 - Stop and return to planning if design issues discovered
+
+### Remember
+
+**Announcing progress ≠ Updating files**
+
+Wrong:
+```
+✅ Task 1 complete
+Moving to Task 2...
+```
+
+Right:
+```
+[Using Edit tool to mark Task 1 complete: [→] → [x]]
+[Using Edit tool to update Progress Summary]
+✅ Task 1 complete
+```

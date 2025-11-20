@@ -169,7 +169,7 @@ Risk Management:
 
 ### Phase 4: Strategy Documentation
 
-Use the following template to document the completed strategy:
+**Use Write tool** to create the strategy document using the following template:
 
 ```markdown
 # Strategy: [Strategy Name]
@@ -356,13 +356,18 @@ When a user wants to research a strategy, guide them through this process:
    - "Can you backtest it?"
 
 6. **Document Everything**
-   - Create the strategy document
+   - **Use Write tool** to create the strategy document
    - Include all rules and conditions
    - Set up backtest plan
 
 ## Output Format
 
-Present the completed strategy document in markdown format, ready to be saved to the user's strategy library. Ensure all sections are complete and actionable.
+**Use Write tool** to save the completed strategy document to the user's strategy library (e.g., `strategies/[strategy-name].md`). Ensure all sections are complete and actionable.
+
+**File naming convention:**
+- Lowercase with hyphens: `rsi-oversold-uptrend.md`
+- Location: `strategies/` directory (create if doesn't exist)
+- Format: Markdown (.md)
 
 ## Guiding Principles
 

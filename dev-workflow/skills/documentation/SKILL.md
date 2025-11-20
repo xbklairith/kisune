@@ -27,166 +27,48 @@ Activate this skill when:
 
 **Goal:** Clear, comprehensive function/class documentation
 
-**Python Example:**
+**Example Format:**
 
 ```python
-def calculate_position_size(
-    account_balance: float,
-    risk_percentage: float,
-    entry_price: float,
-    stop_loss: float
-) -> float:
+def function_name(param1: Type, param2: Type) -> ReturnType:
     """
-    Calculate position size based on risk management rules.
+    Brief one-line description.
 
-    Determines the number of shares/contracts to buy based on the
-    account size, acceptable risk percentage, and the distance between
-    entry and stop loss. Uses fixed percentage risk per trade.
+    Detailed explanation of purpose, behavior, and context.
 
     Args:
-        account_balance: Total account equity in dollars (e.g., 10000.00)
-        risk_percentage: Percentage of account to risk (e.g., 0.02 for 2%)
-        entry_price: Price at which to enter position (e.g., 150.50)
-        stop_loss: Price at which to exit if trade goes against us (e.g., 148.00)
+        param1: Description with type and example values
+        param2: Description with constraints
 
     Returns:
-        Number of shares/contracts to purchase, rounded down to nearest whole number.
-        Returns 0 if inputs are invalid or calculation results in negative position.
+        Description of return value and meaning
 
     Example:
-        >>> calculate_position_size(10000, 0.02, 150.50, 148.00)
-        80.0
-
-        This means: With $10k account, risking 2%, entry at $150.50, stop at $148.00,
-        buy 80 shares. Risk per share is $2.50, total risk is $200 (2% of $10k).
+        >>> function_name(example_value1, example_value2)
+        expected_output
 
     Raises:
-        ValueError: If account_balance is negative or zero
-        ValueError: If risk_percentage is not between 0 and 1
-        ValueError: If entry_price equals stop_loss (no risk defined)
+        ErrorType: When and why this error occurs
 
     Note:
-        Always validates that entry_price > stop_loss for long positions.
-        For short positions, use inverse logic externally before calling.
+        Important details, gotchas, performance considerations
     """
-    # Input validation
-    if account_balance <= 0:
-        raise ValueError("Account balance must be positive")
-    if not 0 < risk_percentage < 1:
-        raise ValueError("Risk percentage must be between 0 and 1")
-    if entry_price == stop_loss:
-        raise ValueError("Entry price cannot equal stop loss")
-
-    # Calculate dollar amount to risk
-    risk_amount = account_balance * risk_percentage
-
-    # Calculate risk per share
-    risk_per_share = abs(entry_price - stop_loss)
-
-    # Calculate position size
-    position_size = risk_amount / risk_per_share
-
-    return int(position_size)  # Round down to whole shares
 ```
 
-**JavaScript/TypeScript Example:**
+**Key Components:**
+- **Brief description** (one line)
+- **Detailed explanation** (purpose and behavior)
+- **Args/Parameters** (types, constraints, examples)
+- **Returns** (type and meaning)
+- **Example** (realistic usage)
+- **Raises/Throws** (error conditions)
+- **Note** (implementation details)
 
-```typescript
-/**
- * Validates and sanitizes user input for authentication.
- *
- * Performs comprehensive validation of email and password inputs,
- * checking format requirements and sanitizing to prevent injection
- * attacks. Used before any authentication attempt.
- *
- * @param email - User's email address (must be valid format)
- * @param password - User's password (minimum 8 chars, must include uppercase,
- *                   lowercase, number, and special character)
- *
- * @returns Sanitized credentials object with trimmed, validated values
- *
- * @throws {ValidationError} If email format is invalid
- * @throws {ValidationError} If password doesn't meet requirements
- *
- * @example
- * ```typescript
- * const credentials = validateAuthInput(
- *   "user@example.com",
- *   "SecureP@ss123"
- * );
- * // Returns: { email: "user@example.com", password: "SecureP@ss123" }
- * ```
- *
- * @example
- * ```typescript
- * // Invalid email throws error
- * validateAuthInput("invalid-email", "SecureP@ss123");
- * // Throws: ValidationError: Invalid email format
- * ```
- */
-function validateAuthInput(
-  email: string,
-  password: string
-): { email: string; password: string } {
-  // Email validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    throw new ValidationError("Invalid email format");
-  }
-
-  // Password validation
-  if (password.length < 8) {
-    throw new ValidationError("Password must be at least 8 characters");
-  }
-
-  const hasUpper = /[A-Z]/.test(password);
-  const hasLower = /[a-z]/.test(password);
-  const hasNumber = /[0-9]/.test(password);
-  const hasSpecial = /[^A-Za-z0-9]/.test(password);
-
-  if (!hasUpper || !hasLower || !hasNumber || !hasSpecial) {
-    throw new ValidationError(
-      "Password must include uppercase, lowercase, number, and special character"
-    );
-  }
-
-  // Return sanitized (trimmed) values
-  return {
-    email: email.trim().toLowerCase(),
-    password: password.trim()
-  };
-}
-```
-
-**Docstring Template:**
-
-```
-Brief one-line description.
-
-Detailed explanation of purpose and behavior.
-Multiple paragraphs if needed.
-
-Args/Parameters:
-    param1: Description with type info and examples
-    param2: Description with constraints
-
-Returns:
-    Description of return value, including type and meaning
-
-Example:
-    >>> function_call(example_inputs)
-    expected_output
-
-    Explanation of example if needed.
-
-Raises/Throws:
-    ErrorType: When this error occurs
-
-Note:
-    Important implementation details
-    Gotchas or edge cases
-    Performance considerations
-```
+**Language-Specific:**
+- **Python:** Use `"""triple quotes"""`, Args/Returns/Raises format
+- **JavaScript/TypeScript:** Use JSDoc `/** */`, @param/@returns/@throws tags
+- **Java:** Use Javadoc `/** */`, @param/@return/@throws tags
+- **C#:** Use XML comments `/// <summary>`
 
 ### 2. API Documentation
 
@@ -498,197 +380,57 @@ portfolio management.
 
 **Goal:** Comprehensive project README
 
-**Template:**
+**Essential Sections:**
 
 ```markdown
 # [Project Name]
 
-[Brief one-sentence description]
-
-[Longer description explaining what problem this solves and why it's useful]
+[One-line description] - [What problem it solves]
 
 ## Features
-
-- 🚀 [Key feature 1]
-- ⚡ [Key feature 2]
-- 🔒 [Key feature 3]
-- 📊 [Key feature 4]
-
-## Demo
-
-[Link to live demo or screenshot]
+- Key feature 1
+- Key feature 2
+- Key feature 3
 
 ## Installation
-
-### Prerequisites
-
-- Node.js 18+ or Python 3.11+
-- PostgreSQL 14+
-- Redis 7+ (optional, for caching)
-
-### Setup
-
-```bash
-# Clone repository
-git clone https://github.com/user/repo.git
-cd repo
-
-# Install dependencies
+\`\`\`bash
+git clone [repo-url]
+cd [repo-name]
 npm install  # or pip install -r requirements.txt
-
-# Copy environment variables
-cp .env.example .env
-
-# Edit .env with your values
-# DATABASE_URL=postgresql://...
-# JWT_SECRET=your-secret-key
-
-# Run database migrations
-npm run migrate  # or python manage.py migrate
-
-# Start development server
-npm run dev  # or python app.py
-```
+cp .env.example .env  # Configure environment
+npm run dev
+\`\`\`
 
 ## Usage
-
-### Basic Example
-
-```javascript
-// Example of main functionality
-const result = await doSomething({
-  param1: 'value',
-  param2: 42
-});
-
-console.log(result);
-```
-
-### Advanced Example
-
-```javascript
-// More complex usage scenario
-const advanced = await doAdvancedThing({
-  config: {
-    option1: true,
-    option2: 'custom'
-  }
-});
-```
-
-## API Reference
-
-### `functionName(param1, param2)`
-
-Description of what this function does.
-
-**Parameters:**
-- `param1` (string): Description
-- `param2` (number): Description
-
-**Returns:** Description of return value
-
-**Example:**
-```javascript
-const result = functionName('hello', 42);
-```
-
-[More API docs...]
+\`\`\`javascript
+// Basic example showing main functionality
+const result = await mainFunction(params);
+\`\`\`
 
 ## Configuration
-
-Available environment variables:
-
-| Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
-| `DATABASE_URL` | PostgreSQL connection string | - | Yes |
-| `JWT_SECRET` | Secret for JWT signing | - | Yes |
-| `PORT` | Server port | 3000 | No |
-| `NODE_ENV` | Environment (development/production) | development | No |
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `DATABASE_URL` | DB connection string | Yes |
+| `API_KEY` | External API key | Yes |
 
 ## Development
-
-### Running Tests
-
-```bash
-# Run all tests
-npm test
-
-# Run with coverage
-npm run test:coverage
-
-# Run specific test file
-npm test -- auth.test.js
-```
-
-### Code Style
-
-This project uses:
-- ESLint for linting
-- Prettier for formatting
-- Husky for pre-commit hooks
-
-```bash
-# Check linting
-npm run lint
-
-# Format code
-npm run format
-```
-
-### Project Structure
-
-```
-project/
-├── src/
-│   ├── api/          # API routes
-│   ├── services/     # Business logic
-│   ├── models/       # Database models
-│   └── utils/        # Utility functions
-├── tests/            # Test files
-├── docs/             # Documentation
-└── scripts/          # Build/deploy scripts
-```
-
-## Deployment
-
-### Production Build
-
-```bash
-# Build for production
-npm run build
-
-# Start production server
-npm start
-```
-
-### Docker
-
-```bash
-# Build image
-docker build -t project-name .
-
-# Run container
-docker run -p 3000:3000 --env-file .env project-name
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'feat: Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
+\`\`\`bash
+npm test           # Run tests
+npm run lint       # Check code style
+npm run build      # Production build
+\`\`\`
 
 ## License
-
-MIT License - see [LICENSE](LICENSE) file for details
-
-## Acknowledgments
-
-- [Library/tool] for [functionality]
-- [Person/project] for inspiration
+MIT - see [LICENSE](LICENSE)
 ```
+
+**Optional Sections** (add as needed):
+- **Demo:** Link to live demo or screenshots
+- **API Reference:** Detailed API docs
+- **Project Structure:** Directory layout
+- **Deployment:** Docker/cloud deployment steps
+- **Contributing:** How to contribute
+- **Acknowledgments:** Credits and thanks
 
 ### 5. Code Explanations
 
