@@ -51,16 +51,18 @@ What would you like to do? (1-6)
 
 ## Routing Logic
 
+**IMPORTANT:** Always use the Skill tool to explicitly invoke skills. This ensures correct skill activation even when conflicting global commands exist.
+
 Based on user's menu choice or argument:
 
 **Options 1-3** or args **[feature-name, requirements, design]:**
-→ Activate `spec-driven-planning` skill
+→ Use the Skill tool to invoke: `dev-workflow:spec-driven-planning`
 
 **Options 4-5** or args **[tasks, execute]:**
-→ Activate `spec-driven-implementation` skill
+→ Use the Skill tool to invoke: `dev-workflow:spec-driven-implementation`
 
 **Option 6** or arg **[list]:**
-→ List features directly with status
+→ List features directly with status (no skill needed)
 
 ## Phase Details
 
@@ -82,15 +84,16 @@ See respective skill documentation for detailed phase execution instructions.
 User: /dev-workflow:spec
 
 Assistant presents interactive menu showing planning and implementation phases.
-User selects option 1-3 → Routes to spec-driven-planning skill
-User selects option 4-5 → Routes to spec-driven-implementation skill
+User selects option 1-3 → Assistant uses Skill tool to invoke spec-driven-planning
+User selects option 4-5 → Assistant uses Skill tool to invoke spec-driven-implementation
 ```
 
 **Example 2: Start Planning New Feature**
 ```
 User: /dev-workflow:spec "user authentication"
 
-Assistant activates spec-driven-planning skill at Phase 1 (Feature Creation)
+Assistant uses Skill tool to invoke: dev-workflow:spec-driven-planning
+Skill activates at Phase 1 (Feature Creation)
 Creates feature structure and begins requirements gathering.
 ```
 
@@ -98,7 +101,8 @@ Creates feature structure and begins requirements gathering.
 ```
 User: /dev-workflow:spec design
 
-Assistant activates spec-driven-planning skill at Phase 3 (Design)
+Assistant uses Skill tool to invoke: dev-workflow:spec-driven-planning
+Skill activates at Phase 3 (Design)
 Finds most recent feature and proposes architectural approaches.
 ```
 
@@ -106,7 +110,8 @@ Finds most recent feature and proposes architectural approaches.
 ```
 User: /dev-workflow:spec tasks
 
-Assistant activates spec-driven-implementation skill at Phase 4 (Task Breakdown)
+Assistant uses Skill tool to invoke: dev-workflow:spec-driven-implementation
+Skill activates at Phase 4 (Task Breakdown)
 Reads completed design and breaks into TDD tasks.
 ```
 
