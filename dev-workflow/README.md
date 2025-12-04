@@ -4,7 +4,7 @@ Integrated development lifecycle plugin for Claude Code combining spec-driven de
 
 ## Overview
 
-The Dev-Workflow plugin provides a comprehensive, systematic approach to software development from initial concept through production deployment. It integrates eight specialized skills that work together seamlessly to ensure high-quality, well-tested, properly documented code with no external dependencies.
+The Dev-Workflow plugin provides a comprehensive, systematic approach to software development from initial concept through production deployment. It integrates ten specialized skills that work together seamlessly to ensure high-quality, well-tested, properly documented code with no external dependencies.
 
 ### What This Plugin Does
 
@@ -52,7 +52,7 @@ The Dev-Workflow plugin provides a comprehensive, systematic approach to softwar
 
 ## Core Skills
 
-The plugin includes 8 integrated skills organized into planning, implementation, and quality categories.
+The plugin includes 10 integrated skills organized into planning, implementation, quality, and frontend categories.
 
 ### Planning & Design Skills
 
@@ -355,6 +355,54 @@ WHERE premium subscription is active the system SHALL enable advanced analytics
 - Add regression tests
 - Document root cause
 
+### Frontend Skills
+
+#### 10. Frontend Design
+
+**Activation:** User asks to build UI, create components, design pages, mentions frontend/CSS/styling
+
+**Purpose:** Create distinctive, production-grade frontend interfaces with high design quality
+
+**Design Thinking Process:**
+1. **Purpose** - What problem does this interface solve? Who uses it?
+2. **Tone** - Pick a bold aesthetic direction (brutally minimal, maximalist, retro-futuristic, luxury, playful, editorial, brutalist, art deco, etc.)
+3. **Constraints** - Technical requirements (framework, performance, accessibility)
+4. **Differentiation** - What makes this UNFORGETTABLE?
+
+**Aesthetic Guidelines:**
+
+**Typography:**
+- Choose beautiful, unique fonts (NOT Inter, Roboto, Arial, system fonts)
+- Pair distinctive display font with refined body font
+
+**Color & Theme:**
+- Commit to cohesive aesthetic with CSS variables
+- Dominant colors with sharp accents (not timid, evenly-distributed palettes)
+
+**Motion:**
+- CSS-only animations for HTML
+- Motion library for React
+- Focus on high-impact moments (page load reveals, scroll-triggering, surprising hover states)
+
+**Spatial Composition:**
+- Unexpected layouts, asymmetry, overlap
+- Grid-breaking elements
+- Generous negative space OR controlled density
+
+**Backgrounds & Visual Details:**
+- Gradient meshes, noise textures, geometric patterns
+- Layered transparencies, dramatic shadows
+- Custom cursors, grain overlays
+
+**Anti-Patterns to Avoid:**
+- Generic AI aesthetics (purple gradients, excessive centered layouts, uniform rounded corners)
+- Cookie-cutter design without context-specific character
+
+**Output:**
+1. Design Direction - Aesthetic choice and reasoning
+2. Working Code - Production-ready HTML/CSS/JS, React, Vue, etc.
+3. Key Design Decisions - Typography, colors, motion, spatial choices explained
+
 ## Slash Commands
 
 ### `/dev-workflow:spec`
@@ -559,6 +607,9 @@ The dev-workflow plugin is fully self-contained with integrated supporting skill
 - `documentation` - Code, API, and architecture documentation generation
 - `systematic-testing` - Testing guidance and systematic debugging framework
 
+**Frontend Skills:**
+- `frontend-design` - Create distinctive, production-grade UI with high design quality
+
 **Skill Integration:**
 Skills automatically activate and work together based on context. For example:
 - Requirements phase can activate `brainstorming` for scope exploration
@@ -733,6 +784,7 @@ project/
 - Git-Workflow: Every commit, creating branches, opening PRs, before pushing
 - Documentation: After implementing functions, creating APIs, completing features
 - Systematic-Testing: Implementing functionality (TDD), when bugs occur, improving coverage
+- Frontend-Design: Building UI components, designing pages, creating distinctive interfaces
 
 ### Tips for Success
 
