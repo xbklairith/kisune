@@ -50,7 +50,13 @@ Each task follows TDD cycle:
     Acceptance Criteria:
     [ ] [Specific criterion 1]
     [ ] [Specific criterion 2]
+    Linked Requirements: REQ-###, REQ-###
 ```
+
+**Traceability Rules:**
+- Every task must list the requirement IDs it satisfies (use IDs from requirements.md).
+- Maintain coverage by ensuring all requirements appear in at least one task.
+- If a requirement spans multiple tasks, repeat the ID across those tasks for clarity.
 
 **Task Sizing Guidelines:**
 - Each task should take 30-60 minutes

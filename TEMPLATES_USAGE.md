@@ -104,6 +104,7 @@ EARS requirements format with:
 - Conditional requirements (IF...THEN)
 - Non-functional requirements
 - Acceptance criteria
+- Requirement IDs embedded on every line (e.g., REQ-001) for traceability
 
 #### design.md
 Technical design documentation with:
@@ -123,6 +124,7 @@ TDD task breakdown with:
 - Component organization
 - Integration tasks
 - Final verification checklist
+- Requirement traceability section plus per-task requirement references
 
 ---
 

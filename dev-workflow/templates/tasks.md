@@ -3,6 +3,12 @@
 **Created:** [Date]
 **Status:** Not Started
 
+## Requirement Traceability
+
+- Source requirements: [Link to requirements.md]
+- Requirement coverage: [REQ-IDs mapped to tasks]
+- Missing coverage: [REQ-IDs not yet planned]
+
 ## Implementation Approach
 
 [Brief description of overall implementation strategy. What order will components be built in? What dependencies exist between tasks? 2-3 sentences.]
@@ -19,6 +25,8 @@
 ### Component 1: [Component Name]
 
 #### Task 1: [Clear, Specific Task Description]
+
+**Linked Requirements:** [REQ-###, REQ-###]
 
 **RED Phase:**
 - [ ] Write failing test for [specific functionality]
@@ -45,6 +53,8 @@
 
 #### Task 2: [Task Description]
 
+**Linked Requirements:** [REQ-###]
+
 **RED Phase:**
 - [ ] Write failing test for [functionality]
 
@@ -61,6 +71,8 @@
 ---
 
 #### Task 3: [Task Description]
+
+**Linked Requirements:** [REQ-###]
 
 **RED Phase:**
 - [ ] Write test for [edge case or error condition]
@@ -81,6 +93,8 @@
 
 #### Task 4: [Task Description]
 
+**Linked Requirements:** [REQ-###]
+
 **RED Phase:**
 - [ ] Write failing test
 
@@ -97,6 +111,8 @@
 ---
 
 #### Task 5: [Task Description]
+
+**Linked Requirements:** [REQ-###]
 
 [Continue with similar structure for all component tasks]
 

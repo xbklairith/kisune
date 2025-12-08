@@ -7,42 +7,48 @@
 
 [Brief description of what this feature does and why it's needed. 2-3 sentences explaining the problem being solved and the value provided.]
 
+### Requirement ID Format
+
+- Use sequential IDs for every requirement, including non-functional ones.
+- Preferred pattern: `REQ-001`, `REQ-002`, `REQ-003`, etc. (or a project-specific prefix).
+- Keep numbering continuous across all requirement categories so tasks can trace back easily.
+
 ## Functional Requirements
 
 ### Event-Driven Requirements
 
 Events that trigger system behavior. Use format: "WHEN [trigger] THEN the system SHALL [response]"
 
-- WHEN [trigger event] THEN the system SHALL [response/action]
-- WHEN [trigger event] THEN the system SHALL [response/action]
+- [REQ-001] WHEN [trigger event] THEN the system SHALL [response/action]
+- [REQ-002] WHEN [trigger event] THEN the system SHALL [response/action]
 
 ### State-Driven Requirements
 
 Behavior during specific system states. Use format: "WHILE [state] the system SHALL [requirement]"
 
-- WHILE [system state] the system SHALL [continuous behavior]
-- WHILE [system state] the system SHALL [continuous behavior]
+- [REQ-003] WHILE [system state] the system SHALL [continuous behavior]
+- [REQ-004] WHILE [system state] the system SHALL [continuous behavior]
 
 ### Ubiquitous Requirements
 
 Always-true requirements. Use format: "The system SHALL [requirement]"
 
-- The system SHALL [always-true requirement]
-- The system SHALL [always-true requirement]
+- [REQ-005] The system SHALL [always-true requirement]
+- [REQ-006] The system SHALL [always-true requirement]
 
 ### Conditional Requirements
 
 Behavior based on conditions. Use format: "IF [condition] THEN the system SHALL [requirement]"
 
-- IF [condition] THEN the system SHALL [conditional behavior]
-- IF [condition] THEN the system SHALL [conditional behavior]
+- [REQ-007] IF [condition] THEN the system SHALL [conditional behavior]
+- [REQ-008] IF [condition] THEN the system SHALL [conditional behavior]
 
 ### Optional Requirements
 
 Feature-dependent requirements. Use format: "WHERE [feature] the system SHALL [requirement]"
 
-- WHERE [optional feature enabled] the system SHALL [additional behavior]
-- WHERE [optional feature enabled] the system SHALL [additional behavior]
+- [REQ-009] WHERE [optional feature enabled] the system SHALL [additional behavior]
+- [REQ-010] WHERE [optional feature enabled] the system SHALL [additional behavior]
 
 ## Non-Functional Requirements
 
@@ -50,36 +56,36 @@ Feature-dependent requirements. Use format: "WHERE [feature] the system SHALL [r
 
 Specific, measurable performance requirements.
 
-- The system SHALL [performance requirement with specific metrics, e.g., "respond within 200ms"]
-- The system SHALL [scalability requirement with numbers, e.g., "support 1000 concurrent users"]
+- [REQ-011] The system SHALL [performance requirement with specific metrics, e.g., "respond within 200ms"]
+- [REQ-012] The system SHALL [scalability requirement with numbers, e.g., "support 1000 concurrent users"]
 
 ### Security
 
 Security and privacy requirements.
 
-- The system SHALL [security requirement, e.g., "encrypt all PII at rest using AES-256"]
-- The system SHALL [authentication/authorization requirement]
+- [REQ-013] The system SHALL [security requirement, e.g., "encrypt all PII at rest using AES-256"]
+- [REQ-014] The system SHALL [authentication/authorization requirement]
 
 ### Usability
 
 User experience requirements.
 
-- The system SHALL [usability requirement, e.g., "provide clear error messages"]
-- The system SHALL [accessibility requirement, e.g., "meet WCAG 2.1 Level AA standards"]
+- [REQ-015] The system SHALL [usability requirement, e.g., "provide clear error messages"]
+- [REQ-016] The system SHALL [accessibility requirement, e.g., "meet WCAG 2.1 Level AA standards"]
 
 ### Reliability
 
 Availability and reliability requirements.
 
-- The system SHALL [availability requirement, e.g., "maintain 99.9% uptime"]
-- The system SHALL [error handling requirement, e.g., "gracefully degrade when API unavailable"]
+- [REQ-017] The system SHALL [availability requirement, e.g., "maintain 99.9% uptime"]
+- [REQ-018] The system SHALL [error handling requirement, e.g., "gracefully degrade when API unavailable"]
 
 ### Maintainability
 
 Code quality and maintenance requirements.
 
-- The system SHALL [maintainability requirement, e.g., "maintain test coverage above 80%"]
-- The system SHALL [documentation requirement]
+- [REQ-019] The system SHALL [maintainability requirement, e.g., "maintain test coverage above 80%"]
+- [REQ-020] The system SHALL [documentation requirement]
 
 ## Constraints
 
