@@ -136,6 +136,12 @@ Ask the user these questions to elicit requirements:
 - Avoid ambiguous terms ("appropriate", "reasonable", "user-friendly")
 - Use active voice
 
+**Requirement IDs & Traceability:**
+- Assign unique IDs to every requirement using a consistent prefix (e.g., `REQ-001`).
+- Keep numbering sequential across all requirement types (functional + non-functional).
+- Record the IDs directly in each requirement line so later tasks can reference them.
+- Add a short traceability note indicating how tasks/design will map back to these IDs.
+
 **Output Format:**
 Update `docx/features/[NN-feature-name]/requirements.md` with:
 - Overview section
