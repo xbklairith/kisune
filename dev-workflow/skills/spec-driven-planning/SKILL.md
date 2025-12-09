@@ -1,7 +1,7 @@
 ---
 name: spec-driven-planning
 description: Use when planning new features or need structured requirements - creates feature structure, elicits EARS requirements through systematic questioning, proposes architectural approaches with trade-offs. Activates when user mentions "new feature", "requirements", "specs", "design", "architecture", or uses /dev-workflow:spec commands (create, requirements, design).
-allowed-tools: Read, Write, Glob, Grep
+allowed-tools: Read, Write, Glob, Grep, WebSearch, WebFetch, Bash
 ---
 
 # Spec-Driven Planning Skill
@@ -93,6 +93,31 @@ EARS (Easy Approach to Requirements Syntax) provides five templates for unambigu
    - Template: "WHERE [feature included] the system SHALL [requirement]"
    - Example: "WHERE premium subscription is active the system SHALL enable advanced analytics"
 
+**Research Protocol (Before Eliciting Requirements):**
+
+Before diving into requirement questions, gather context through research:
+
+1. **Prior Art Research**
+   - Use WebSearch to find similar features/products
+   - Query: "[feature type] best practices 2025"
+   - Query: "[feature type] common requirements"
+
+2. **Technical Documentation**
+   - Use WebFetch on relevant technical docs, APIs, or standards
+   - Fetch competitor/similar product documentation
+
+3. **API Research (if applicable)**
+   - Use Bash with `curl` to explore API endpoints
+   - Fetch API documentation and schemas
+
+4. **Document Findings**
+   - Summarize key insights in requirements.md under "## Research Summary"
+   - Note patterns, anti-patterns, and industry standards discovered
+
+> 🗣 Say: "Let me research similar implementations before we define requirements."
+
+---
+
 **Systematic Questioning Approach:**
 
 Ask the user these questions to elicit requirements:
@@ -159,6 +184,31 @@ Update `docx/features/[NN-feature-name]/requirements.md` with:
 ### Phase 3: Technical Design
 
 **Goal:** Create comprehensive technical design with architectural decisions
+
+**Research Protocol (Before Design):**
+
+Before proposing architectural approaches, research solutions:
+
+1. **Architecture Research**
+   - Use WebSearch: "[technology] architecture patterns 2025"
+   - Use WebSearch: "[problem domain] implementation approaches"
+
+2. **Library/Framework Research**
+   - Use WebFetch on documentation for potential libraries
+   - Compare approaches used by similar projects
+
+3. **API Research (if applicable)**
+   - Use WebFetch on external API documentation
+   - Use Bash with `curl` to test API endpoints
+   - Understand integration requirements and constraints
+
+4. **Document Findings**
+   - Add "## Technical Research" section to design.md
+   - Include links to sources and key insights
+
+> 🗣 Say: "Let me research technical approaches before proposing architecture options."
+
+---
 
 **Process:**
 

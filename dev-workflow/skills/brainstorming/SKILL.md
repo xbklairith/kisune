@@ -1,7 +1,7 @@
 ---
 name: brainstorming
 description: Use when exploring unclear requirements or architectural decisions - refines rough ideas into clear requirements/designs through collaborative questioning (one at a time), explores alternatives, validates incrementally. Activates when user has vague feature idea, mentions "not sure about", "exploring options", "what approach", or during spec-driven requirements/design phases.
-allowed-tools: Read, Write, Glob, Grep
+allowed-tools: Read, Write, Glob, Grep, WebSearch, WebFetch, Bash
 ---
 
 # Brainstorming Ideas Into Designs
@@ -31,6 +31,40 @@ Activate this skill when:
 - Exploring architectural approaches
 - Comparing technical solutions
 - Analyzing implementation trade-offs
+
+## Research-Driven Exploration
+
+When exploring unclear requirements or designs, use web research to inform decisions:
+
+**For Requirements Exploration:**
+- Use WebSearch to find how others have solved similar problems
+- Use WebFetch to analyze competitor features and documentation
+- Research user expectations and industry standards
+
+**For Design Exploration:**
+- Use WebSearch to find architectural patterns and best practices
+- Use WebFetch to read library/framework documentation
+- Research performance benchmarks and case studies
+
+**For API Integration:**
+- Use Bash with `curl` to explore and test API endpoints
+- Fetch API schemas and documentation
+- Understand rate limits, authentication, and constraints
+
+**Research Questions to Answer:**
+- "How do similar products handle this?"
+- "What are common pitfalls to avoid?"
+- "What's the current best practice (2025)?"
+- "Are there established patterns for this problem?"
+
+> 🗣 Say: "Let me research this before proposing options. I'll look for prior art and best practices."
+
+**Document Research:**
+- Share key findings with user before presenting options
+- Include sources for transparency
+- Note any conflicting approaches found
+
+---
 
 ## The Process
 
