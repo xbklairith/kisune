@@ -1,5 +1,8 @@
 # Claude Code Plugins
 
+[![Run in Smithery](https://smithery.ai/badge/skills/xbklairith)](https://smithery.ai/skills?ns=xbklairith&utm_source=github&utm_medium=badge)
+
+
 Two production-ready Claude Code plugins for trading and development workflows.
 
 ## Plugins
