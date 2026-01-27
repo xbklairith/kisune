@@ -20,6 +20,30 @@ Activate this skill when:
 - User says "I need to build [feature]"
 - User mentions "architecture" or "technical design"
 
+## Path Resolution
+
+**IMPORTANT:** All paths in this skill are **relative to the user's workspace root** (where Claude Code is running), NOT relative to this skill file's location.
+
+When this skill references paths like:
+- `dev-workflow/templates/requirements.md` → Resolve from workspace root
+- `docx/features/[NN-feature-name]/` → Resolve from workspace root
+
+**Correct path construction:**
+```
+# If user's workspace is /home/user/myproject
+# And they have installed the plugin there, then:
+
+Templates:    /home/user/myproject/dev-workflow/templates/requirements.md
+Feature dir:  /home/user/myproject/docx/features/01-my-feature/
+```
+
+**DO NOT** construct paths relative to the plugin cache or skill directory. The plugin cache location (e.g., `~/.claude/plugins/cache/...`) is for internal loading only.
+
+**How to find the workspace root:**
+1. Use the current working directory where Claude Code was launched
+2. This is typically the directory shown by `pwd` or in the initial context
+3. All file operations should be relative to this workspace root
+
 ## Three-Phase Planning Workflow
 
 ### Phase 1: Feature Creation

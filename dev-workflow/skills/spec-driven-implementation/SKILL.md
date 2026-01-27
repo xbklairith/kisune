@@ -20,6 +20,31 @@ Activate this skill when:
 - User says "break this down into tasks"
 - Design phase is complete and approved
 
+## Path Resolution
+
+**IMPORTANT:** All paths in this skill are **relative to the user's workspace root** (where Claude Code is running), NOT relative to this skill file's location.
+
+When this skill references paths like:
+- `docx/features/[NN-feature-name]/tasks.md` → Resolve from workspace root
+- `docx/features/[NN-feature-name]/requirements.md` → Resolve from workspace root
+
+**Correct path construction:**
+```
+# If user's workspace is /home/user/myproject, then:
+
+Feature dir:  /home/user/myproject/docx/features/01-my-feature/
+Tasks file:   /home/user/myproject/docx/features/01-my-feature/tasks.md
+```
+
+**DO NOT** construct paths relative to the plugin cache or skill directory. The plugin cache location (e.g., `~/.claude/plugins/cache/...`) is for internal loading only.
+
+**How to find the workspace root:**
+1. Use the current working directory where Claude Code was launched
+2. This is typically the directory shown by `pwd` or in the initial context
+3. All file operations should be relative to this workspace root
+
+---
+
 ## Prerequisites
 
 This skill requires completed planning from `spec-driven-planning` skill:
