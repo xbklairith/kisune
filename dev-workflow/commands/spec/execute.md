@@ -17,7 +17,7 @@ Activate the `spec-driven-implementation` skill to execute Phase 5 (Execution).
    - Read tasks from docx/features/[NN-feature-name]/tasks.md
    - Execute tasks systematically following TDD (Red-Green-Refactor)
    - Update checkboxes as tasks complete
-   - Integrate with code-quality and git-workflow skills
+   - Integrate with review and git-workflow skills
    - Run quality gates before marking tasks complete
 
    Work through all tasks until feature is complete."

@@ -315,7 +315,7 @@
 **Objective:** Self-review code quality
 
 **Tasks:**
-- [ ] Run `/dev-workflow:review` on all changes
+- [ ] Run code review on all changes
 - [ ] Address high-priority issues
 - [ ] Fix medium-priority issues
 - [ ] Consider low-priority suggestions

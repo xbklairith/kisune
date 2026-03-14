@@ -100,8 +100,7 @@ Edit `dev-workflow/.claude-plugin/plugin.json`:
 ls -R trading/
 # Should see:
 # - .claude-plugin/plugin.json
-# - 4 skills (market-analysis, strategy-research, pattern-recognition, strategy-translator)
-# - 4 commands (analyze.md, research.md, pattern.md, translate.md)
+# - 4 skills (analyze, research, pattern, translate)
 # - 3 templates (strategy-doc.md, backtest-results.md, pattern-library.md)
 # - README.md
 ```
@@ -111,8 +110,8 @@ ls -R trading/
 ls -R dev-workflow/
 # Should see:
 # - .claude-plugin/plugin.json
-# - 5 skills (spec-driven, code-quality, git-workflow, documentation, systematic-testing)
-# - 2 commands (spec.md, review.md)
+# - 5 skills (spec-driven, review, git-workflow, documentation, systematic-testing)
+# - 1 command (spec.md)
 # - 3 templates (requirements.md, design.md, tasks.md)
 # - README.md
 ```
@@ -127,7 +126,7 @@ python3 -m json.tool trading/.claude-plugin/plugin.json > /dev/null && echo "✓
 python3 -m json.tool dev-workflow/.claude-plugin/plugin.json > /dev/null && echo "✓ Dev-workflow plugin.json valid"
 
 # Check for YAML frontmatter in skills (manual inspection)
-head -n 10 trading/skills/market-analysis/SKILL.md
+head -n 10 trading/skills/analyze/SKILL.md
 head -n 10 dev-workflow/skills/spec-driven/SKILL.md
 ```
 
@@ -137,30 +136,7 @@ head -n 10 dev-workflow/skills/spec-driven/SKILL.md
 
 ### Trading Plugin
 
-#### 1. Analyze a Market
-```
-/trading:analyze BTC/USDT 4H technical
-```
-
-#### 2. Research a Strategy
-```
-/trading:research
-[Follow interactive prompts to document your strategy]
-```
-
-#### 3. Identify Patterns
-```
-/trading:pattern
-[Describe chart or paste screenshot for pattern identification]
-```
-
-#### 4. Translate Strategy to Code
-```
-/trading:translate
-[Provide strategy document to generate Python and Pine Script]
-```
-
-**Natural Language Usage:**
+**Natural Language Usage (skills auto-activate):**
 - "Analyze the SPY daily chart with technical indicators"
 - "Help me document my RSI mean reversion strategy"
 - "What chart pattern is forming on EUR/USD?"
@@ -181,17 +157,6 @@ This will guide you through:
 3. Technical design
 4. Task breakdown (TDD)
 5. Implementation
-
-#### 2. Code Review
-```
-/dev-workflow:review
-[Reviews current staged changes with comprehensive checklist]
-```
-
-Or review specific file:
-```
-/dev-workflow:review src/auth/login.py
-```
 
 **Natural Language Usage:**
 - "Let's plan a new payment processing feature" → Spec-driven skill activates
@@ -225,10 +190,10 @@ Before committing to using the plugins, test each feature:
 
 ### Trading Plugin Testing
 - [ ] Install plugin (local or global)
-- [ ] Run `/trading:analyze` on a market you trade
-- [ ] Run `/trading:research` and document a test strategy
-- [ ] Run `/trading:pattern` with a chart description
-- [ ] Run `/trading:translate` with your test strategy
+- [ ] Ask Claude to analyze a market you trade
+- [ ] Ask Claude to research and document a test strategy
+- [ ] Ask Claude to identify a pattern from a chart description
+- [ ] Ask Claude to translate your test strategy to code
 - [ ] Verify natural language activation works
 - [ ] Check template accessibility
 - [ ] Review generated code quality
@@ -238,7 +203,7 @@ Before committing to using the plugins, test each feature:
 - [ ] Run `/dev-workflow:spec` and create test feature
 - [ ] Go through all five phases (requirements → design → tasks → execute)
 - [ ] Test EARS requirements format
-- [ ] Run `/dev-workflow:review` on sample code
+- [ ] Ask Claude to review sample code
 - [ ] Make a commit and verify git-workflow skill activates
 - [ ] Ask for documentation and verify doc skill activates
 - [ ] Test TDD workflow guidance
@@ -316,13 +281,13 @@ head -n 15 skills/*/SKILL.md
 ├── trading/                    # Trading plugin
 │   ├── .claude-plugin/
 │   ├── skills/ (4)
-│   ├── commands/ (4)
+│   ├── skills/ (4)
 │   ├── templates/ (3)
 │   └── README.md
 ├── dev-workflow/               # Dev-workflow plugin
 │   ├── .claude-plugin/
 │   ├── skills/ (5)
-│   ├── commands/ (2)
+│   ├── commands/ (1)
 │   ├── templates/ (3)
 │   └── README.md
 └── docx/

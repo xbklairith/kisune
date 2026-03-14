@@ -13,19 +13,14 @@ trading/
 ├── .claude-plugin/
 │   └── plugin.json                    ✅ Valid JSON, all metadata present
 ├── skills/
-│   ├── market-analysis/
-│   │   └── SKILL.md                   ✅ 251 lines, valid YAML frontmatter
-│   ├── strategy-research/
-│   │   └── SKILL.md                   ✅ 404 lines, valid YAML frontmatter
-│   ├── pattern-recognition/
-│   │   └── SKILL.md                   ✅ 573 lines, valid YAML frontmatter
-│   └── strategy-translator/
-│       └── SKILL.md                   ✅ 779 lines, valid YAML frontmatter
-├── commands/
-│   ├── analyze.md                     ✅ 19 lines, valid YAML frontmatter
-│   ├── research.md                    ✅ 16 lines, valid YAML frontmatter
-│   ├── pattern.md                     ✅ 14 lines, valid YAML frontmatter
-│   └── translate.md                   ✅ 18 lines, valid YAML frontmatter
+│   ├── analyze/
+│   │   └── SKILL.md                   ✅ valid YAML frontmatter
+│   ├── research/
+│   │   └── SKILL.md                   ✅ valid YAML frontmatter
+│   ├── pattern/
+│   │   └── SKILL.md                   ✅ valid YAML frontmatter
+│   └── translate/
+│       └── SKILL.md                   ✅ valid YAML frontmatter
 ├── templates/
 │   ├── strategy-doc.md                ✅ 181 lines, comprehensive template
 │   ├── backtest-results.md            ✅ 247 lines, comprehensive template
@@ -47,20 +42,12 @@ Total Lines of Code/Documentation: 3,499
 - [x] MIT license specified
 
 ### Skills (4/4)
-- [x] market-analysis skill implemented
-- [x] strategy-research skill implemented
-- [x] pattern-recognition skill implemented
-- [x] strategy-translator skill implemented
+- [x] analyze skill implemented
+- [x] research skill implemented
+- [x] pattern skill implemented
+- [x] translate skill implemented
 - [x] All YAML frontmatter valid
 - [x] All skills comprehensive and actionable
-
-### Commands (4/4)
-- [x] /trading:analyze command created
-- [x] /trading:research command created
-- [x] /trading:pattern command created
-- [x] /trading:translate command created
-- [x] All YAML frontmatter valid
-- [x] All commands properly reference skills
 
 ### Templates (3/3)
 - [x] strategy-doc.md template created
@@ -81,7 +68,7 @@ Total Lines of Code/Documentation: 3,499
 
 ## Plugin Capabilities
 
-### 1. Market Analysis Skill
+### 1. Analyze Skill
 **Lines:** 251
 **Features:**
 - Multi-timeframe technical analysis
@@ -91,7 +78,7 @@ Total Lines of Code/Documentation: 3,499
 - Risk/reward calculations
 - Structured markdown output
 
-### 2. Strategy Research Skill
+### 2. Research Skill
 **Lines:** 404
 **Features:**
 - Systematic edge hypothesis formation
@@ -101,7 +88,7 @@ Total Lines of Code/Documentation: 3,499
 - Edge validation questions
 - Complete strategy template
 
-### 3. Pattern Recognition Skill
+### 3. Pattern Skill
 **Lines:** 573
 **Features:**
 - Classic reversal patterns (H&S, Double Tops/Bottoms)
@@ -111,7 +98,7 @@ Total Lines of Code/Documentation: 3,499
 - Multi-timeframe analysis
 - Pattern library building
 
-### 4. Strategy Translator Skill
+### 4. Translate Skill
 **Lines:** 779
 **Features:**
 - Python code generation (pandas-compatible)
@@ -128,10 +115,10 @@ Total Lines of Code/Documentation: 3,499
 
 | Command | Description | Lines |
 |---------|-------------|-------|
-| /trading:analyze | Comprehensive market/asset analysis | 19 |
-| /trading:research | Systematic strategy documentation | 16 |
-| /trading:pattern | Pattern identification and documentation | 14 |
-| /trading:translate | Strategy to code conversion | 18 |
+| analyze | Comprehensive market/asset analysis (skill) | - |
+| research | Systematic strategy documentation (skill) | - |
+| pattern | Pattern identification and documentation (skill) | - |
+| translate | Strategy to code conversion (skill) | - |
 
 ---
 
@@ -196,13 +183,12 @@ Total Lines of Code/Documentation: 3,499
 cp -r trading ~/.claude/plugins/trading
 ```
 
-### Test Commands
-```bash
-/trading:analyze
-/trading:research
-/trading:pattern
-/trading:translate
-```
+### Test Skills
+Skills auto-activate via natural language:
+- "Analyze BTC/USDT" (analyze skill)
+- "Research my strategy" (research skill)
+- "What pattern is this?" (pattern skill)
+- "Convert to Python" (translate skill)
 
 ---
 

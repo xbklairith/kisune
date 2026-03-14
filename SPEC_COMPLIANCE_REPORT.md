@@ -26,8 +26,8 @@ After reviewing the official Claude Code plugin documentation (https://code.clau
 - ✅ Kept only spec-compliant fields: `name`, `description`
 
 **Files Updated:**
-- Trading: 4 skills (market-analysis, strategy-research, pattern-recognition, strategy-translator)
-- Dev-Workflow: 5 skills (spec-driven, code-quality, git-workflow, documentation, systematic-testing)
+- Trading: 4 skills (analyze, research, pattern, translate)
+- Dev-Workflow: 5 skills (spec-driven, review, git-workflow, documentation, systematic-testing)
 
 ---
 
@@ -177,14 +177,13 @@ Templates as supporting files within skill directories.
 - ✅ Structure: Compliant
 - ✅ plugin.json: Compliant
 - ✅ Skills (4): Compliant
-- ✅ Commands (4): Compliant
 - ✅ Templates: Documented alternative
 
 ### Dev-Workflow Plugin
 - ✅ Structure: Compliant
 - ✅ plugin.json: Compliant
 - ✅ Skills (5): Compliant
-- ✅ Commands (2): Compliant
+- ✅ Commands (1): Compliant
 - ✅ Templates: Documented alternative
 
 ---
@@ -206,11 +205,9 @@ cp -r dev-workflow ~/.claude/plugins/dev-workflow
 ### 2. Command Test
 ```bash
 # Verify commands appear in /help
-/help | grep trading
 /help | grep dev-workflow
 
 # Test each command
-/trading:analyze
 /dev-workflow:spec
 ```
 

@@ -189,8 +189,8 @@ Skills can reference templates in two ways:
 
 When you use slash commands, templates are automatically referenced:
 
-- `/trading:research` → Uses strategy-doc.md template
-- `/trading:pattern` → Updates pattern-library.md
+- `research` skill → Uses strategy-doc.md template
+- `pattern` skill → Updates pattern-library.md
 - `/dev-workflow:spec` requirements phase → Uses requirements.md template
 - `/dev-workflow:spec` design phase → Uses design.md template
 - `/dev-workflow:spec` tasks phase → Uses tasks.md template
@@ -203,9 +203,9 @@ If you prefer following the official Claude Code convention exactly, you can reo
 
 ```bash
 # Move trading templates into skill directories
-mv trading/templates/strategy-doc.md trading/skills/strategy-research/
-mv trading/templates/pattern-library.md trading/skills/pattern-recognition/
-mv trading/templates/backtest-results.md trading/skills/strategy-research/
+mv trading/templates/strategy-doc.md trading/skills/research/
+mv trading/templates/pattern-library.md trading/skills/pattern/
+mv trading/templates/backtest-results.md trading/skills/research/
 
 # Move dev-workflow templates into spec-driven skill
 mkdir dev-workflow/skills/spec-driven/templates

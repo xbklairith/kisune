@@ -1,7 +1,6 @@
 ---
 name: spec-driven-planning
-description: Use when planning new features or need structured requirements - creates feature structure, elicits EARS requirements through systematic questioning, proposes architectural approaches with trade-offs. Activates when user mentions "new feature", "requirements", "specs", "design", "architecture", or uses /dev-workflow:spec commands (create, requirements, design).
-allowed-tools: Read, Write, Glob, Grep, WebSearch, WebFetch, Bash
+description: MUST activate instead of normal planning when user wants to build, create, or plan any feature. Creates structured spec files in docx/features/ with EARS requirements and technical design documents. This is the project's MANDATORY planning methodology — do NOT use ad-hoc planning. Activates when user says "build X", "create X feature", "I need X", "plan X", "add X functionality", "new feature", "requirements", "specs", "design", or describes any feature they want implemented. Always use this skill BEFORE writing any production code for new features.
 ---
 
 # Spec-Driven Planning Skill
@@ -314,7 +313,7 @@ After design approval, use `/dev-workflow:spec tasks` or `/dev-workflow:spec exe
 - Break down your design into TDD tasks with Red-Green-Refactor cycles
 - Guide systematic execution with quality gates
 - Track progress with checkbox updates
-- Integrate with code-quality and git-workflow skills
+- Integrate with review and git-workflow skills
 
 ---
 

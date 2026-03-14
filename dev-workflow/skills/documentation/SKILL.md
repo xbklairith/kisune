@@ -557,7 +557,7 @@ We chose fixed percentage for simplicity and reliability.
 ## Integration Points
 
 - Works with `spec-driven` skill for feature documentation
-- Works with `code-quality` skill to verify docs exist
+- Works with `review` skill to verify docs exist
 - Auto-triggered after feature completion
 
 ## Notes

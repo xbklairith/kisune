@@ -4,7 +4,7 @@ A comprehensive trading analysis and strategy research toolkit for advanced trad
 
 ## Overview
 
-The **trading** plugin provides four specialized skills and commands to help traders:
+The **trading** plugin provides four specialized skills to help traders:
 1. **Analyze markets** with technical indicators, patterns, and multi-timeframe analysis
 2. **Research strategies** systematically with edge validation and documentation
 3. **Recognize patterns** across charts and build a personal pattern library
@@ -43,7 +43,7 @@ The plugin will be automatically loaded on next Claude Code session start.
 
 ## Features
 
-### 1. Market Analysis Skill
+### 1. Analyze Skill
 
 Comprehensive multi-market analysis using:
 - **Technical Indicators:** RSI, MACD, Bollinger Bands, Moving Averages, Volume Analysis
@@ -54,7 +54,7 @@ Comprehensive multi-market analysis using:
 
 **Outputs:** Structured markdown reports with actionable trading ideas
 
-### 2. Strategy Research Skill
+### 2. Research Skill
 
 Systematic strategy development framework:
 - **Edge Hypothesis:** Define what market inefficiency you're exploiting
@@ -65,7 +65,7 @@ Systematic strategy development framework:
 
 **Outputs:** Complete strategy documents ready for backtesting
 
-### 3. Pattern Recognition Skill
+### 3. Pattern Skill
 
 Identify and document chart patterns:
 - **Classic Patterns:** H&S, Double Tops/Bottoms, Triangles
@@ -76,7 +76,7 @@ Identify and document chart patterns:
 
 **Outputs:** Pattern documentation with entry/exit rules and trade tracking
 
-### 4. Strategy Translator Skill
+### 4. Translate Skill
 
 Convert strategies into code:
 - **Python:** Pandas-compatible functions for custom backtesting frameworks
@@ -86,187 +86,6 @@ Convert strategies into code:
 - **Production-Ready:** Error handling, type hints, best practices
 
 **Outputs:** Clean, reusable code ready for implementation
-
----
-
-## Commands
-
-### `/trading:analyze`
-
-Activate market analysis for comprehensive asset/market analysis.
-
-**Usage:**
-```
-/trading:analyze
-```
-
-**Prompts for:**
-- Asset/Market (e.g., BTC/USDT, SPY, EUR/USD, GOLD)
-- Timeframe (e.g., 1H, 4H, Daily, Weekly)
-- Analysis Type (Technical, Fundamental, Sentiment, Comprehensive)
-
-**Provides:**
-- Key support/resistance levels
-- Technical indicator analysis
-- Volume and momentum insights
-- Trading ideas with entry/stop/target
-- Risk/reward calculations
-
-**Example Output:**
-```markdown
-# Market Analysis: BTC/USDT | 4H
-
-## Summary
-- **Trend:** Uptrend
-- **Market Phase:** Markup
-- **Bias:** Bullish
-
-## Key Levels
-### Resistance
-- **R1:** $45,000 - Prior high, volume node
-- **R2:** $47,500 - Psychological level
-
-### Support
-- **S1:** $42,000 - Prior breakout level
-- **S2:** $40,000 - 200 MA support
-
-## Trading Ideas
-### Bullish Scenario
-- **Entry:** $43,200 (on pullback to support)
-- **Stop:** $41,800 (below S2)
-- **Target 1:** $45,000 (R:R = 1.3:1)
-- **Target 2:** $47,500 (R:R = 3.0:1)
-
-[...full analysis continues...]
-```
-
----
-
-### `/trading:research`
-
-Document and research trading strategies systematically.
-
-**Usage:**
-```
-/trading:research
-```
-
-**Guides Through:**
-1. Edge/Hypothesis Definition
-2. Market Conditions Analysis
-3. Entry/Exit Conditions
-4. Risk Management Rules
-5. Backtest Considerations
-
-**Outputs:**
-- Complete strategy document
-- Ready for backtesting
-- Saved to `strategies/[strategy-name].md`
-
-**Example Workflow:**
-```
-User: /trading:research
-
-Claude: Let's research your strategy systematically.
-        What's the core edge or hypothesis?
-
-User: I think buying RSI oversold in uptrends works
-
-Claude: Great start. Let's refine this.
-        1. What RSI level defines "oversold"?
-        2. How do you define "uptrend"?
-        3. What timeframe?
-        [... guides through complete documentation ...]
-
-Output: Complete strategy document saved to strategies/rsi-oversold-uptrend.md
-```
-
----
-
-### `/trading:pattern`
-
-Identify or document chart patterns and setups.
-
-**Usage:**
-```
-/trading:pattern
-```
-
-**Helps With:**
-1. Pattern identification from chart description
-2. Trading plan creation for identified pattern
-3. Pattern documentation for personal library
-4. Entry/exit rules and invalidation levels
-
-**Example:**
-```
-User: /trading:pattern
-
-Claude: What would you like to do?
-        1. Identify a pattern on your chart
-        2. Document a pattern for your library
-
-User: Identify - I see price broke resistance at $100,
-      pulled back to $102, and is bouncing
-
-Claude: This looks like a Breakout Retest pattern.
-
-Pattern Identified: Breakout Retest
-Quality: High
-Prior Trend: Uptrend
-
-Trading Plan:
-- Entry: $103.50 (after bounce confirmation)
-- Stop: $100.50 (below retest low)
-- Target 1: $108 (R:R = 1.5:1)
-- Target 2: $112 (R:R = 2.8:1)
-
-[...continues with full analysis...]
-```
-
----
-
-### `/trading:translate`
-
-Convert strategy documentation into Python or Pine Script code.
-
-**Usage:**
-```
-/trading:translate
-```
-
-**Asks For:**
-- Strategy document location or description
-- Output format (Python, Pine Script, or Both)
-- Framework compatibility notes
-
-**Generates:**
-- Clean, parameterized code
-- Complete documentation
-- Usage examples
-- Risk management logic
-
-**Example:**
-```
-User: /trading:translate
-
-Claude: What strategy would you like to translate?
-
-User: [Pastes strategy doc or provides path]
-
-Claude: What output format?
-        1. Python (pandas-compatible)
-        2. Pine Script (TradingView v5)
-        3. Both
-
-User: Both
-
-Claude: [Generates complete Python and Pine Script implementations]
-
-Output files:
-- strategy_rsi_oversold.py
-- strategy_rsi_oversold_pinescript.txt
-```
 
 ---
 
@@ -326,12 +145,12 @@ Personal pattern library template with:
    User thinks: "Mean reversion after RSI oversold might work"
 
 2. Research Phase
-   /trading:research
+   Ask Claude to research your strategy
    → Documents strategy with edge hypothesis, rules, risk management
    → Output: strategies/rsi-mean-reversion.md
 
 3. Translation Phase
-   /trading:translate
+   Ask Claude to translate your strategy to code
    → Converts strategy doc to Python code
    → Output: strategy_rsi_mean_reversion.py
 
@@ -340,7 +159,7 @@ Personal pattern library template with:
    → Record results using backtest-results template
 
 5. Analysis Phase
-   /trading:analyze BTC/USDT 4H
+   Ask Claude to analyze BTC/USDT 4H
    → Validate current market conditions match strategy criteria
    → Identify potential entry opportunities
 
@@ -355,7 +174,7 @@ Personal pattern library template with:
 
 ```
 1. Identify Pattern
-   /trading:pattern
+   Ask Claude to identify a pattern
    → User describes chart setup
    → Claude identifies pattern (e.g., Bull Flag)
    → Provides trading plan
@@ -379,17 +198,17 @@ Personal pattern library template with:
 
 ```
 1. Daily Market Analysis
-   /trading:analyze BTC/USDT Daily
+   Ask Claude to analyze BTC/USDT Daily
    → Understand higher timeframe trend and structure
    → Identify key levels
 
 2. Entry Timing
-   /trading:analyze BTC/USDT 4H
+   Ask Claude to analyze BTC/USDT 4H
    → Find entry opportunities within daily context
    → Get specific entry/stop/target levels
 
 3. Pattern Confirmation
-   /trading:pattern
+   Ask Claude to identify the pattern
    → Confirm pattern setup aligns with analysis
    → Validate edge and risk/reward
 
@@ -406,28 +225,26 @@ Personal pattern library template with:
 
 The plugin skills will automatically activate when you:
 
-**market-analysis:**
+**analyze:**
 - Ask about market conditions
 - Request technical analysis
 - Mention support/resistance
 - Ask "what's happening with [asset]?"
 
-**strategy-research:**
+**research:**
 - Say "I want to document a strategy"
 - Ask about strategy development
 - Mention "trading edge" or "hypothesis"
 
-**pattern-recognition:**
+**pattern:**
 - Describe chart patterns
 - Ask "what pattern is this?"
 - Want to document patterns
 
-**strategy-translator:**
+**translate:**
 - Say "convert this strategy to code"
 - Ask for Python or Pine Script
 - Want to implement a strategy
-
-You can also explicitly activate skills using the slash commands.
 
 ---
 
@@ -511,7 +328,6 @@ Most powerful when combining multiple skills:
 **Problem:** Skill doesn't activate when expected
 
 **Solution:**
-- Use explicit slash command (e.g., `/trading:analyze`)
 - Be specific in your request ("Analyze BTC/USDT" vs. "What about BTC?")
 - Check that plugin is installed in correct directory
 
@@ -520,7 +336,7 @@ Most powerful when combining multiple skills:
 **Problem:** Generated code doesn't work with your framework
 
 **Solution:**
-- Specify your framework when using `/trading:translate`
+- Specify your framework when asking Claude to translate
 - Request specific library compatibility (e.g., "pandas only, no ta-lib")
 - Ask for modular functions you can adapt vs. complete system
 
@@ -529,7 +345,7 @@ Most powerful when combining multiple skills:
 **Problem:** Strategy documentation lacks specific rules
 
 **Solution:**
-- Use `/trading:research` which guides you through specific questions
+- Ask Claude to research your strategy, which guides you through specific questions
 - Ask Claude to challenge vague statements
 - Ensure every rule is testable and quantifiable
 
@@ -584,11 +400,10 @@ MIT License - See LICENSE file for details
 ## Version History
 
 - **v1.0.0** (2024-01-15): Initial release
-  - Market analysis skill
-  - Strategy research skill
-  - Pattern recognition skill
-  - Strategy translator skill
-  - 4 slash commands
+  - Analyze skill (market analysis)
+  - Research skill (strategy research)
+  - Pattern skill (pattern recognition)
+  - Translate skill (strategy translator)
   - 3 templates
 
 ---

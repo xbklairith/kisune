@@ -1,6 +1,6 @@
 ---
-name: strategy-translator
-description: Use when converting strategy documentation to code - translates markdown strategy docs into Python functions (for backtesting frameworks like Backtrader) and TradingView Pine Script. Activates when user says "convert to Python", "generate Pine Script", "code this strategy", mentions "backtest", or uses /trading:translate command.
+name: translate
+description: Use when converting strategy documentation to code - translates markdown strategy docs into Python functions (for backtesting frameworks like Backtrader) and TradingView Pine Script. Activates when user says "convert to Python", "generate Pine Script", "code this strategy", or mentions "backtest".
 ---
 
 # Strategy Translator Skill

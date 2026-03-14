@@ -1,7 +1,6 @@
 ---
 name: spec-driven-implementation
-description: Use when ready to implement designed features - breaks design into TDD tasks (Red-Green-Refactor), tracks progress with checkboxes in tasks.md, enforces strict testing discipline. Activates when user says "implement this", "let's code", "start execution", mentions "tasks", "TDD", or uses /dev-workflow:spec commands (tasks, execute).
-allowed-tools: Read, Write, Edit, MultiEdit, Glob, Grep, Bash, TodoWrite, TodoRead
+description: MUST activate when implementing features that have completed spec-driven-planning. Breaks design into TDD tasks in docx/features/ tasks.md, tracks progress with checkboxes, enforces strict Red-Green-Refactor cycle. This is the project's MANDATORY implementation methodology. Activates when user says "implement this", "let's code", "start building", "execute", "break into tasks", or when a design.md exists and user wants to start coding.
 ---
 
 # Spec-Driven Implementation Skill
@@ -312,20 +311,20 @@ Every 2-3 completed tasks, provide status update:
 **Auto-Trigger Code Quality Review:**
 
 Before each commit:
-- Use Skill tool to invoke: `dev-workflow:code-quality`
+- Use Skill tool to invoke: `dev-workflow:review`
 - Review changes for issues
 - Address critical findings before commit
 
 **How to activate:**
 ```
-Use Skill tool: Skill(skill: "dev-workflow:code-quality")
+Use Skill tool: Skill(skill: "dev-workflow:review")
 ```
 
 **Integration Points:**
 
 - Use Skill tool to invoke: `dev-workflow:test-driven-development` for strict TDD guidance
 - Use Skill tool to invoke: `dev-workflow:git-workflow` for smart commits
-- Use Skill tool to invoke: `dev-workflow:code-quality` for pre-commit reviews
+- Use Skill tool to invoke: `dev-workflow:review` for pre-commit reviews
 
 **How to activate integration skills:**
 ```
@@ -336,7 +335,7 @@ Use Skill tool: Skill(skill: "dev-workflow:test-driven-development")
 Use Skill tool: Skill(skill: "dev-workflow:git-workflow")
 
 # For code review
-Use Skill tool: Skill(skill: "dev-workflow:code-quality")
+Use Skill tool: Skill(skill: "dev-workflow:review")
 ```
 
 **Completion Criteria:**
@@ -568,7 +567,7 @@ Use Skill tool: Skill(skill: "dev-workflow:spec-driven-planning")
 ### Implementation Guidelines
 
 - Provide checkpoint updates every 2-3 tasks
-- Use Skill tool to invoke: `dev-workflow:code-quality` before commits
+- Use Skill tool to invoke: `dev-workflow:review` before commits
 - Use Skill tool to invoke: `dev-workflow:git-workflow` for smart commit messages
 - Follow TDD cycle religiously (RED → GREEN → REFACTOR)
 - Stop and return to planning if design issues discovered

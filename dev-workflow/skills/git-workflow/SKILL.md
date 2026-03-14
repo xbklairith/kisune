@@ -570,7 +570,7 @@ What would you like to do?
 
 ## Integration Points
 
-- Works with `code-quality` skill for pre-commit reviews
+- Works with `review` skill for pre-commit reviews
 - Works with `spec-driven` skill for commit messages during execution
 - Works with `systematic-testing` skill to verify tests before commit
 

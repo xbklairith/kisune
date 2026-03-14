@@ -36,7 +36,7 @@ The Dev-Workflow plugin provides a comprehensive, systematic approach to softwar
    ```bash
    # In Claude Code
    /help
-   # Should show /dev-workflow:spec and /dev-workflow:review commands
+   # Should show /dev-workflow:spec command
    ```
 
 3. **Update Plugin Metadata (Optional):**
@@ -164,7 +164,7 @@ WHERE premium subscription is active the system SHALL enable advanced analytics
 
 ### Quality Skills
 
-#### 5. Code Quality
+#### 5. Review (Code Quality)
 
 **Activation:** User says "review this code", mentions refactoring, or before commits
 
@@ -467,42 +467,6 @@ What would you like to do? (1-6)
 4. **Tasks** → Breaks into TDD tasks, creates `tasks.md` with checkboxes
 5. **Execute** → Follows TDD cycle, auto-triggers quality checks, smart commits
 
-### `/dev-workflow:review`
-
-**Description:** Trigger comprehensive code review with quality checks
-
-**Usage:**
-
-```bash
-# Interactive (asks what to review)
-/dev-workflow:review
-
-# Review specific file
-/dev-workflow:review src/auth/login.js
-
-# Review directory
-/dev-workflow:review src/auth/
-
-# Review all changes
-/dev-workflow:review .
-```
-
-**Review Process:**
-1. Asks what to review (staged, unstaged, specific file, feature)
-2. Runs appropriate `git diff` or reads files
-3. Applies comprehensive checklist (structure, errors, security, performance, testing)
-4. Generates detailed report with priorities
-5. Suggests refactorings with code examples
-6. Provides action items
-
-**Review Output:**
-- ✅ Strengths (what's done well)
-- ⚠️ Issues Found (High/Medium/Low priority)
-- 💡 Refactoring Suggestions (with before/after code)
-- 📊 Code Metrics (complexity, coverage, maintainability)
-- 🎯 Action Items (checkboxes)
-- Overall assessment and recommendation
-
 ## Templates
 
 The plugin includes three comprehensive templates that are copied to feature directories:
@@ -585,7 +549,7 @@ This plugin integrates and extends existing spec-driven commands:
 **Advantages over separate commands:**
 - Single unified workflow
 - Natural phase progression with approval gates
-- Auto-triggers related skills (code-quality, git-workflow)
+- Auto-triggers related skills (review, git-workflow)
 - Integrated TDD methodology
 - Consistent file structure
 
@@ -602,7 +566,7 @@ The dev-workflow plugin is fully self-contained with integrated supporting skill
 - `test-driven-development` - Strict RED-GREEN-REFACTOR TDD enforcement
 
 **Quality Skills:**
-- `code-quality` - Systematic code review and refactoring suggestions
+- `review` - Systematic code review and refactoring suggestions
 - `git-workflow` - Smart commits, branch management, PR creation
 - `documentation` - Code, API, and architecture documentation generation
 - `systematic-testing` - Testing guidance and systematic debugging framework
@@ -615,7 +579,7 @@ Skills automatically activate and work together based on context. For example:
 - Requirements phase can activate `brainstorming` for scope exploration
 - Design phase can activate `brainstorming` for architectural exploration
 - Implementation phase activates `test-driven-development` for TDD enforcement
-- Before commits, `code-quality` auto-triggers for review
+- Before commits, `review` auto-triggers for review
 - Git operations use `git-workflow` for smart commit messages
 
 **No External Dependencies Required** - All skills are included in the plugin.
@@ -665,7 +629,7 @@ Starting Task 1: RED phase...
 ```bash
 # Before committing changes
 User: Review my changes before I commit
-Assistant: [Activates code-quality skill]
+Assistant: [Activates review skill]
 
 Running git diff --cached...
 
@@ -780,7 +744,7 @@ project/
 ### When to Use Each Skill
 
 - Spec-Driven: Starting new features, planning complex functionality
-- Code-Quality: Before commits, after completing components, when refactoring
+- Review: Before commits, after completing components, when refactoring
 - Git-Workflow: Every commit, creating branches, opening PRs, before pushing
 - Documentation: After implementing functions, creating APIs, completing features
 - Systematic-Testing: Implementing functionality (TDD), when bugs occur, improving coverage
@@ -868,14 +832,14 @@ MIT License
 - Split spec-driven into planning and implementation phases
 - Added self-contained brainstorming and test-driven-development skills
 - Eight integrated skills working seamlessly together
-- Two slash commands (/dev-workflow:spec, /dev-workflow:review)
+- One slash command (/dev-workflow:spec)
 - Three comprehensive templates
 - Self-contained with no external dependencies
 - Complete documentation
 
 **v1.0.0 (Initial Release)**
-- Five core skills (spec-driven, code-quality, git-workflow, documentation, systematic-testing)
-- Two slash commands (/spec, /review)
+- Five core skills (spec-driven, review, git-workflow, documentation, systematic-testing)
+- One slash command (/spec)
 - Three comprehensive templates
 - Complete documentation
 

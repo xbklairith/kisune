@@ -630,7 +630,7 @@ Skills created with this skill-maker should integrate with dev-workflow ecosyste
 
 **Leverage existing skills:**
 - Use `test-driven-development` for testing methodology examples
-- Use `code-quality` for code review patterns
+- Use `review` for code review patterns
 - Use `documentation` for documentation examples
 - Use `brainstorming` for design exploration patterns
 

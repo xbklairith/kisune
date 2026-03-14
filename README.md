@@ -9,12 +9,12 @@ Two production-ready Claude Code plugins for trading and development workflows.
 
 Multi-market trading analysis and strategy research toolkit for advanced traders.
 
-- **Market Analysis** - Technical indicators, support/resistance, multi-timeframe
-- **Strategy Research** - Systematic documentation with edge hypothesis framework
-- **Pattern Recognition** - Chart patterns, price action, personal library
-- **Strategy Translator** - Convert strategies to Python + Pine Script
+- **Analyze** - Technical indicators, support/resistance, multi-timeframe
+- **Research** - Systematic documentation with edge hypothesis framework
+- **Pattern** - Chart patterns, price action, personal library
+- **Translate** - Convert strategies to Python + Pine Script
 
-**Commands:** `/trading:analyze`, `/trading:research`, `/trading:pattern`, `/trading:translate`
+**Skills auto-activate via natural language.**
 
 ### 2. Dev-Workflow Plugin 🛠️
 **Location:** `dev-workflow/`
@@ -22,12 +22,12 @@ Multi-market trading analysis and strategy research toolkit for advanced traders
 Integrated development lifecycle combining spec-driven development with code quality.
 
 - **Spec-Driven** - 5-phase workflow (Requirements → Design → Tasks → Execute)
-- **Code Quality** - 25-point review checklist
+- **Review** - 25-point review checklist
 - **Git Workflow** - Smart commits, PR creation
 - **Documentation** - Code docs, API specs, diagrams
 - **Testing** - TDD framework + systematic debugging
 
-**Commands:** `/dev-workflow:spec`, `/dev-workflow:review`
+**Commands:** `/dev-workflow:spec`
 
 ## Quick Start
 
@@ -57,7 +57,7 @@ cp -r dev-workflow ~/.claude/plugins/dev-workflow
 - **26 files** total
 - **8,615 lines** of code
 - **9 skills** (4 trading + 5 dev-workflow)
-- **6 commands** with natural language activation
+- **1 command** + natural language skill activation
 - **6 templates** for rapid workflow
 
 ## Documentation

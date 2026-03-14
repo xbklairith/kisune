@@ -1,5 +1,5 @@
 ---
-name: code-quality
+name: review
 description: Use when reviewing code or before commits - runs 25-point quality checklist (structure, errors, security, performance, testing), identifies code smells, suggests refactorings with examples. Activates when user says "review this", "check my code", mentions "refactor", "optimize", "code quality", or before git commits.
 ---
 
@@ -17,7 +17,6 @@ Activate this skill when:
 - User mentions "refactoring", "optimization", or "code smell"
 - Before git commits (pre-commit review)
 - After completing a feature
-- User uses `/dev-workflow:review` command
 - User says "is this code good?"
 
 ## Comprehensive Review Checklist
@@ -303,7 +302,7 @@ If review reveals fundamental architectural problems, activate deep thinking:
 
 **Assistant:**
 ```
-Activating code-quality skill for pre-commit review.
+Activating review skill for pre-commit review.
 
 Running: git diff --cached
 
@@ -378,7 +377,7 @@ const login = async (email, password) => {
 
 **Assistant:**
 ```
-Activating code-quality skill for refactoring analysis.
+Activating review skill for refactoring analysis.
 
 Reading: src/utils/calculator.js
 

@@ -17,14 +17,13 @@ Both plugins are 100% compliant with official Claude Code plugin specifications.
 kisune/
 ├── trading/                    # Trading plugin
 │   ├── .claude-plugin/        # Plugin metadata
-│   ├── skills/                # 4 skills (market-analysis, strategy-research, pattern-recognition, strategy-translator)
-│   ├── commands/              # 4 slash commands
+│   ├── skills/                # 4 skills (analyze, research, pattern, translate)
 │   ├── templates/             # 3 strategy/analysis templates
 │   └── README.md              # Complete documentation
 ├── dev-workflow/              # Dev-workflow plugin
 │   ├── .claude-plugin/        # Plugin metadata
 │   ├── skills/                # 9 skills (includes brainstorming, TDD, spec-driven planning/implementation, etc.)
-│   ├── commands/              # 2 slash commands
+│   ├── commands/              # 1 slash command (spec)
 │   ├── templates/             # 3 spec-driven templates
 │   └── README.md              # Complete documentation
 ├── .claude-plugin/            # Marketplace metadata
@@ -35,21 +34,15 @@ kisune/
 
 ## Plugin Architecture
 
-### Trading Plugin (4 skills, 4 commands)
+### Trading Plugin (4 skills, no commands)
 
 **Skills:**
-- `market-analysis` - Technical analysis with indicators, S/R, multi-timeframe
-- `strategy-research` - Systematic strategy documentation with edge hypothesis
-- `pattern-recognition` - Chart pattern identification and personal library
-- `strategy-translator` - Convert strategies to Python + Pine Script
+- `analyze` - Technical analysis with indicators, S/R, multi-timeframe
+- `research` - Systematic strategy documentation with edge hypothesis
+- `pattern` - Chart pattern identification and personal library
+- `translate` - Convert strategies to Python + Pine Script
 
-**Commands:**
-- `/trading:analyze` - Market analysis
-- `/trading:research` - Strategy research
-- `/trading:pattern` - Pattern identification
-- `/trading:translate` - Code generation
-
-### Dev-Workflow Plugin (9 skills, 2 commands)
+### Dev-Workflow Plugin (9 skills, 1 command)
 
 **Planning Skills:**
 - `spec-driven-planning` - 3-phase workflow (Feature → Requirements/EARS → Design)
@@ -60,7 +53,7 @@ kisune/
 - `test-driven-development` - Strict RED-GREEN-REFACTOR enforcement
 
 **Quality Skills:**
-- `code-quality` - 25-point review checklist
+- `review` - 25-point review checklist
 - `git-workflow` - Smart commits, branch management, PR creation
 - `documentation` - Code, API, architecture docs
 - `systematic-testing` - TDD guidance and debugging framework
@@ -68,7 +61,6 @@ kisune/
 
 **Commands:**
 - `/dev-workflow:spec` - Launch spec-driven workflow (interactive menu)
-- `/dev-workflow:review` - Comprehensive code review
 
 **Integration Note:** The dev-workflow plugin integrates with existing `/x:spec:*` commands and uses the same `docx/features/` structure.
 
@@ -195,11 +187,11 @@ The UltraThink pattern is integrated across 8 skills to ensure deep, first-princ
 - **brainstorming** - Before proposing architectural approaches
 - **spec-driven-planning** - Before technical design with complex architectures
 - **spec-driven-implementation** - Before task breakdown for complex implementations
-- **strategy-research** - Before edge hypothesis formation and validation
-- **market-analysis** - When market conditions show conflicting signals
+- **research** - Before edge hypothesis formation and validation
+- **analyze** - When market conditions show conflicting signals
 - **skill-maker** - Before creating new skill structures
-- **pattern-recognition** - When pattern validity is ambiguous
-- **code-quality** - When architectural issues are detected
+- **pattern** - When pattern validity is ambiguous
+- **review** - When architectural issues are detected
 
 **UltraThink Process:**
 1. **Trigger** - Skill identifies high-complexity decision point
@@ -223,13 +215,8 @@ cd /Users/xb/table/kisune
 # Start Claude Code in this directory
 # Plugins auto-load from ./trading and ./dev-workflow
 
-# Test trading commands
-/trading:analyze
-/trading:research
-
 # Test dev-workflow commands
 /dev-workflow:spec
-/dev-workflow:review
 ```
 
 ### Modifying Plugin Metadata
@@ -309,14 +296,14 @@ When adding slash commands:
 Skills should activate naturally based on user intent:
 
 **Trading Skills:**
-- "Analyze BTC/USDT" → market-analysis
-- "Document my strategy" → strategy-research
-- "What pattern is this?" → pattern-recognition
-- "Convert to Python" → strategy-translator
+- "Analyze BTC/USDT" → analyze
+- "Document my strategy" → research
+- "What pattern is this?" → pattern
+- "Convert to Python" → translate
 
 **Dev-Workflow Skills:**
 - "Plan new feature" → spec-driven-planning (with optional brainstorming)
-- "Review my code" → code-quality
+- "Review my code" → review
 - "Commit changes" → git-workflow
 - "Document this" → documentation
 - "Write tests" → test-driven-development (strict TDD enforcement)
@@ -329,7 +316,7 @@ Dev-workflow skills work together seamlessly:
 - **Requirements phase** → Can activate `brainstorming` for scope exploration
 - **Design phase** → Can activate `brainstorming` for architectural exploration
 - **Implementation phase** → Activates `test-driven-development` automatically
-- **Before commits** → `code-quality` auto-triggers for review
+- **Before commits** → `review` auto-triggers for review
 - **Git operations** → `git-workflow` generates smart commit messages
 
 All skills are self-contained within the plugin (no external dependencies).
@@ -371,16 +358,11 @@ Skills reference and copy these templates during workflow execution.
 ## Statistics
 
 **Trading Plugin:**
-- 14 files total
-- 4 skills, 4 commands, 3 templates
-- 3,499 lines of code
+- 4 skills, no commands, 3 templates
 
 **Dev-Workflow Plugin:**
-- 26 files total
-- 9 skills, 2 commands, 3 templates
-- 5,116 lines of code
+- 9 skills, 1 command, 3 templates
 
 **Combined:**
-- 26 files, 8,615 lines
-- 13 skills, 6 commands, 6 templates
+- 13 skills, 1 command, 6 templates
 - Production-ready, fully documented
