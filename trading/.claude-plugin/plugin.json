@@ -1,10 +1,9 @@
 {
   "name": "trading",
   "description": "Multi-market trading analysis and strategy research toolkit for advanced traders",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
-    "name": "Kisune",
-    "email": "kisune@example.com"
+    "name": "xbklairith"
   },
   "homepage": "https://github.com/xbklairith/kisune",
   "repository": "https://github.com/xbklairith/kisune",
