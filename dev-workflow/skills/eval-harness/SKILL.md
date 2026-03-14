@@ -1,6 +1,6 @@
 ---
 name: eval-harness
-description: Eval-driven development (EDD) — define pass/fail criteria before coding, measure with pass@k metrics, run capability and regression evals for AI-assisted workflows.
+description: Eval-driven development (EDD) — define pass/fail criteria before coding, measure with pass@k metrics. Use when defining completion criteria or measuring agent reliability.
 ---
 
 # Eval Harness
@@ -49,7 +49,7 @@ Result: X/Y passed
 
 | Type | When | How |
 |------|------|-----|
-| **Code grader** | Deterministic checks | `npm test && echo PASS` |
+| **Code grader** | Deterministic checks | `<test-command> && echo PASS` |
 | **Rule grader** | Regex/schema constraints | Pattern matching |
 | **Model grader** | Open-ended quality | LLM-as-judge rubric |
 | **Human grader** | Ambiguous outputs | Manual review |

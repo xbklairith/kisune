@@ -1,6 +1,6 @@
 ---
 name: docker-patterns
-description: Docker and Docker Compose — local development stacks, multi-stage Dockerfiles, networking, volumes, container security, and debugging.
+description: Docker and Docker Compose — multi-stage Dockerfiles, networking, volumes, container security, and debugging. Use when containerizing applications or configuring Docker Compose.
 ---
 
 # Docker Patterns
@@ -20,16 +20,14 @@ Docker and Docker Compose best practices for containerized development.
 services:
   app:
     build: { context: ., target: dev }
-    ports: ["3000:3000"]
+    ports: ["8080:8080"]
     volumes:
       - .:/app
-      - /app/node_modules       # Preserve container deps
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/app_dev
       - REDIS_URL=redis://redis:6379/0
     depends_on:
       db: { condition: service_healthy }
-    command: npm run dev
 
   db:
     image: postgres:16-alpine
@@ -53,38 +51,41 @@ volumes:
 ## Multi-Stage Dockerfile
 
 ```dockerfile
-# Dependencies
-FROM node:22-alpine AS deps
+# Stage 1: Dependencies
+FROM <base-image> AS deps
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY <dependency-manifest> <lock-file> ./
+RUN <install-dependencies>
 
-# Dev (hot reload)
-FROM node:22-alpine AS dev
+# Stage 2: Dev (hot reload)
+FROM <base-image> AS dev
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/<deps-dir> ./<deps-dir>
 COPY . .
-CMD ["npm", "run", "dev"]
+CMD ["<dev-command>"]
 
-# Build
-FROM node:22-alpine AS build
+# Stage 3: Build
+FROM <base-image> AS build
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/<deps-dir> ./<deps-dir>
 COPY . .
-RUN npm run build && npm prune --production
+RUN <build-command>
 
-# Production (minimal)
-FROM node:22-alpine AS production
+# Stage 4: Production (minimal)
+FROM <minimal-base> AS production
 WORKDIR /app
 RUN addgroup -g 1001 -S app && adduser -S app -u 1001
 USER app
-COPY --from=build --chown=app:app /app/dist ./dist
-COPY --from=build --chown=app:app /app/node_modules ./node_modules
-COPY --from=build --chown=app:app /app/package.json ./
-ENV NODE_ENV=production
-HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://localhost:3000/health || exit 1
-CMD ["node", "dist/server.js"]
+COPY --from=build --chown=app:app /app/<build-output> ./<build-output>
+HEALTHCHECK --interval=30s --timeout=3s CMD <health-check-command>
+CMD ["<production-command>"]
 ```
+
+**Key principles:**
+- Each stage has a single purpose
+- Production image contains only runtime artifacts
+- Non-root user in production
+- Health check included
 
 ## Container Security
 
@@ -99,7 +100,7 @@ services:
 
 ```dockerfile
 # Use specific tags (never :latest)
-FROM node:22.12-alpine3.20
+FROM python:3.12-slim-bookworm
 
 # Run as non-root
 RUN addgroup -g 1001 -S app && adduser -S app -u 1001

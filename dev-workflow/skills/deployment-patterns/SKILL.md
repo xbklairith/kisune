@@ -1,6 +1,6 @@
 ---
 name: deployment-patterns
-description: CI/CD pipelines, deployment strategies (rolling, blue-green, canary), health checks, rollback strategies, and production readiness checklists.
+description: CI/CD pipelines, deployment strategies (rolling, blue-green, canary), health checks, and rollback strategies. Use when setting up CI/CD or preparing production releases.
 ---
 
 # Deployment Patterns
@@ -46,12 +46,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: npm }
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npm test -- --coverage
+      - name: Setup language runtime
+        # Use appropriate setup action for your language
+      - name: Install dependencies
+        run: <install-command>
+      - name: Lint
+        run: <lint-command>
+      - name: Type check
+        run: <typecheck-command>
+      - name: Test with coverage
+        run: <test-command>
 
   build:
     needs: test
@@ -77,53 +81,59 @@ jobs:
 ### Pipeline Stages
 
 ```
-PR: lint → typecheck → unit tests → integration tests → preview deploy
-Main: lint → typecheck → tests → build image → staging → smoke tests → production
+PR:   lint → type check → unit tests → integration tests → preview deploy
+Main: lint → type check → tests → build image → staging → smoke tests → production
 ```
 
 ## Health Checks
 
-```typescript
-// Simple
-app.get("/health", (req, res) => res.json({ status: "ok" }))
+```
+# Simple health endpoint
+GET /health → { "status": "ok" }
 
-// Detailed (internal monitoring)
-app.get("/health/detailed", async (req, res) => {
-  const checks = {
-    database: await checkDatabase(),
-    redis: await checkRedis(),
+# Detailed health (internal monitoring)
+GET /health/detailed →
+{
+  "status": "ok" | "degraded",
+  "version": "<app-version>",
+  "uptime": <seconds>,
+  "checks": {
+    "database": { "status": "ok", "latency_ms": 2 },
+    "cache":    { "status": "ok", "latency_ms": 1 }
   }
-  const healthy = Object.values(checks).every(c => c.status === "ok")
-  res.status(healthy ? 200 : 503).json({
-    status: healthy ? "ok" : "degraded",
-    version: process.env.APP_VERSION,
-    uptime: process.uptime(),
-    checks,
-  })
-})
+}
+# Return 200 if healthy, 503 if degraded
 ```
 
 ## Environment Configuration
 
-```typescript
-// Validate at startup — fail fast
-import { z } from "zod"
-const envSchema = z.object({
-  NODE_ENV: z.enum(["development", "staging", "production"]),
-  PORT: z.coerce.number().default(3000),
-  DATABASE_URL: z.string().url(),
-  JWT_SECRET: z.string().min(32),
-})
-export const env = envSchema.parse(process.env)
 ```
+# Validate all required config at startup — fail fast
+# Use your language's validation library (Pydantic, Zod, viper, etc.)
+
+Required variables:
+  APP_ENV:      "development" | "staging" | "production"
+  PORT:         integer, default 8080
+  DATABASE_URL: valid connection string
+  JWT_SECRET:   string, minimum 32 characters
+```
+
+**Rules:**
+- Validate at startup, crash immediately if invalid
+- Never hardcode secrets — use environment variables or secret managers
+- Different configs per environment (dev/staging/prod)
 
 ## Rollback Strategy
 
 ```bash
 kubectl rollout undo deployment/app      # Kubernetes
-vercel rollback                          # Vercel
-railway up --commit <previous-sha>       # Railway
+# Or redeploy the previous container image tag
 ```
+
+**Rules:**
+- Always tag releases with git SHA or semantic version
+- Keep previous 3 versions deployable
+- Test rollback procedure before you need it
 
 ## Production Readiness Checklist
 

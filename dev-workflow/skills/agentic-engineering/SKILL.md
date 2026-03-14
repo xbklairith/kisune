@@ -1,6 +1,6 @@
 ---
 name: agentic-engineering
-description: Operate as an agentic engineer — eval-first execution, task decomposition, cost-aware model routing (Haiku/Sonnet/Opus), and AI-generated code review focus.
+description: Operate as an agentic engineer — eval-first execution, task decomposition, cost-aware model routing (Haiku/Sonnet/Opus). Use when setting up AI-assisted workflows or optimizing model routing.
 ---
 
 # Agentic Engineering

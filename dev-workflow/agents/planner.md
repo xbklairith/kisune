@@ -1,8 +1,6 @@
 ---
 name: planner
 description: Implementation planning specialist for complex features and refactoring. Use PROACTIVELY when users request feature implementation, architectural changes, or complex refactoring.
-tools: ["Read", "Grep", "Glob"]
-model: sonnet
 ---
 
 # Planner Agent
@@ -52,11 +50,11 @@ model: sonnet
 [Recommended approach with reasoning]
 
 ### Files to Modify
-1. `path/to/file.ts` — [what changes]
-2. `path/to/other.ts` — [what changes]
+1. `path/to/file` — [what changes]
+2. `path/to/other` — [what changes]
 
 ### New Files
-1. `path/to/new.ts` — [purpose]
+1. `path/to/new-file` — [purpose]
 
 ### Steps
 1. [First step with details]

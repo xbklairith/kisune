@@ -297,7 +297,7 @@
 **Objective:** Ensure comprehensive test coverage
 
 **Tasks:**
-- [ ] Run coverage report: `npm run test:coverage`
+- [ ] Run coverage report: `<test-coverage-command>`
 - [ ] Identify untested code paths
 - [ ] Add tests for uncovered areas
   - Target: [X%] coverage
@@ -376,9 +376,9 @@
 **Final Checks:**
 
 - [ ] All tasks above completed
-- [ ] All tests passing: `npm test`
-- [ ] No linter errors: `npm run lint`
-- [ ] No type errors: `npm run type-check`
+- [ ] All tests passing: `<test-command>`
+- [ ] No linter errors: `<lint-command>`
+- [ ] No type errors: `<typecheck-command>`
 - [ ] Test coverage meets threshold
 - [ ] Documentation updated
 - [ ] Code review completed

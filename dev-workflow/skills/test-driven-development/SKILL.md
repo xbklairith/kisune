@@ -85,34 +85,30 @@ Implement fresh from tests. Period.
 Write one minimal test showing what should happen.
 
 <Good>
-```typescript
-test('retries failed operations 3 times', async () => {
-  let attempts = 0;
-  const operation = () => {
-    attempts++;
-    if (attempts < 3) throw new Error('fail');
-    return 'success';
-  };
+```
+test "retries failed operations 3 times":
+    attempts = 0
+    def operation():
+        attempts += 1
+        if attempts < 3: raise Error("fail")
+        return "success"
 
-  const result = await retryOperation(operation);
+    result = retry_operation(operation)
 
-  expect(result).toBe('success');
-  expect(attempts).toBe(3);
-});
+    assert result == "success"
+    assert attempts == 3
 ```
 Clear name, tests real behavior, one thing
 </Good>
 
 <Bad>
-```typescript
-test('retry works', async () => {
-  const mock = jest.fn()
-    .mockRejectedValueOnce(new Error())
-    .mockRejectedValueOnce(new Error())
-    .mockResolvedValueOnce('success');
-  await retryOperation(mock);
-  expect(mock).toHaveBeenCalledTimes(3);
-});
+```
+test "retry works":
+    mock = create_mock()
+        .fails_twice()
+        .then_returns("success")
+    retry_operation(mock)
+    assert mock.call_count == 3
 ```
 Vague name, tests mock not code
 </Bad>
@@ -126,9 +122,7 @@ Vague name, tests mock not code
 
 **MANDATORY. Never skip.**
 
-```bash
-npm test path/to/test.test.ts
-```
+Run the project's test command targeting the specific test file.
 
 Confirm:
 - Test fails (not errors)
@@ -144,33 +138,24 @@ Confirm:
 Write simplest code to pass the test.
 
 <Good>
-```typescript
-async function retryOperation<T>(fn: () => Promise<T>): Promise<T> {
-  for (let i = 0; i < 3; i++) {
-    try {
-      return await fn();
-    } catch (e) {
-      if (i === 2) throw e;
-    }
-  }
-  throw new Error('unreachable');
-}
+```
+def retry_operation(fn, max_retries=3):
+    for i in range(max_retries):
+        try:
+            return fn()
+        except Error:
+            if i == max_retries - 1: raise
+    raise Error("unreachable")
 ```
 Just enough to pass
 </Good>
 
 <Bad>
-```typescript
-async function retryOperation<T>(
-  fn: () => Promise<T>,
-  options?: {
-    maxRetries?: number;
-    backoff?: 'linear' | 'exponential';
-    onRetry?: (attempt: number) => void;
-  }
-): Promise<T> {
-  // YAGNI
-}
+```
+def retry_operation(fn, options=None):
+    # options: max_retries, backoff_strategy, on_retry_callback
+    # Configurable backoff: linear, exponential
+    # YAGNI - all of this
 ```
 Over-engineered
 </Bad>
@@ -181,9 +166,7 @@ Don't add features, refactor other code, or "improve" beyond the test.
 
 **MANDATORY.**
 
-```bash
-npm test path/to/test.test.ts
-```
+Run the project's test command.
 
 Confirm:
 - Test passes
@@ -211,8 +194,8 @@ Next failing test for next feature.
 
 | Quality | Good | Bad |
 |---------|------|-----|
-| **Minimal** | One thing. "and" in name? Split it. | `test('validates email and domain and whitespace')` |
-| **Clear** | Name describes behavior | `test('test1')` |
+| **Minimal** | One thing. "and" in name? Split it. | `test "validates email and domain and whitespace"` |
+| **Clear** | Name describes behavior | `test "test1"` |
 | **Shows intent** | Demonstrates desired API | Obscures what code should do |
 
 ## Why Order Matters
@@ -304,32 +287,29 @@ Tests-first force edge case discovery before implementing. Tests-after verify yo
 **Bug:** Empty email accepted
 
 **RED**
-```typescript
-test('rejects empty email', async () => {
-  const result = await submitForm({ email: '' });
-  expect(result.error).toBe('Email required');
-});
+```
+test "rejects empty email":
+    result = submit_form(email="")
+    assert result.error == "Email required"
 ```
 
 **Verify RED**
-```bash
-$ npm test
-FAIL: expected 'Email required', got undefined
+```
+$ <test-command>
+FAIL: expected "Email required", got None
 ```
 
 **GREEN**
-```typescript
-function submitForm(data: FormData) {
-  if (!data.email?.trim()) {
-    return { error: 'Email required' };
-  }
-  // ...
-}
+```
+def submit_form(data):
+    if not data.email or not data.email.strip():
+        return Result(error="Email required")
+    # ...
 ```
 
 **Verify GREEN**
-```bash
-$ npm test
+```
+$ <test-command>
 PASS
 ```
 

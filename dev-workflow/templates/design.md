@@ -28,20 +28,10 @@ How this feature integrates with the existing system:
 - [Other components or services it needs]
 
 **Public Interface:**
-```typescript
-// For TypeScript/JavaScript
-interface ComponentName {
-  method1(param: Type): ReturnType;
-  method2(param: Type): ReturnType;
-}
 ```
-
-```python
-# For Python
-class ComponentName:
-    def method1(self, param: Type) -> ReturnType:
-        """Brief description"""
-        pass
+interface ComponentName:
+    method1(param: Type) -> ReturnType
+    method2(param: Type) -> ReturnType
 ```
 
 **Key Behaviors:**
@@ -108,15 +98,7 @@ class ComponentName:
 
 **Request:**
 
-```typescript
-// TypeScript example
-interface RequestType {
-  field1: string;
-  field2: number;
-  field3?: boolean; // Optional
-}
-```
-
+**Schema:**
 ```json
 {
   "field1": "example value",
@@ -126,16 +108,6 @@ interface RequestType {
 ```
 
 **Response (Success):**
-
-```typescript
-interface ResponseType {
-  success: boolean;
-  data: {
-    result: string;
-    metadata: object;
-  };
-}
-```
 
 ```json
 {
@@ -176,15 +148,13 @@ interface ResponseType {
 
 **Schema:**
 
-```typescript
-// TypeScript example
-interface ModelName {
-  id: string;              // UUID, primary key
-  field1: string;          // Description
-  field2: number;          // Description
-  createdAt: Date;         // Timestamp of creation
-  updatedAt: Date;         // Timestamp of last update
-}
+```
+ModelName:
+  id: string              # UUID, primary key
+  field1: string          # Description
+  field2: number          # Description
+  created_at: datetime    # Timestamp of creation
+  updated_at: datetime    # Timestamp of last update
 ```
 
 **Relationships:**

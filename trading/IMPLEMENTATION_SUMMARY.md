@@ -179,8 +179,9 @@ Total Lines of Code/Documentation: 3,499
 
 ### Installation
 ```bash
-# Copy to Claude plugins directory
-cp -r trading ~/.claude/plugins/trading
+# Plugin marketplace
+/plugin marketplace add xbklairith/kisune
+/plugin install trading@xbklairith-kisune
 ```
 
 ### Test Skills

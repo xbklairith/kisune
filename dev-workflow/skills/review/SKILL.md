@@ -24,137 +24,137 @@ Activate this skill when:
 ### 1. Code Structure
 
 **Single Responsibility Principle (SRP)**
-- ✅ Check: Each function/class has one clear purpose
-- ❌ Red Flag: Functions doing multiple unrelated things
-- 💡 Suggestion: Split into focused, single-purpose functions
+- Check: Each function/class has one clear purpose
+- Red Flag: Functions doing multiple unrelated things
+- Fix: Split into focused, single-purpose functions
 
 **DRY (Don't Repeat Yourself)**
-- ✅ Check: No duplicated logic
-- ❌ Red Flag: Copy-pasted code blocks
-- 💡 Suggestion: Extract to shared function/utility
+- Check: No duplicated logic
+- Red Flag: Copy-pasted code blocks
+- Fix: Extract to shared function/utility
 
 **Function Length**
-- ✅ Check: Functions under 50 lines (prefer under 30)
-- ❌ Red Flag: Functions over 100 lines
-- 💡 Suggestion: Break into smaller, composable functions
+- Check: Functions under 50 lines (prefer under 30)
+- Red Flag: Functions over 100 lines
+- Fix: Break into smaller, composable functions
 
 **Naming Clarity**
-- ✅ Check: Names clearly describe purpose
-- ❌ Red Flag: Vague names (data, info, temp, x, y)
-- 💡 Suggestion: Use descriptive, intention-revealing names
+- Check: Names clearly describe purpose
+- Red Flag: Vague names (data, info, temp, x, y)
+- Fix: Use descriptive, intention-revealing names
 
 **Magic Numbers**
-- ✅ Check: Constants are named
-- ❌ Red Flag: Unexplained numbers in code
-- 💡 Suggestion: Extract to named constants
+- Check: Constants are named
+- Red Flag: Unexplained numbers in code
+- Fix: Extract to named constants
 
 ### 2. Error Handling
 
 **All Errors Caught**
-- ✅ Check: Try-catch blocks around risky operations
-- ❌ Red Flag: Unhandled promise rejections, missing error handling
-- 💡 Suggestion: Add comprehensive error handling
+- Check: Error handling around risky operations
+- Red Flag: Unhandled exceptions, missing error handling
+- Fix: Add comprehensive error handling
 
 **No Silent Failures**
-- ✅ Check: Errors are logged or surfaced
-- ❌ Red Flag: Empty catch blocks, ignored errors
-- 💡 Suggestion: Log errors with context, alert user appropriately
+- Check: Errors are logged or surfaced
+- Red Flag: Empty catch blocks, ignored errors
+- Fix: Log errors with context, alert user appropriately
 
 **User-Friendly Error Messages**
-- ✅ Check: Errors explain what went wrong and what to do
-- ❌ Red Flag: Technical jargon exposed to users
-- 💡 Suggestion: Translate technical errors to user language
+- Check: Errors explain what went wrong and what to do
+- Red Flag: Technical jargon exposed to users
+- Fix: Translate technical errors to user language
 
 **Logging for Debugging**
-- ✅ Check: Appropriate logging at key points
-- ❌ Red Flag: No logging or excessive logging
-- 💡 Suggestion: Add structured logging with context
+- Check: Appropriate logging at key points
+- Red Flag: No logging or excessive logging
+- Fix: Add structured logging with context
 
 **Edge Cases Covered**
-- ✅ Check: Boundary conditions handled (null, undefined, empty, zero)
-- ❌ Red Flag: Assumptions about inputs
-- 💡 Suggestion: Add defensive checks and validation
+- Check: Boundary conditions handled (null, empty, zero)
+- Red Flag: Assumptions about inputs
+- Fix: Add defensive checks and validation
 
 ### 3. Security
 
 **Input Validation**
-- ✅ Check: All user inputs validated and sanitized
-- ❌ Red Flag: Raw user input used directly
-- 💡 Suggestion: Add validation with schema libraries (Zod, Joi, etc.)
+- Check: All user inputs validated and sanitized
+- Red Flag: Raw user input used directly
+- Fix: Add validation with schema validation library
 
 **SQL Injection Prevention**
-- ✅ Check: Parameterized queries or ORM used
-- ❌ Red Flag: String concatenation in SQL
-- 💡 Suggestion: Use prepared statements or ORM methods
+- Check: Parameterized queries or ORM used
+- Red Flag: String concatenation in SQL
+- Fix: Use prepared statements or ORM methods
 
 **XSS Prevention**
-- ✅ Check: HTML output escaped, CSP headers set
-- ❌ Red Flag: innerHTML with user content
-- 💡 Suggestion: Use textContent or framework's safe rendering
+- Check: HTML output escaped, CSP headers set
+- Red Flag: Raw HTML rendering of user content
+- Fix: Use safe rendering or sanitize before output
 
 **Sensitive Data Handling**
-- ✅ Check: Passwords hashed, PII encrypted, secure transmission
-- ❌ Red Flag: Plain text secrets, sensitive data in logs
-- 💡 Suggestion: Use bcrypt, encrypt at rest, sanitize logs
+- Check: Passwords hashed, PII encrypted, secure transmission
+- Red Flag: Plain text secrets, sensitive data in logs
+- Fix: Use bcrypt/argon2, encrypt at rest, sanitize logs
 
 **Environment Variables for Secrets**
-- ✅ Check: API keys, credentials in .env files
-- ❌ Red Flag: Hardcoded credentials in code
-- 💡 Suggestion: Move to environment variables, use secret managers
+- Check: API keys, credentials in environment or secret manager
+- Red Flag: Hardcoded credentials in code
+- Fix: Move to environment variables, use secret managers
 
 ### 4. Performance
 
 **No N+1 Queries**
-- ✅ Check: Batch queries, eager loading used
-- ❌ Red Flag: Query inside loop
-- 💡 Suggestion: Use includes/joins, batch operations
+- Check: Batch queries, eager loading used
+- Red Flag: Query inside loop
+- Fix: Use includes/joins, batch operations
 
 **Appropriate Caching**
-- ✅ Check: Expensive operations cached
-- ❌ Red Flag: Repeated identical API calls or computations
-- 💡 Suggestion: Add caching layer (Redis, in-memory, etc.)
+- Check: Expensive operations cached
+- Red Flag: Repeated identical API calls or computations
+- Fix: Add caching layer (Redis, in-memory, etc.)
 
 **Database Indexes**
-- ✅ Check: Indexed columns used in WHERE/JOIN clauses
-- ❌ Red Flag: Full table scans on large tables
-- 💡 Suggestion: Add indexes on frequently queried columns
+- Check: Indexed columns used in WHERE/JOIN clauses
+- Red Flag: Full table scans on large tables
+- Fix: Add indexes on frequently queried columns
 
 **Unnecessary Computations**
-- ✅ Check: Early returns, lazy evaluation
-- ❌ Red Flag: Work done before checking preconditions
-- 💡 Suggestion: Move expensive operations after validation
+- Check: Early returns, lazy evaluation
+- Red Flag: Work done before checking preconditions
+- Fix: Move expensive operations after validation
 
 **Memory Leak Prevention**
-- ✅ Check: Event listeners cleaned up, connections closed
-- ❌ Red Flag: Growing arrays, unclosed connections
-- 💡 Suggestion: Add cleanup in finally blocks, use weak references
+- Check: Resources cleaned up, connections closed
+- Red Flag: Growing collections, unclosed connections
+- Fix: Add cleanup in finally blocks, use resource management patterns
 
 ### 5. Testing
 
 **Tests Exist**
-- ✅ Check: Tests cover new functionality
-- ❌ Red Flag: No tests for new code
-- 💡 Suggestion: Write tests for all new functions/components
+- Check: Tests cover new functionality
+- Red Flag: No tests for new code
+- Fix: Write tests for all new functions/components
 
 **Edge Cases Tested**
-- ✅ Check: Boundary conditions, null/undefined handled
-- ❌ Red Flag: Only happy path tested
-- 💡 Suggestion: Add tests for edge cases and error conditions
+- Check: Boundary conditions handled
+- Red Flag: Only happy path tested
+- Fix: Add tests for edge cases and error conditions
 
 **Happy Path Tested**
-- ✅ Check: Normal operation verified
-- ❌ Red Flag: No positive test cases
-- 💡 Suggestion: Add tests for expected behavior
+- Check: Normal operation verified
+- Red Flag: No positive test cases
+- Fix: Add tests for expected behavior
 
 **Error Conditions Tested**
-- ✅ Check: Invalid inputs, failures handled
-- ❌ Red Flag: Error paths not verified
-- 💡 Suggestion: Add tests for error scenarios
+- Check: Invalid inputs, failures handled
+- Red Flag: Error paths not verified
+- Fix: Add tests for error scenarios
 
 **Tests Are Maintainable**
-- ✅ Check: Clear test names, minimal duplication
-- ❌ Red Flag: Complex test setup, brittle assertions
-- 💡 Suggestion: Extract test helpers, use clear assertions
+- Check: Clear test names, minimal duplication
+- Red Flag: Complex test setup, brittle assertions
+- Fix: Extract test helpers, use clear assertions
 
 ## Review Process
 
@@ -196,7 +196,7 @@ Systematically go through:
 **UltraThink Architectural Issues:**
 If review reveals fundamental architectural problems, activate deep thinking:
 
-> 🗣 Say: "This code has architectural issues. Let me ultrathink whether refactoring or redesign is needed."
+> Say: "This code has architectural issues. Let me ultrathink whether refactoring or redesign is needed."
 
 **When to UltraThink:**
 - Code violates multiple principles (SRP, DRY, YAGNI)
@@ -221,56 +221,49 @@ If review reveals fundamental architectural problems, activate deep thinking:
 ```markdown
 ## Code Review: [File/Feature Name]
 
-### ✅ Strengths
+### Strengths
 
 [List what's done well - be specific and encouraging]
 - Clear function naming in authentication module
 - Comprehensive error handling for API calls
 - Good test coverage (87%)
 
-### ⚠️ Issues Found
+### Issues Found
 
 #### Priority: High - Must Fix Before Merge
 1. **[Issue Title]**
-   - **Location:** `file.js:42`
+   - **Location:** `file:line`
    - **Problem:** [Specific description]
    - **Risk:** [What could go wrong]
    - **Fix:** [How to resolve]
 
 #### Priority: Medium - Should Address
 1. **[Issue Title]**
-   - **Location:** `file.js:78`
+   - **Location:** `file:line`
    - **Problem:** [Description]
    - **Impact:** [Effect on code quality]
    - **Suggestion:** [Improvement approach]
 
 #### Priority: Low - Consider Improving
 1. **[Issue Title]**
-   - **Location:** `file.js:120`
+   - **Location:** `file:line`
    - **Note:** [Observation]
    - **Enhancement:** [Optional improvement]
 
-### 💡 Refactoring Suggestions
+### Refactoring Suggestions
 
 #### Suggestion 1: [Title]
 **Current Code:**
-```javascript
-// Show problematic code
-```
+[Show problematic pattern]
 
 **Refactored Code:**
-```javascript
-// Show improved version
-```
+[Show improved version]
 
 **Benefits:**
 - [Benefit 1]
 - [Benefit 2]
 
-#### Suggestion 2: [Title]
-[Similar format]
-
-### 📊 Code Metrics
+### Code Metrics
 
 - **Complexity:** [Low/Medium/High]
 - **Test Coverage:** [X%]
@@ -278,7 +271,7 @@ If review reveals fundamental architectural problems, activate deep thinking:
 - **Lines of Code:** [N]
 - **Duplicated Code:** [X%]
 
-### 🎯 Action Items
+### Action Items
 
 - [ ] Fix high-priority issues
 - [ ] Address medium-priority items
@@ -300,149 +293,25 @@ If review reveals fundamental architectural problems, activate deep thinking:
 
 **User:** "I'm about to commit, can you review my changes?"
 
-**Assistant:**
-```
-Activating review skill for pre-commit review.
+**Process:**
+1. Run `git diff --cached` to see staged changes
+2. Identify changed files
+3. Apply 25-point checklist
+4. Generate report with priorities
 
-Running: git diff --cached
-
-Found changes in:
-- src/auth/login.js
-- src/auth/session.js
-- tests/auth/login.test.js
-
-Performing comprehensive review...
-
-## Code Review: Authentication Changes
-
-### ✅ Strengths
-- Comprehensive test coverage for login flow
-- Clear separation of concerns between login and session
-- Good use of async/await for API calls
-
-### ⚠️ Issues Found
-
-#### Priority: High - Must Fix Before Merge
-1. **Missing Input Validation**
-   - **Location:** `src/auth/login.js:23`
-   - **Problem:** Email and password not validated before API call
-   - **Risk:** Invalid inputs could crash backend or expose security issue
-   - **Fix:** Add validation with Zod schema
-
-**Current Code:**
-```javascript
-const login = async (email, password) => {
-  const response = await api.post('/auth/login', { email, password });
-  return response.data;
-};
-```
-
-**Suggested Fix:**
-```javascript
-import { z } from 'zod';
-
-const loginSchema = z.object({
-  email: z.string().email('Invalid email format'),
-  password: z.string().min(8, 'Password must be at least 8 characters')
-});
-
-const login = async (email, password) => {
-  // Validate inputs
-  const validated = loginSchema.parse({ email, password });
-
-  const response = await api.post('/auth/login', validated);
-  return response.data;
-};
-```
-
-#### Priority: Medium - Should Address
-1. **Missing Error Handling**
-   - **Location:** `src/auth/login.js:23`
-   - **Problem:** No try-catch for API call
-   - **Impact:** Unhandled promise rejections
-   - **Suggestion:** Add error handling with user-friendly messages
-
-[...continues with full review...]
-
-**Overall Assessment:** Good implementation with solid test coverage, but needs input validation and error handling before commit.
-
-**Recommendation:** Request Changes - Fix high-priority issues before committing.
-
-[Confidence: 0.9]
-```
+Focus on: Input validation, error handling, security, and test coverage for new code.
 
 ### Example 2: Refactoring Request
 
-**User:** "Can you suggest improvements for src/utils/calculator.js?"
+**User:** "Can you suggest improvements for this module?"
 
-**Assistant:**
-```
-Activating review skill for refactoring analysis.
+**Process:**
+1. Read the file(s)
+2. Identify code smells: magic numbers, duplicated logic, long functions
+3. Propose specific refactorings with before/after pseudocode
+4. Explain benefits of each change
 
-Reading: src/utils/calculator.js
-
-Analyzing code structure and quality...
-
-## Code Review: Calculator Utility
-
-### ✅ Strengths
-- Pure functions, no side effects
-- Good mathematical accuracy
-
-### 💡 Refactoring Suggestions
-
-#### Suggestion 1: Extract Magic Numbers
-**Current Code:**
-```javascript
-function calculateFee(amount) {
-  return amount * 0.029 + 0.30;
-}
-```
-
-**Refactored Code:**
-```javascript
-const STRIPE_PERCENTAGE_FEE = 0.029;
-const STRIPE_FIXED_FEE = 0.30;
-
-function calculateFee(amount) {
-  return amount * STRIPE_PERCENTAGE_FEE + STRIPE_FIXED_FEE;
-}
-```
-
-**Benefits:**
-- Self-documenting code
-- Easier to update fees
-- Clearer business logic
-
-#### Suggestion 2: Add Input Validation
-**Current Code:**
-```javascript
-function calculateFee(amount) {
-  return amount * 0.029 + 0.30;
-}
-```
-
-**Refactored Code:**
-```javascript
-function calculateFee(amount) {
-  if (typeof amount !== 'number' || amount < 0) {
-    throw new Error('Amount must be a non-negative number');
-  }
-  return amount * STRIPE_PERCENTAGE_FEE + STRIPE_FIXED_FEE;
-}
-```
-
-**Benefits:**
-- Prevents calculation errors
-- Fails fast with clear error
-- Self-validating function
-
-[...continues with more suggestions...]
-
-Would you like me to apply these refactorings?
-
-[Confidence: 0.9]
-```
+Focus on: Named constants, extracted functions, input validation, and cleaner error handling.
 
 ## Integration Points
 

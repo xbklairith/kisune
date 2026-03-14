@@ -19,13 +19,12 @@ Perfect for traders who want to systematically develop, document, and implement 
 ### Install the Plugin
 
 ```bash
-# Navigate to your Claude plugins directory
-cd ~/.claude/plugins
+# Option 1: Plugin marketplace (recommended)
+/plugin marketplace add xbklairith/kisune
+/plugin install trading@xbklairith-kisune
 
-# Clone or copy the trading plugin
-git clone [repository-url] trading
-
-# Or manually copy the trading folder to ~/.claude/plugins/trading
+# Option 2: Clone repo and cd — plugins auto-load
+git clone git@github.com:xbklairith/kisune.git && cd kisune
 ```
 
 ### Verify Installation

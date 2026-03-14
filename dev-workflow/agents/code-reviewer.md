@@ -1,8 +1,6 @@
 ---
 name: code-reviewer
 description: Expert code review specialist. Use PROACTIVELY after writing or modifying code. Reviews for quality, security, and maintainability.
-tools: ["Read", "Grep", "Glob", "Bash"]
-model: sonnet
 ---
 
 # Code Reviewer Agent

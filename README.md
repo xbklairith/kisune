@@ -1,81 +1,121 @@
-# Claude Code Plugins
+# Kisune — Claude Code Plugins
 
-Two production-ready Claude Code plugins for trading and development workflows.
+Two plugins for Claude Code: **trading analysis** and **dev-workflow** toolkit.
 
-## Plugins
+## Install
 
-### 1. Trading Plugin 📈
-**Location:** `trading/`
-
-Multi-market trading analysis and strategy research toolkit for advanced traders.
-
-- **Analyze** - Technical indicators, support/resistance, multi-timeframe
-- **Research** - Systematic documentation with edge hypothesis framework
-- **Pattern** - Chart patterns, price action, personal library
-- **Translate** - Convert strategies to Python + Pine Script
-
-**Skills auto-activate via natural language.**
-
-### 2. Dev-Workflow Plugin 🛠️
-**Location:** `dev-workflow/`
-
-Integrated development lifecycle combining spec-driven development with code quality.
-
-- **Spec-Driven** - 5-phase workflow (Requirements → Design → Tasks → Execute)
-- **Review** - 25-point review checklist
-- **Git Workflow** - Smart commits, PR creation
-- **Documentation** - Code docs, API specs, diagrams
-- **Testing** - TDD framework + systematic debugging
-
-**Commands:** `/dev-workflow:spec`
-
-## Quick Start
+### Option 1: Plugin Marketplace (recommended)
 
 ```bash
-# Install globally
-cp -r trading ~/.claude/plugins/trading
-cp -r dev-workflow ~/.claude/plugins/dev-workflow
-
-# Or use locally from this directory
-# Restart Claude Code
+# Add this repo as a marketplace, then install
+/plugin marketplace add xbklairith/kisune
+/plugin install trading@xbklairith-kisune
+/plugin install dev-workflow@xbklairith-kisune
 ```
 
-**Full Documentation:**
-- Installation: `PLUGINS_INSTALLATION.md`
-- Spec Compliance: `SPEC_COMPLIANCE_REPORT.md`
-- Templates Usage: `TEMPLATES_USAGE.md`
+### Option 2: Local Development
 
-## Status
+```bash
+# Clone and cd — plugins auto-load from this directory
+git clone git@github.com:xbklairith/kisune.git && cd kisune
 
-✅ **Production Ready**
-- 100% compliant with official Claude Code specifications
-- Fully tested and validated
-- Complete documentation
+# Or load a specific plugin for testing
+claude --plugin-dir ./dev-workflow
+```
 
-## Statistics
+---
 
-- **26 files** total
-- **8,615 lines** of code
-- **9 skills** (4 trading + 5 dev-workflow)
-- **1 command** + natural language skill activation
-- **6 templates** for rapid workflow
+## Trading Plugin
 
-## Documentation
+4 skills that auto-activate via natural language.
 
-### Design & Planning
-- `docx/plans/2025-11-17-trading-plugin-design.md`
-- `docx/plans/2025-11-17-trading-plugin-implementation.md`
-- `docx/plans/2025-11-17-dev-workflow-plugin-design.md`
-- `docx/plans/2025-11-17-dev-workflow-plugin-implementation.md`
+| Skill | Triggers | What it does |
+|-------|----------|-------------|
+| `analyze` | "analyze BTC", "check this chart" | Technical indicators, S/R, multi-timeframe |
+| `research` | "document my strategy" | Systematic strategy documentation |
+| `pattern` | "what pattern is this?" | Chart pattern identification |
+| `translate` | "convert to Python" | Strategy to Python + Pine Script |
 
-### User Guides
-- `PLUGINS_INSTALLATION.md` - Setup and quick start
-- `TEMPLATES_USAGE.md` - Template usage guide
-- `SPEC_COMPLIANCE_REPORT.md` - Compliance verification
+---
 
-### Plugin READMEs
-- `trading/README.md` - Complete trading plugin documentation
-- `dev-workflow/README.md` - Complete dev-workflow documentation
+## Dev-Workflow Plugin
+
+20 skills, 8 agents, 1 command. Language-agnostic, focused on software architecture.
+
+### Command
+
+```
+/dev-workflow:spec    # Launch spec-driven workflow (interactive menu)
+```
+
+### Skills by Category
+
+**Planning**
+| Skill | Triggers |
+|-------|----------|
+| `spec-driven-planning` | "plan new feature", "create specs" |
+| `brainstorming` | "not sure how to approach this" |
+
+**Implementation**
+| Skill | Triggers |
+|-------|----------|
+| `spec-driven-implementation` | "implement this", "let's code" |
+| `test-driven-development` | "implement feature", "fix this bug" |
+
+**Quality**
+| Skill | Triggers |
+|-------|----------|
+| `review` | "review my code", "check this" |
+| `security-review` | "check security", handles auth/input code |
+| `git-workflow` | "commit", "create PR", "push" |
+| `documentation` | "document this", "write README" |
+| `systematic-testing` | "write tests", "debug this" |
+| `skill-maker` | "create a skill", "edit skill" |
+
+**Architecture & Infrastructure**
+| Skill | Triggers |
+|-------|----------|
+| `api-design` | "design API", "review endpoint" |
+| `backend-patterns` | "implement service", "fix N+1" |
+| `database-migrations` | "alter table", "add column" |
+| `deployment-patterns` | "set up CI/CD", "production release" |
+| `e2e-testing` | "write E2E test", "Playwright" |
+| `docker-patterns` | "Dockerize", "docker compose" |
+
+**AI/Meta**
+| Skill | Triggers |
+|-------|----------|
+| `agentic-engineering` | "AI workflow", "model routing" |
+| `eval-harness` | "define pass/fail", "eval" |
+| `search-first` | "before writing custom code" |
+
+**Frontend**
+| Skill | Triggers |
+|-------|----------|
+| `frontend-design` | "build UI", "create component" |
+
+### Agents (auto-activate proactively)
+
+| Agent | When it activates |
+|-------|------------------|
+| `architect` | Planning new features, architectural decisions |
+| `build-error-resolver` | Build fails, compilation errors |
+| `code-reviewer` | After writing or modifying code |
+| `database-reviewer` | Writing SQL, designing schemas |
+| `planner` | Complex feature requests, large refactors |
+| `refactor-cleaner` | Dead code, duplicates, unused dependencies |
+| `security-reviewer` | Auth code, user input, API endpoints |
+| `tdd-guide` | New features, bug fixes, refactoring |
+
+---
+
+## Stats
+
+- **24 skills** (4 trading + 20 dev-workflow)
+- **8 agents** (proactive, auto-activate)
+- **1 command** (`/dev-workflow:spec`)
+- **51 files**, ~9,600 lines
+- Language-agnostic, spec-compliant
 
 ## License
 

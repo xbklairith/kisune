@@ -1,6 +1,6 @@
 ---
 name: security-review
-description: Security vulnerability detection and remediation. Use PROACTIVELY after writing code that handles user input, authentication, API endpoints, payments, or sensitive data. Flags OWASP Top 10 vulnerabilities, hardcoded secrets, and unsafe patterns.
+description: OWASP Top 10 vulnerability detection. Use PROACTIVELY for code handling user input, auth, APIs, payments, or sensitive data.
 ---
 
 # Security Review Skill
@@ -21,15 +21,15 @@ description: Security vulnerability detection and remediation. Use PROACTIVELY a
 ### 1. Secrets Management
 
 **BAD:**
-```javascript
-const API_KEY = "sk-abc123def456";
-const dbUrl = "postgres://admin:password@prod-db:5432/app";
+```
+API_KEY = "sk-abc123def456"
+db_url = "postgres://admin:password@prod-db:5432/app"
 ```
 
 **GOOD:**
-```javascript
-const API_KEY = process.env.API_KEY;
-const dbUrl = process.env.DATABASE_URL;
+```
+API_KEY = env("API_KEY")
+db_url = env("DATABASE_URL")
 ```
 
 **Verify:**
@@ -42,20 +42,19 @@ const dbUrl = process.env.DATABASE_URL;
 ### 2. Input Validation
 
 **BAD:**
-```javascript
-app.get('/user', (req, res) => {
-  const id = req.query.id; // No validation
-  db.query(`SELECT * FROM users WHERE id = ${id}`);
-});
+```
+def get_user(request):
+    id = request.query("id")          # No validation
+    db.query("SELECT * FROM users WHERE id = " + id)  # SQL injection!
 ```
 
 **GOOD:**
-```javascript
-app.get('/user', (req, res) => {
-  const id = parseInt(req.query.id, 10);
-  if (isNaN(id) || id <= 0) return res.status(400).json({ error: 'Invalid ID' });
-  db.query('SELECT * FROM users WHERE id = $1', [id]);
-});
+```
+def get_user(request):
+    id = parse_int(request.query("id"))
+    if id is None or id <= 0:
+        return error_response(400, "Invalid ID")
+    db.query("SELECT * FROM users WHERE id = $1", [id])  # Parameterized
 ```
 
 **Verify:**
@@ -86,22 +85,23 @@ app.get('/user', (req, res) => {
 ### 5. XSS Prevention
 
 **BAD:**
-```jsx
-<div dangerouslySetInnerHTML={{ __html: userComment }} />
+```
+# Rendering raw user HTML without sanitization
+render_html(user_comment)
 ```
 
 **GOOD:**
-```jsx
-import DOMPurify from 'dompurify';
-<div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userComment) }} />
-// Or better: just render as text
-<div>{userComment}</div>
+```
+# Sanitize before rendering, or render as plain text
+render_html(sanitize(user_comment))
+# Or better: render as plain text (no HTML interpretation)
+render_text(user_comment)
 ```
 
 **Verify:**
 - [ ] User content HTML-escaped before rendering
 - [ ] CSP headers configured and restrictive
-- [ ] No `eval()` or `new Function()` with user input
+- [ ] No dynamic code execution (eval, exec) with user input
 - [ ] URL parameters sanitized before use
 
 ### 6. CSRF Protection
@@ -131,15 +131,15 @@ import DOMPurify from 'dompurify';
 ### 9. Dependency Security
 
 **Verify:**
-- [ ] No known vulnerable dependencies (`npm audit` / `pip audit` clean)
+- [ ] No known vulnerable dependencies (run your language's audit tool)
 - [ ] Dependencies pinned to specific versions
-- [ ] Lock files (`package-lock.json`, `poetry.lock`) committed
+- [ ] Lock files committed to version control
 - [ ] Regular dependency updates scheduled
 
 ## Pre-Deployment Checklist
 
 - [ ] All security checklist items verified
-- [ ] No `TODO: fix security` or `// HACK` comments left
+- [ ] No `TODO: fix security` or `HACK` comments left
 - [ ] Error pages don't expose stack traces in production
 - [ ] Debug mode disabled in production config
 - [ ] Logging doesn't include sensitive data

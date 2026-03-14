@@ -1,6 +1,6 @@
 ---
 name: spec-driven-planning
-description: MANDATORY planning methodology — creates structured specs in docx/features/ with EARS requirements and technical design. MUST activate instead of ad-hoc planning when user wants to build, create, or plan any feature. Always use BEFORE writing production code.
+description: MANDATORY planning — creates specs in docx/features/ with EARS requirements and technical design. MUST activate instead of ad-hoc planning for any new feature.
 ---
 
 # Spec-Driven Planning Skill

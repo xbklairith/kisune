@@ -105,16 +105,13 @@ ls -R dev-workflow/
 ### Test Plugins
 
 ```bash
-# Install locally for testing (from this directory)
+# Option 1: Plugin marketplace (recommended)
+/plugin marketplace add xbklairith/kisune
+/plugin install trading@xbklairith-kisune
+/plugin install dev-workflow@xbklairith-kisune
+
+# Option 2: Local development (cd into this directory)
 # Plugins auto-load when Claude Code starts in this directory
-
-# Install globally
-cp -r trading ~/.claude/plugins/trading
-cp -r dev-workflow ~/.claude/plugins/dev-workflow
-
-# Verify installation in Claude Code
-/help | grep trading
-/help | grep dev-workflow
 ```
 
 ## Key Technical Details
@@ -127,20 +124,34 @@ Both plugins follow the official Claude Code plugin spec:
 - `.claude-plugin/plugin.json` - Plugin metadata (at plugin root)
 - `commands/` - Slash commands (at plugin root, NOT in .claude-plugin)
 - `skills/` - Skills (at plugin root)
+- `agents/` - Specialized agents (at plugin root)
 - `templates/` - Supporting templates (at plugin root)
 
-**Skill Frontmatter (YAML):**
+**Skill Frontmatter (YAML) — 10 valid fields:**
 ```yaml
 ---
-name: skill-name
-description: What it does and when it activates
+name: skill-name                    # kebab-case, max 64 chars
+description: What it does           # Used for auto-activation
+argument-hint: [issue-number]       # Autocomplete hint
+disable-model-invocation: true      # Prevent Claude auto-loading
+user-invocable: false               # Hide from / menu
+allowed-tools: Read, Grep, Bash     # Tools without permission prompts
+model: sonnet                       # Model override (haiku/sonnet/opus)
+context: fork                       # Run in subagent
+agent: Explore                      # Subagent type when context: fork
+hooks: {}                           # Skill-scoped hooks
 ---
 ```
 
-**IMPORTANT:** Only `name` and `description` are spec-compliant. Do NOT add:
-- `version` field (not in spec)
-- `dependencies` field (not in spec)
-- Other custom fields in frontmatter
+**IMPORTANT:** Only the 10 fields above are spec-compliant. Do NOT add custom fields like `version`, `dependencies`, `origin`, or `tools`.
+
+**Agent Frontmatter — only 2 fields:**
+```yaml
+---
+name: agent-name
+description: What it specializes in
+---
+```
 
 **Command Frontmatter:**
 ```yaml
@@ -231,7 +242,7 @@ The UltraThink pattern is integrated across 8 skills to ensure deep, first-princ
 
 ```bash
 # Navigate to repository
-cd /Users/xb/table/kisune
+cd kisune
 
 # Start Claude Code in this directory
 # Plugins auto-load from ./trading and ./dev-workflow
@@ -268,7 +279,7 @@ When adding skills to either plugin:
 4. Update plugin README.md
 5. Test skill activation
 
-**IMPORTANT:** Only use spec-compliant frontmatter fields (`name`, `description`).
+**IMPORTANT:** Only use the 10 spec-compliant frontmatter fields documented above. Keep SKILL.md under 500 lines — move reference material to separate files.
 
 ### Creating New Commands
 
@@ -379,11 +390,12 @@ Skills reference and copy these templates during workflow execution.
 ## Statistics
 
 **Trading Plugin:**
-- 4 skills, no commands, 3 templates
+- 4 skills, 3 templates
 
 **Dev-Workflow Plugin:**
-- 20 skills, 4 agents, 1 command, 3 templates
+- 20 skills, 8 agents, 1 command, 3 templates
 
 **Combined:**
-- 24 skills, 4 agents, 1 command, 6 templates
-- Production-ready, fully documented
+- 24 skills, 8 agents, 1 command, 6 templates
+- 51 files, ~9,600 lines
+- Language-agnostic, spec-compliant

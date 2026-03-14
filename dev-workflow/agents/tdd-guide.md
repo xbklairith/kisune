@@ -1,8 +1,6 @@
 ---
 name: tdd-guide
 description: TDD specialist enforcing write-tests-first methodology. Use PROACTIVELY when writing new features, fixing bugs, or refactoring. Ensures 80%+ coverage.
-tools: ["Read", "Write", "Edit", "Bash", "Grep"]
-model: sonnet
 ---
 
 # TDD Guide Agent

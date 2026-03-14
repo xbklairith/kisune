@@ -1,6 +1,6 @@
 ---
 name: database-migrations
-description: Safe database schema changes — zero-downtime migrations, expand-contract pattern, rollback strategies across PostgreSQL and common ORMs (Prisma, Drizzle, Django, golang-migrate).
+description: Safe database schema changes — zero-downtime migrations, expand-contract pattern, and rollback strategies. Use when altering database tables, adding columns, or running schema changes.
 ---
 
 # Database Migration Patterns

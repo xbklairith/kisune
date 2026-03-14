@@ -1,8 +1,6 @@
 ---
 name: security-reviewer
 description: Security vulnerability detection specialist. Use PROACTIVELY after writing code that handles user input, authentication, API endpoints, or sensitive data.
-tools: ["Read", "Grep", "Glob", "Bash"]
-model: sonnet
 ---
 
 # Security Reviewer Agent
@@ -51,7 +49,7 @@ model: sonnet
 ### 5. XSS Prevention
 - [ ] User content HTML-escaped before rendering
 - [ ] CSP headers configured
-- [ ] No `dangerouslySetInnerHTML` without sanitization
+- [ ] No raw HTML rendering of user content without sanitization
 - [ ] URL parameters sanitized
 
 ### 6. CSRF Protection

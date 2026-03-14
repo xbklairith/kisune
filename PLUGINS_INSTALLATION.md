@@ -1,336 +1,79 @@
-# Claude Code Plugins - Installation Guide
-
-**Date:** 2025-11-17
-**Plugins:** `trading` and `dev-workflow`
-
-## Overview
-
-You now have two custom Claude Code plugins ready to install:
-
-1. **Trading Plugin** - Market analysis and strategy research toolkit
-2. **Dev-Workflow Plugin** - Integrated development lifecycle with spec-driven methodology
-
----
-
-## Installation Steps
-
-### Option 1: Local Development/Testing (Recommended First)
-
-Both plugins are already in your project directory. To use them locally for testing:
-
-```bash
-# Current location:
-# - /Users/xb/table/kisune/trading/
-# - /Users/xb/table/kisune/dev-workflow/
-
-# Test them directly from here first
-cd /Users/xb/table/kisune
-```
-
-### Option 2: Install to Claude Code Global Plugins
-
-Once you've tested and are ready to use globally:
-
-```bash
-# Create plugins directory if it doesn't exist
-mkdir -p ~/.claude/plugins
-
-# Copy plugins to Claude Code plugins directory
-cp -r /Users/xb/table/kisune/trading ~/.claude/plugins/trading
-cp -r /Users/xb/table/kisune/dev-workflow ~/.claude/plugins/dev-workflow
-
-# Verify installation
-ls -la ~/.claude/plugins/
-```
-
-### Option 3: Create Plugin Marketplace (Advanced)
-
-To share your plugins or install them via `/plugin` command:
-
-1. Create a GitHub repository for your plugins
-2. Add a `.claude-plugin/marketplace.json` file
-3. Push both plugins to the repository
-4. Register your marketplace in Claude Code:
-   ```bash
-   /plugin marketplace add your-username/your-repo-name
-   ```
-
----
-
-## Before First Use
-
-### Customize Plugin Metadata
-
-Both plugins have placeholder author information. Update before using:
-
-#### Trading Plugin
-Edit `trading/.claude-plugin/plugin.json`:
-```json
-{
-  "author": {
-    "name": "Your Name",
-    "email": "your.email@example.com"
-  },
-  "homepage": "https://github.com/your-username/your-repo",
-  "repository": "https://github.com/your-username/your-repo"
-}
-```
-
-#### Dev-Workflow Plugin
-Edit `dev-workflow/.claude-plugin/plugin.json`:
-```json
-{
-  "author": {
-    "name": "Your Name",
-    "email": "your.email@example.com"
-  },
-  "homepage": "https://github.com/your-username/your-repo",
-  "repository": "https://github.com/your-username/your-repo"
-}
-```
-
----
-
-## Verification
-
-### Check Plugin Files
-
-**Trading Plugin (14 files):**
-```bash
-ls -R trading/
-# Should see:
-# - .claude-plugin/plugin.json
-# - 4 skills (analyze, research, pattern, translate)
-# - 3 templates (strategy-doc.md, backtest-results.md, pattern-library.md)
-# - README.md
-```
-
-**Dev-Workflow Plugin (12 files):**
-```bash
-ls -R dev-workflow/
-# Should see:
-# - .claude-plugin/plugin.json
-# - 5 skills (spec-driven, review, git-workflow, documentation, systematic-testing)
-# - 1 command (spec.md)
-# - 3 templates (requirements.md, design.md, tasks.md)
-# - README.md
-```
-
-### Validate JSON/YAML Syntax
-
-```bash
-# Validate trading plugin.json
-python3 -m json.tool trading/.claude-plugin/plugin.json > /dev/null && echo "✓ Trading plugin.json valid"
-
-# Validate dev-workflow plugin.json
-python3 -m json.tool dev-workflow/.claude-plugin/plugin.json > /dev/null && echo "✓ Dev-workflow plugin.json valid"
-
-# Check for YAML frontmatter in skills (manual inspection)
-head -n 10 trading/skills/analyze/SKILL.md
-head -n 10 dev-workflow/skills/spec-driven/SKILL.md
-```
-
----
+# Installation Guide
 
 ## Quick Start
 
-### Trading Plugin
+### Option 1: Plugin Marketplace (recommended for sharing)
 
-**Natural Language Usage (skills auto-activate):**
-- "Analyze the SPY daily chart with technical indicators"
-- "Help me document my RSI mean reversion strategy"
-- "What chart pattern is forming on EUR/USD?"
-- "Convert my strategy doc to Python code"
+If this repo is on GitHub:
 
----
+```bash
+# In Claude Code, add this repo as a marketplace
+/plugin marketplace add xbklairith/kisune
 
-### Dev-Workflow Plugin
-
-#### 1. Start New Feature (Spec-Driven)
-```
-/dev-workflow:spec "user authentication"
+# Install the plugins
+/plugin install trading@xbklairith-kisune
+/plugin install dev-workflow@xbklairith-kisune
 ```
 
-This will guide you through:
-1. Feature creation
-2. Requirements (EARS format)
-3. Technical design
-4. Task breakdown (TDD)
-5. Implementation
+### Option 2: Local Development (for testing)
 
-**Natural Language Usage:**
-- "Let's plan a new payment processing feature" → Spec-driven skill activates
-- "Review my code changes" → Code quality skill activates
-- "Help me write better commit messages" → Git workflow skill activates
-- "Document this function" → Documentation skill activates
-- "I have a bug in the authentication flow" → Systematic testing skill activates
+```bash
+# Clone and cd — plugins auto-load from this directory
+git clone git@github.com:xbklairith/kisune.git
+cd kisune
+
+# Or load a specific plugin for testing
+claude --plugin-dir ./dev-workflow
+```
 
 ---
 
-## Integration with Existing Workflows
+## Verify Installation
 
-### Dev-Workflow + Your Current Setup
+In Claude Code, check that skills appear:
 
-The dev-workflow plugin integrates with your existing:
-- `/x:spec/*` commands → Now unified in `/dev-workflow:spec`
-- Superpowers skills → Optional enhancement (auto-detected)
-- `docx/features/` structure → Continues to use this
+```
+/dev-workflow:spec          # Should show spec-driven workflow menu
+/dev-workflow:review        # Should activate code review
+```
 
-**Migration Path:**
-1. Keep using `/x:spec/*` commands (they still work)
-2. Try `/dev-workflow:spec` for new features
-3. Gradually transition as you become comfortable
-4. Eventually deprecate old commands
-
----
-
-## Testing Checklist
-
-Before committing to using the plugins, test each feature:
-
-### Trading Plugin Testing
-- [ ] Install plugin (local or global)
-- [ ] Ask Claude to analyze a market you trade
-- [ ] Ask Claude to research and document a test strategy
-- [ ] Ask Claude to identify a pattern from a chart description
-- [ ] Ask Claude to translate your test strategy to code
-- [ ] Verify natural language activation works
-- [ ] Check template accessibility
-- [ ] Review generated code quality
-
-### Dev-Workflow Plugin Testing
-- [ ] Install plugin (local or global)
-- [ ] Run `/dev-workflow:spec` and create test feature
-- [ ] Go through all five phases (requirements → design → tasks → execute)
-- [ ] Test EARS requirements format
-- [ ] Ask Claude to review sample code
-- [ ] Make a commit and verify git-workflow skill activates
-- [ ] Ask for documentation and verify doc skill activates
-- [ ] Test TDD workflow guidance
-- [ ] Verify integration with existing `/x:spec/*` commands
-- [ ] Check templates are comprehensive
+Skills also auto-activate via natural language:
+- "Review my code" → `review` skill activates
+- "Plan a new feature" → `spec-driven-planning` activates
+- "Analyze BTC daily chart" → `analyze` skill activates
 
 ---
 
 ## Troubleshooting
 
-### Plugin Not Found
-```bash
-# Verify plugin location
-ls -la ~/.claude/plugins/trading
-ls -la ~/.claude/plugins/dev-workflow
+**Skills not appearing:**
+- Restart Claude Code after installation
+- Verify SKILL.md files exist in the correct paths
+- Run `/context` to check if skills are loaded
 
-# Or check current directory
-ls -la /Users/xb/table/kisune/trading
-ls -la /Users/xb/table/kisune/dev-workflow
-```
+**Plugin not found:**
+- Ensure `.claude-plugin/plugin.json` exists in the plugin directory
+- Check JSON syntax: `python3 -m json.tool .claude-plugin/plugin.json`
 
-### Commands Not Appearing
-1. Restart Claude Code
-2. Check plugin.json is valid JSON
-3. Verify directory structure is correct
-4. Ensure `.claude-plugin` directory exists
-
-### Skills Not Activating
-1. Check YAML frontmatter in SKILL.md files
-2. Verify description field clearly states activation triggers
-3. Try using more explicit language (e.g., "analyze this market" vs "what do you think")
-
-### YAML/JSON Errors
-```bash
-# Validate JSON
-python3 -m json.tool plugin.json
-
-# Check YAML frontmatter (look for --- markers)
-head -n 15 skills/*/SKILL.md
-```
+**Agents not triggering:**
+- Agents activate proactively — they don't have `/` commands
+- They trigger based on context (e.g., `code-reviewer` after code changes)
 
 ---
 
-## Next Steps
-
-1. **Customize Metadata**
-   - Update author info in both plugin.json files
-   - Add repository URLs
-
-2. **Test Locally**
-   - Run through testing checklist above
-   - Document any issues or improvements
-
-3. **Refine Based on Usage**
-   - Adjust skill descriptions if activation isn't working well
-   - Add examples to skills that need clarification
-   - Customize templates to your workflow
-
-4. **Optional: Create Marketplace**
-   - Create GitHub repository
-   - Add marketplace.json
-   - Share with community
-
-5. **Version Control**
-   - Commit plugins to your repo
-   - Tag versions as you improve them
-   - Track changes in README
-
----
-
-## File Locations
+## Directory Structure
 
 ```
-/Users/xb/table/kisune/
+kisune/
 ├── trading/                    # Trading plugin
-│   ├── .claude-plugin/
-│   ├── skills/ (4)
-│   ├── skills/ (4)
-│   ├── templates/ (3)
-│   └── README.md
+│   ├── .claude-plugin/         # Plugin manifest
+│   ├── skills/ (4)             # analyze, research, pattern, translate
+│   └── templates/ (3)
 ├── dev-workflow/               # Dev-workflow plugin
-│   ├── .claude-plugin/
-│   ├── skills/ (5)
-│   ├── commands/ (1)
-│   ├── templates/ (3)
-│   └── README.md
-└── docx/
-    └── plans/
-        ├── 2025-11-17-trading-plugin-design.md
-        ├── 2025-11-17-trading-plugin-implementation.md
-        ├── 2025-11-17-dev-workflow-plugin-design.md
-        └── 2025-11-17-dev-workflow-plugin-implementation.md
+│   ├── .claude-plugin/         # Plugin manifest
+│   ├── skills/ (20)            # All dev-workflow skills
+│   ├── agents/ (8)             # Proactive agents
+│   ├── commands/ (1)           # /dev-workflow:spec
+│   └── templates/ (3)
+└── docx/                       # Feature specs and plans
 ```
-
----
-
-## Support & Documentation
-
-### Full Documentation
-- **Trading Plugin**: `trading/README.md` (606 lines)
-- **Dev-Workflow Plugin**: `dev-workflow/README.md` (739 lines)
-
-### Design Documents
-- **Trading Design**: `docx/plans/2025-11-17-trading-plugin-design.md`
-- **Dev-Workflow Design**: `docx/plans/2025-11-17-dev-workflow-plugin-design.md`
-
-### Implementation Plans
-- **Trading Implementation**: `docx/plans/2025-11-17-trading-plugin-implementation.md`
-- **Dev-Workflow Implementation**: `docx/plans/2025-11-17-dev-workflow-plugin-implementation.md`
-
----
-
-## Summary
-
-**Two complete, production-ready plugins:**
-
-1. **Trading Plugin** (14 files, 3,499 lines)
-   - Multi-market analysis
-   - Strategy research framework
-   - Pattern recognition and library
-   - Code generation (Python + Pine Script)
-
-2. **Dev-Workflow Plugin** (12 files, 5,116 lines)
-   - Spec-driven development (5 phases)
-   - Code quality reviews (25-point checklist)
-   - Smart git workflows
-   - Documentation generation
-   - Systematic testing and debugging
-
-**Ready to install and use!** 🚀
