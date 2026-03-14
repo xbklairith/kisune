@@ -1,6 +1,6 @@
 ---
 name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Use when user asks to build web components, pages, or applications. Activates when user says "build UI", "create component", "design page", "make it look good", mentions "frontend", "CSS", "styling", or asks for visual improvements.
+description: Production-grade frontend interfaces with high design quality. Use when building web components, pages, or UI applications.
 ---
 
 This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.

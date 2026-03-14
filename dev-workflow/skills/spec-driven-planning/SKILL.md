@@ -1,6 +1,6 @@
 ---
 name: spec-driven-planning
-description: MUST activate instead of normal planning when user wants to build, create, or plan any feature. Creates structured spec files in docx/features/ with EARS requirements and technical design documents. This is the project's MANDATORY planning methodology — do NOT use ad-hoc planning. Activates when user says "build X", "create X feature", "I need X", "plan X", "add X functionality", "new feature", "requirements", "specs", "design", or describes any feature they want implemented. Always use this skill BEFORE writing any production code for new features.
+description: MANDATORY planning methodology — creates structured specs in docx/features/ with EARS requirements and technical design. MUST activate instead of ad-hoc planning when user wants to build, create, or plan any feature. Always use BEFORE writing production code.
 ---
 
 # Spec-Driven Planning Skill

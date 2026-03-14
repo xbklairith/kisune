@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: Use when exploring unclear requirements or architectural decisions - refines rough ideas into clear requirements/designs through collaborative questioning (one at a time), explores alternatives, validates incrementally. Activates when user has vague feature idea, mentions "not sure about", "exploring options", "what approach", or during spec-driven requirements/design phases.
+description: Collaborative refinement of rough ideas into clear requirements/designs through systematic questioning. Use when requirements are vague or exploring architectural options.
 allowed-tools: Read, Write, Glob, Grep, WebSearch, WebFetch, Bash
 ---
 

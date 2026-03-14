@@ -1,6 +1,6 @@
 ---
 name: review
-description: Use when reviewing code or before commits - runs 25-point quality checklist (structure, errors, security, performance, testing), identifies code smells, suggests refactorings with examples. Activates when user says "review this", "check my code", mentions "refactor", "optimize", "code quality", or before git commits.
+description: 25-point code quality checklist covering structure, errors, security, performance, and testing. Use before commits or when reviewing code.
 ---
 
 # Code Quality Skill

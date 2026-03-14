@@ -1,6 +1,6 @@
 ---
 name: spec-driven-implementation
-description: MUST activate when implementing features that have completed spec-driven-planning. Breaks design into TDD tasks in docx/features/ tasks.md, tracks progress with checkboxes, enforces strict Red-Green-Refactor cycle. This is the project's MANDATORY implementation methodology. Activates when user says "implement this", "let's code", "start building", "execute", "break into tasks", or when a design.md exists and user wants to start coding.
+description: MANDATORY implementation methodology — breaks design into TDD tasks in docx/features/ tasks.md with Red-Green-Refactor cycle. MUST activate when implementing features that have completed spec-driven-planning.
 ---
 
 # Spec-Driven Implementation Skill

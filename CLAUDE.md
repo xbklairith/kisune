@@ -22,7 +22,8 @@ kisune/
 │   └── README.md              # Complete documentation
 ├── dev-workflow/              # Dev-workflow plugin
 │   ├── .claude-plugin/        # Plugin metadata
-│   ├── skills/                # 9 skills (includes brainstorming, TDD, spec-driven planning/implementation, etc.)
+│   ├── skills/                # 10 skills (includes brainstorming, TDD, security-review, spec-driven planning/implementation, etc.)
+│   ├── agents/                # 4 agents (code-reviewer, tdd-guide, security-reviewer, planner)
 │   ├── commands/              # 1 slash command (spec)
 │   ├── templates/             # 3 spec-driven templates
 │   └── README.md              # Complete documentation
@@ -42,7 +43,7 @@ kisune/
 - `pattern` - Chart pattern identification and personal library
 - `translate` - Convert strategies to Python + Pine Script
 
-### Dev-Workflow Plugin (9 skills, 1 command)
+### Dev-Workflow Plugin (10 skills, 4 agents, 1 command)
 
 **Planning Skills:**
 - `spec-driven-planning` - 3-phase workflow (Feature → Requirements/EARS → Design)
@@ -54,10 +55,17 @@ kisune/
 
 **Quality Skills:**
 - `review` - 25-point review checklist
+- `security-review` - OWASP Top 10 vulnerability detection and remediation
 - `git-workflow` - Smart commits, branch management, PR creation
 - `documentation` - Code, API, architecture docs
 - `systematic-testing` - TDD guidance and debugging framework
 - `skill-maker` - Create/edit skills with TDD methodology
+
+**Agents (proactive):**
+- `code-reviewer` - Auto-reviews code after changes
+- `tdd-guide` - Enforces write-tests-first methodology
+- `security-reviewer` - Flags vulnerabilities in auth, input, APIs
+- `planner` - Plans complex features and refactoring
 
 **Commands:**
 - `/dev-workflow:spec` - Launch spec-driven workflow (interactive menu)
@@ -361,8 +369,8 @@ Skills reference and copy these templates during workflow execution.
 - 4 skills, no commands, 3 templates
 
 **Dev-Workflow Plugin:**
-- 9 skills, 1 command, 3 templates
+- 10 skills, 4 agents, 1 command, 3 templates
 
 **Combined:**
-- 13 skills, 1 command, 6 templates
+- 14 skills, 4 agents, 1 command, 6 templates
 - Production-ready, fully documented

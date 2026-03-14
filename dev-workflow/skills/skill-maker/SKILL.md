@@ -1,6 +1,6 @@
 ---
 name: skill-maker
-description: Use when creating new skills or editing existing skills - combines official skill authoring best practices with TDD methodology (test with subagents before deployment, iterate until bulletproof). Activates when user wants to create/update a skill that extends Claude's capabilities.
+description: Create and edit Claude Code skills with TDD methodology. Test with subagents before deployment, iterate until bulletproof.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 

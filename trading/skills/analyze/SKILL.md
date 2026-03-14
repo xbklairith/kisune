@@ -1,6 +1,6 @@
 ---
 name: analyze
-description: Use when analyzing markets or interpreting charts - applies technical indicators (RSI, MACD, Moving Averages), identifies support/resistance, analyzes multi-timeframe trends, checks fundamentals and sentiment. Activates when user says "analyze BTC", "what's the trend", "check this chart", or mentions ticker symbols.
+description: Technical analysis with indicators (RSI, MACD, MA), support/resistance, multi-timeframe trends, and sentiment. Use when analyzing markets or interpreting charts.
 ---
 
 # Market Analysis Skill

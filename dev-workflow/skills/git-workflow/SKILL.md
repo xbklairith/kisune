@@ -1,6 +1,6 @@
 ---
 name: git-workflow
-description: Use when working with git operations - generates smart commit messages (present tense, imperative), manages branches, creates PRs with summaries, follows git best practices. Activates when user says "commit this", "create PR", "push changes", mentions "git", "branch", "merge", or before committing code.
+description: Smart git operations — commit messages, branch management, PR creation with summaries. Use for any git workflow.
 ---
 
 # Git Workflow Skill

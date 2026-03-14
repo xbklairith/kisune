@@ -1,6 +1,6 @@
 ---
 name: test-driven-development
-description: Use when implementing features/bugfixes to enforce strict TDD discipline - enforces RED (write failing test), GREEN (minimal code), REFACTOR cycle with no exceptions. Prevents "test after" trap, catches rationalizations. Activates when user says "implement", "let's code", "write this feature", mentions "TDD", or during spec-driven execution phase.
+description: Strict RED-GREEN-REFACTOR enforcement with no exceptions. Use when implementing features or fixing bugs. No production code without a failing test first.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 

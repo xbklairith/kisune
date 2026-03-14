@@ -1,6 +1,6 @@
 ---
 name: research
-description: Use when developing or documenting trading strategies - guides edge hypothesis formation, validates statistical significance, documents strategy rules systematically (entry, exit, risk management). Activates when user says "research this strategy", "document my approach", "test this idea", or mentions "trading strategy" or "edge".
+description: Systematic trading strategy research — edge hypothesis, statistical validation, and strategy documentation (entry, exit, risk management).
 ---
 
 # Strategy Research Skill

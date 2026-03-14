@@ -1,6 +1,6 @@
 ---
 name: systematic-testing
-description: Use when writing tests, debugging failures, or investigating bugs - provides TDD guidance, test generation patterns, systematic debugging framework. Activates when user says "write tests", "this test fails", "debug this", mentions "TDD", "test coverage", or encounters errors/bugs.
+description: Systematic debugging framework and test generation patterns. Use when writing tests, debugging failures, or investigating bugs.
 ---
 
 # Systematic Testing Skill
