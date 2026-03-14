@@ -22,7 +22,7 @@ kisune/
 │   └── README.md              # Complete documentation
 ├── dev-workflow/              # Dev-workflow plugin
 │   ├── .claude-plugin/        # Plugin metadata
-│   ├── skills/                # 10 skills (includes brainstorming, TDD, security-review, spec-driven planning/implementation, etc.)
+│   ├── skills/                # 20 skills (planning, implementation, quality, infrastructure, AI/meta)
 │   ├── agents/                # 4 agents (code-reviewer, tdd-guide, security-reviewer, planner)
 │   ├── commands/              # 1 slash command (spec)
 │   ├── templates/             # 3 spec-driven templates
@@ -43,7 +43,7 @@ kisune/
 - `pattern` - Chart pattern identification and personal library
 - `translate` - Convert strategies to Python + Pine Script
 
-### Dev-Workflow Plugin (10 skills, 4 agents, 1 command)
+### Dev-Workflow Plugin (20 skills, 4 agents, 1 command)
 
 **Planning Skills:**
 - `spec-driven-planning` - 3-phase workflow (Feature → Requirements/EARS → Design)
@@ -60,6 +60,19 @@ kisune/
 - `documentation` - Code, API, architecture docs
 - `systematic-testing` - TDD guidance and debugging framework
 - `skill-maker` - Create/edit skills with TDD methodology
+
+**Architecture & Infrastructure Skills:**
+- `api-design` - REST API patterns, status codes, pagination, versioning
+- `backend-patterns` - Repository/service layers, caching, N+1 prevention
+- `database-migrations` - Zero-downtime schema changes, expand-contract pattern
+- `deployment-patterns` - CI/CD, blue-green, canary, production readiness
+- `e2e-testing` - Playwright Page Object Model, flaky test strategies
+- `docker-patterns` - Multi-stage Dockerfiles, compose, container security
+
+**AI/Meta Skills:**
+- `agentic-engineering` - Eval-first execution, model routing, task decomposition
+- `eval-harness` - pass@k metrics, capability/regression evals for AI workflows
+- `search-first` - Research existing tools before writing custom code
 
 **Agents (proactive):**
 - `code-reviewer` - Auto-reviews code after changes
@@ -369,8 +382,8 @@ Skills reference and copy these templates during workflow execution.
 - 4 skills, no commands, 3 templates
 
 **Dev-Workflow Plugin:**
-- 10 skills, 4 agents, 1 command, 3 templates
+- 20 skills, 4 agents, 1 command, 3 templates
 
 **Combined:**
-- 14 skills, 4 agents, 1 command, 6 templates
+- 24 skills, 4 agents, 1 command, 6 templates
 - Production-ready, fully documented
