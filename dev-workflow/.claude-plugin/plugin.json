@@ -1,7 +1,7 @@
 {
   "name": "dev-workflow",
-  "description": "Language-agnostic development lifecycle — spec-driven planning, TDD, code review, security, architecture patterns, and 8 proactive agents",
-  "version": "1.1.0",
+  "description": "Language-agnostic development lifecycle — spec-driven planning (Quick/Full modes), TDD, completion validation, code/security review, parallel agent dispatch, and 8 proactive agents",
+  "version": "1.2.0",
   "author": {
     "name": "xbklairith"
   },
