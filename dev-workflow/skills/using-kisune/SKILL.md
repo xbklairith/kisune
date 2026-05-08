@@ -62,7 +62,7 @@ Then act / respond
 | "This feels productive" | Undisciplined action wastes time. |
 | "I know what that means" | Knowing the concept ≠ following the skill. |
 
-## Kisune Skill Index (10 skills)
+## Kisune Skill Index (11 skills)
 
 **Planning**
 
@@ -77,6 +77,7 @@ Then act / respond
 |---|---|
 | `spec-driven-implementation` | "implement this", "execute the plan", any `plan.md` or `tasks.md` exists |
 | `test-driven-development` | "write tests", "fix this bug", new feature work |
+| `spawn-agents` | 2+ independent problems (different test files, unrelated bugs); parallel dispatch |
 
 **Quality**
 

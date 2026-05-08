@@ -40,7 +40,7 @@ claude --plugin-dir ./dev-workflow
 
 ## Dev-Workflow Plugin
 
-11 skills, 8 agents, 1 command. Language-agnostic, focused on spec-driven development discipline.
+12 skills, 8 agents, 1 command. Language-agnostic, focused on spec-driven development discipline.
 
 ### Command
 
@@ -66,6 +66,7 @@ claude --plugin-dir ./dev-workflow
 |-------|----------|
 | `spec-driven-implementation` | "implement this", "let's code" |
 | `test-driven-development` | "implement feature", "fix this bug" |
+| `spawn-agents` | 2+ independent problems, parallel investigation |
 
 **Quality**
 | Skill | Triggers |
