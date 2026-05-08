@@ -11,8 +11,8 @@ The Dev-Workflow plugin provides a comprehensive, systematic approach to softwar
 - **Guides feature development** through structured phases (requirements → design → tasks → execution)
 - **Enforces code quality** through systematic reviews and refactoring suggestions
 - **Manages git operations** with smart commits, branch management, and PR creation
-- **Generates documentation** for code, APIs, architecture, and user guides
 - **Drives test-first development** with TDD workflow and systematic debugging
+- **Gates completion claims** with evidence-before-assertion validation
 
 ### Philosophy
 
@@ -52,7 +52,7 @@ The Dev-Workflow plugin provides a comprehensive, systematic approach to softwar
 
 ## Core Skills
 
-The plugin includes 10 integrated skills organized into planning, implementation, quality, and frontend categories.
+The plugin includes 10 integrated skills organized into planning, implementation, and quality categories.
 
 ### Planning & Design Skills
 
@@ -250,50 +250,17 @@ WHERE premium subscription is active the system SHALL enable advanced analytics
 - Confirms destructive operations
 - Prevents force push to main/master
 
-#### 7. Documentation
+#### 7. Completion Validation
 
-**Activation:** User says "document this", asks "how does this work?", mentions docs/README
+**Activation:** Before any "done", "tests pass", "ready to commit/PR" claim. Auto-triggers before status reports and phase transitions.
 
-**Purpose:** Generate and maintain comprehensive documentation
+**Purpose:** Evidence-before-claims gate — refuse to claim work is complete without running fresh verification this turn.
 
-**Documentation Types:**
+**Iron Law:** No completion claims without fresh verification evidence.
 
-**Code Documentation (Docstrings):**
-- Function/class documentation
-- Parameters, return values, examples
-- Exceptions/errors
-- Implementation notes
-- Language-specific formats (Python, TypeScript, etc.)
+**Gate Function:** IDENTIFY → RUN → READ → VERIFY → ONLY THEN claim.
 
-**API Documentation:**
-- Endpoint descriptions
-- Request/response schemas
-- Example payloads
-- Error codes and descriptions
-- Authentication requirements
-
-**Architecture Documentation:**
-- Component overview diagrams (ASCII art)
-- Data flow descriptions
-- Integration points
-- Technology stack
-- Security architecture
-- Performance considerations
-
-**README Generation:**
-- Project overview
-- Installation instructions
-- Usage examples
-- API reference
-- Configuration options
-- Contributing guidelines
-
-**Code Explanations:**
-- High-level purpose
-- Step-by-step logic flow
-- Key algorithms/patterns
-- Edge cases handled
-- Performance considerations
+**Kisune-specific patterns covered:** Status Reporting blocks, PM2/long-running commands, `[Confidence: X.X]` score, Full-mode phase gates, User Action Tasks.
 
 #### 8. Systematic Testing
 
@@ -354,54 +321,6 @@ WHERE premium subscription is active the system SHALL enable advanced analytics
 - Verify test passes
 - Add regression tests
 - Document root cause
-
-### Frontend Skills
-
-#### 10. Frontend Design
-
-**Activation:** User asks to build UI, create components, design pages, mentions frontend/CSS/styling
-
-**Purpose:** Create distinctive, production-grade frontend interfaces with high design quality
-
-**Design Thinking Process:**
-1. **Purpose** - What problem does this interface solve? Who uses it?
-2. **Tone** - Pick a bold aesthetic direction (brutally minimal, maximalist, retro-futuristic, luxury, playful, editorial, brutalist, art deco, etc.)
-3. **Constraints** - Technical requirements (framework, performance, accessibility)
-4. **Differentiation** - What makes this UNFORGETTABLE?
-
-**Aesthetic Guidelines:**
-
-**Typography:**
-- Choose beautiful, unique fonts (NOT Inter, Roboto, Arial, system fonts)
-- Pair distinctive display font with refined body font
-
-**Color & Theme:**
-- Commit to cohesive aesthetic with CSS variables
-- Dominant colors with sharp accents (not timid, evenly-distributed palettes)
-
-**Motion:**
-- CSS-only animations for HTML
-- Motion library for React
-- Focus on high-impact moments (page load reveals, scroll-triggering, surprising hover states)
-
-**Spatial Composition:**
-- Unexpected layouts, asymmetry, overlap
-- Grid-breaking elements
-- Generous negative space OR controlled density
-
-**Backgrounds & Visual Details:**
-- Gradient meshes, noise textures, geometric patterns
-- Layered transparencies, dramatic shadows
-- Custom cursors, grain overlays
-
-**Anti-Patterns to Avoid:**
-- Generic AI aesthetics (purple gradients, excessive centered layouts, uniform rounded corners)
-- Cookie-cutter design without context-specific character
-
-**Output:**
-1. Design Direction - Aesthetic choice and reasoning
-2. Working Code - Production-ready HTML/CSS/JS, React, Vue, etc.
-3. Key Design Decisions - Typography, colors, motion, spatial choices explained
 
 ## Slash Commands
 
@@ -567,12 +486,11 @@ The dev-workflow plugin is fully self-contained with integrated supporting skill
 
 **Quality Skills:**
 - `review` - Systematic code review and refactoring suggestions
+- `security-review` - OWASP Top 10 vulnerability detection and remediation
 - `git-workflow` - Smart commits, branch management, PR creation
-- `documentation` - Code, API, and architecture documentation generation
+- `completion-validation` - Evidence-before-claims gate before marking work done
 - `systematic-testing` - Testing guidance and systematic debugging framework
-
-**Frontend Skills:**
-- `frontend-design` - Create distinctive, production-grade UI with high design quality
+- `skill-maker` - Create/edit skills with TDD methodology
 
 **Skill Integration:**
 Skills automatically activate and work together based on context. For example:
@@ -838,7 +756,7 @@ MIT License
 - Complete documentation
 
 **v1.0.0 (Initial Release)**
-- Five core skills (spec-driven, review, git-workflow, documentation, systematic-testing)
+- Ten core skills (spec-driven planning/implementation, brainstorming, TDD, review, security-review, git-workflow, completion-validation, systematic-testing)
 - One slash command (/spec)
 - Three comprehensive templates
 - Complete documentation

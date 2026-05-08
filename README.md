@@ -40,7 +40,7 @@ claude --plugin-dir ./dev-workflow
 
 ## Dev-Workflow Plugin
 
-21 skills, 8 agents, 1 command. Language-agnostic, focused on software architecture.
+10 skills, 8 agents, 1 command. Language-agnostic, focused on spec-driven development discipline.
 
 ### Command
 
@@ -68,31 +68,9 @@ claude --plugin-dir ./dev-workflow
 | `review` | "review my code", "check this" |
 | `security-review` | "check security", handles auth/input code |
 | `git-workflow` | "commit", "create PR", "push" |
-| `documentation` | "document this", "write README" |
+| `completion-validation` | "done", "ready to commit", before any success claim |
 | `systematic-testing` | "write tests", "debug this" |
 | `skill-maker` | "create a skill", "edit skill" |
-
-**Architecture & Infrastructure**
-| Skill | Triggers |
-|-------|----------|
-| `api-design` | "design API", "review endpoint" |
-| `backend-patterns` | "implement service", "fix N+1" |
-| `database-migrations` | "alter table", "add column" |
-| `deployment-patterns` | "set up CI/CD", "production release" |
-| `e2e-testing` | "write E2E test", "Playwright" |
-| `docker-patterns` | "Dockerize", "docker compose" |
-
-**AI/Meta**
-| Skill | Triggers |
-|-------|----------|
-| `agentic-engineering` | "AI workflow", "model routing" |
-| `eval-harness` | "define pass/fail", "eval" |
-| `search-first` | "before writing custom code" |
-
-**Frontend**
-| Skill | Triggers |
-|-------|----------|
-| `frontend-design` | "build UI", "create component" |
 
 ### Agents (auto-activate proactively)
 
