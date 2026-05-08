@@ -40,7 +40,7 @@ claude --plugin-dir ./dev-workflow
 
 ## Dev-Workflow Plugin
 
-20 skills, 8 agents, 1 command. Language-agnostic, focused on software architecture.
+21 skills, 8 agents, 1 command. Language-agnostic, focused on software architecture.
 
 ### Command
 
