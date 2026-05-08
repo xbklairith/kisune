@@ -185,6 +185,50 @@ Document the pattern: list conditions under FAILS and WORKS to identify the disc
 - Debugging by randomly changing code
 - Committing debug logging code
 
+## Discipline Mechanisms
+
+### 3-Failures Architectural Gate
+
+If three hypotheses about a bug have failed in a row, **the problem is not your next hypothesis — it's the architecture or your mental model**. Stop debugging. Question:
+
+- Is the system actually structured the way I think?
+- Are there hidden interactions I haven't traced?
+- Am I solving the symptom or the cause?
+
+> 🗣 Say: "Three hypotheses have failed. Stopping to question architecture before proposing a fourth."
+
+Surface this to the user. Don't burn another round of guessing.
+
+### Multi-Component Instrumentation Pattern
+
+When a bug crosses component boundaries (e.g., Frontend → API → Worker → Database), don't add logs randomly. Use a layered template:
+
+For each boundary:
+1. Log the **input** entering the component (with a correlation ID)
+2. Log the **output** leaving the component (same correlation ID)
+3. Verify the output of one == input of the next
+
+Example:
+```
+[req-abc123] Frontend → API: payload={...}
+[req-abc123] API received: payload={...}
+[req-abc123] API → Worker: job={...}
+[req-abc123] Worker received: job={...}
+```
+
+When values diverge between layers, you've localized the bug.
+
+### Partner Signals You're Off-Track
+
+Watch for these phrases from the user — they indicate you're guessing or skipping evidence:
+
+- **"Is that not happening?"** → you assumed a mechanism that may not exist
+- **"Stop guessing"** → you've offered ≥2 hypotheses without evidence
+- **"Will it show us X?"** → user is asking for the verification you should have proposed
+- **"Why do you think that?"** → you stated a conclusion without grounding
+
+When you hear these, immediately pause hypothesis generation and gather evidence (logs, code reads, test runs).
+
 ## Notes
 
 - TDD is slower initially but faster overall (fewer bugs, less debugging)

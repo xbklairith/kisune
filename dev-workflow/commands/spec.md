@@ -1,124 +1,73 @@
 ---
-description: Launch spec-driven development workflow for features
+description: Launch spec-driven development workflow — picks Quick (single plan.md) or Full (3-file EARS spec) automatically
 ---
 
-Route to the appropriate spec-driven skill based on phase:
-- **Planning phases** (create, requirements, design): Activate `spec-driven-planning` skill
-- **Implementation phases** (tasks, execute): Activate `spec-driven-implementation` skill
+Route to the appropriate spec-driven skill. Mode (Quick vs Full) is decided by the planning skill from signals or user override.
+
+- **Planning** (create, requirements, design, quick, full): Activate `spec-driven-planning` skill
+- **Implementation** (tasks, execute): Activate `spec-driven-implementation` skill (auto-detects mode from filesystem)
 - **Utility** (list): Show feature status directly
 
 ## Interactive Menu
 
-Present this menu to the user:
-
 ```
 📋 Spec-Driven Development Workflow
 
-Planning Phase:
-1. Create new feature
-2. Define requirements (EARS format)
-3. Generate technical design
+Planning:
+  1. New feature (auto-pick Quick or Full)
+  2. New feature — force Quick mode (single plan.md)
+  3. New feature — force Full mode (requirements + design + tasks)
+  4. Define requirements (Full mode, EARS)
+  5. Generate technical design (Full mode)
 
-Implementation Phase:
-4. Break down into tasks (TDD)
-5. Execute implementation
+Implementation:
+  6. Break down into TDD tasks (Full mode)
+  7. Execute implementation (auto-detects Quick vs Full)
 
 Utility:
-6. List all features
+  8. List all features
 
-What would you like to do? (1-6)
-```
-
-## Argument Handling & Routing
-
-**Planning Phase Arguments:**
-```
-/dev-workflow:spec create            → Activate spec-driven-planning (Phase 1)
-/dev-workflow:spec "feature-name"    → Activate spec-driven-planning (Phase 1)
-/dev-workflow:spec requirements      → Activate spec-driven-planning (Phase 2)
-/dev-workflow:spec design            → Activate spec-driven-planning (Phase 3)
+What would you like to do? (1-8)
 ```
 
-**Implementation Phase Arguments:**
+## Argument Handling
+
+**Planning args:**
 ```
-/dev-workflow:spec tasks             → Activate spec-driven-implementation (Phase 4)
-/dev-workflow:spec execute           → Activate spec-driven-implementation (Phase 5)
+/dev-workflow:spec                   → Interactive menu
+/dev-workflow:spec "feature-name"    → spec-driven-planning, auto-pick mode
+/dev-workflow:spec quick "name"      → spec-driven-planning, force Quick
+/dev-workflow:spec full "name"       → spec-driven-planning, force Full
+/dev-workflow:spec create            → spec-driven-planning (auto-pick)
+/dev-workflow:spec requirements      → spec-driven-planning (Full Phase 2)
+/dev-workflow:spec design            → spec-driven-planning (Full Phase 3)
 ```
 
-**Utility Arguments:**
+**Implementation args:**
 ```
-/dev-workflow:spec list              → Show all features with status
+/dev-workflow:spec tasks             → spec-driven-implementation (Full Phase 4)
+/dev-workflow:spec execute           → spec-driven-implementation (auto-detect Quick or Full)
+```
+
+**Utility:**
+```
+/dev-workflow:spec list              → Show all features with mode + status
 ```
 
 ## Routing Logic
 
-**IMPORTANT:** Always use the Skill tool to explicitly invoke skills. This ensures correct skill activation even when conflicting global commands exist.
+**IMPORTANT:** Always use the Skill tool to explicitly invoke skills.
 
-Based on user's menu choice or argument:
+| User input | Skill | Notes |
+|---|---|---|
+| Options 1-5, args `create / "name" / quick / full / requirements / design` | `dev-workflow:spec-driven-planning` | Skill picks mode (or honors `quick`/`full` override) |
+| Options 6-7, args `tasks / execute` | `dev-workflow:spec-driven-implementation` | Skill auto-detects `plan.md` vs `tasks.md` |
+| Option 8, arg `list` | List `docx/features/` directly | Show NN-name + which file exists (plan.md / tasks.md) + status line |
 
-**Options 1-3** or args **[create, feature-name, requirements, design]:**
-→ Use the Skill tool to invoke: `dev-workflow:spec-driven-planning`
+## Mode Reminder
 
-**Options 4-5** or args **[tasks, execute]:**
-→ Use the Skill tool to invoke: `dev-workflow:spec-driven-implementation`
+- **Quick mode** writes one file: `docx/features/[NN-name]/plan.md`. No EARS, no RGR.
+- **Full mode** writes three files: `requirements.md` + `design.md` + `tasks.md`. EARS + RGR enforced.
+- Implementation auto-detects from which file is present. No flag needed at execute time.
 
-**Option 6** or arg **[list]:**
-→ List features directly with status (no skill needed)
-
-## Phase Details
-
-**Planning Phases (1-3)** are handled by `spec-driven-planning` skill:
-- Phase 1: Feature Creation - Create directory structure and templates
-- Phase 2: Requirements Definition - Use EARS format for clear requirements
-- Phase 3: Technical Design - Propose architectural approaches with trade-offs
-
-**Implementation Phases (4-5)** are handled by `spec-driven-implementation` skill:
-- Phase 4: Task Breakdown - Break design into TDD tasks (Red-Green-Refactor)
-- Phase 5: Execution - Execute tasks systematically with quality gates
-
-See respective skill documentation for detailed phase execution instructions.
-
-## Examples
-
-**Example 1: Interactive Menu**
-```
-User: /dev-workflow:spec
-
-Assistant presents interactive menu showing planning and implementation phases.
-User selects option 1-3 → Assistant uses Skill tool to invoke spec-driven-planning
-User selects option 4-5 → Assistant uses Skill tool to invoke spec-driven-implementation
-```
-
-**Example 2: Start Planning New Feature**
-```
-User: /dev-workflow:spec "user authentication"
-
-Assistant uses Skill tool to invoke: dev-workflow:spec-driven-planning
-Skill activates at Phase 1 (Feature Creation)
-Creates feature structure and begins requirements gathering.
-```
-
-**Example 3: Jump to Design Phase**
-```
-User: /dev-workflow:spec design
-
-Assistant uses Skill tool to invoke: dev-workflow:spec-driven-planning
-Skill activates at Phase 3 (Design)
-Finds most recent feature and proposes architectural approaches.
-```
-
-**Example 4: Start Implementation**
-```
-User: /dev-workflow:spec tasks
-
-Assistant uses Skill tool to invoke: dev-workflow:spec-driven-implementation
-Skill activates at Phase 4 (Task Breakdown)
-Reads completed design and breaks into TDD tasks.
-```
-
-**Example 5: List Features**
-```
-User: /dev-workflow:spec list
-
-Assistant lists all features in docx/features/ with current status.
-```
+See `dev-workflow:spec-driven-planning` for the mode-selection signals (effort, stakeholders, compliance, ambiguity).

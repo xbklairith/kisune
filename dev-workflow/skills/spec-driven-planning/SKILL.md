@@ -1,25 +1,118 @@
 ---
 name: spec-driven-planning
-description: MANDATORY planning — creates specs in docx/features/ with EARS requirements and technical design. MUST activate instead of ad-hoc planning for any new feature.
+description: MANDATORY planning — picks Quick (single plan.md) or Full (3-file EARS spec) mode and creates artifacts in docx/features/. MUST activate instead of ad-hoc planning for any new feature.
 ---
 
 # Spec-Driven Planning Skill
 
 ## Purpose
 
-Guide feature planning through three structured phases: Feature Creation → Requirements (EARS) → Technical Design. This systematic approach ensures clear requirements and thoughtful design before implementation begins.
+Guide feature planning in one of two modes:
+
+- **Quick mode** — single `docx/features/[NN-name]/plan.md` with bite-sized tasks. No EARS, no RGR. For solo work, ≤3 days, no compliance/handoff. Derived from the superpowers writing-plans pattern.
+- **Full mode** — three files (`requirements.md` EARS + `design.md` + `tasks.md`) with three approval gates and TDD enforcement downstream. For team work, multi-week, compliance/audit, or stakeholder review.
+
+The skill picks a mode (or asks when ambiguous), then runs the matching playbook.
 
 ## Activation Triggers
 
 Activate this skill when:
-- User says "create a new feature"
-- User mentions "requirements", "specifications", or "specs"
-- User uses `/dev-workflow:spec` command with planning options
-- User asks to plan or design a feature
-- User says "I need to build [feature]"
-- User mentions "architecture" or "technical design"
+- User says "create a new feature", "plan a feature", "I need to build [X]"
+- User mentions "requirements", "specifications", "specs", "architecture", "technical design"
+- User uses `/dev-workflow:spec` command (any sub-arg)
 
-## Three-Phase Planning Workflow
+---
+
+## Mode Selection (ALWAYS DO THIS FIRST)
+
+Before writing anything, decide Quick vs Full.
+
+### Auto-pick Quick when ALL true:
+- Estimated effort ≤ 3 days OR ≤ 8 tasks
+- Solo developer; no stakeholder approval needed
+- No compliance, audit, or regulatory requirement
+- No major architectural decision (no "X vs Y?" trade-off)
+- Requirements clear from the user's request
+- No cross-team handoff
+- User said "quick", "lightweight", "simple plan", or `/dev-workflow:spec quick`
+
+### Auto-pick Full when ANY true:
+- Effort > 1 week OR > 15 tasks
+- Stakeholders ≠ engineers must approve scope
+- Compliance / audit / regulatory traceability required
+- Architecture choice with long-term consequences
+- Requirements ambiguous; need elicitation
+- Multi-developer or handoff likely
+- User said "full spec", "EARS", "requirements doc", or `/dev-workflow:spec full`
+
+### Otherwise, treat as ambiguous
+
+The thresholds above are deliberately gapped — 4-7 days of effort, 9-15 tasks, or any partial signal match falls in the middle zone. If you don't get a clean **all-true** Quick or **any-true** Full match, the feature is ambiguous by definition. Ask the user.
+
+### Ambiguous? Ask once with this menu:
+
+```
+This feature could go either way. Pick a planning mode:
+
+1. Quick — single plan.md, no EARS, no RGR (recommended for solo, ≤3 days)
+2. Full — 3-file spec with EARS + TDD enforcement (recommended for team, >1 week, compliance)
+
+Default if you don't pick: Quick.
+```
+
+**Announce the chosen mode:**
+> "Using [Quick/Full] mode. [One-sentence reason from signals above.]"
+
+Then run the matching playbook below.
+
+---
+
+## Quick Mode Playbook
+
+**Output:** `docx/features/[NN-feature-name]/plan.md` (single file)
+
+### Step 1: Create feature directory
+
+1. `ls docx/features/` to find next NN number
+2. `mkdir -p docx/features/[NN-feature-name]`
+3. Read `dev-workflow/templates/plan.md`
+4. Write to `docx/features/[NN-feature-name]/plan.md`, replacing `[Feature Name]` with the actual name
+
+### Step 2: Fill in the plan
+
+Audience assumption: an engineer with zero context for this codebase. Be exact.
+
+Required sections:
+- **Goal** — one sentence
+- **Architecture** — 2-3 sentences, what goes where and why
+- **Tech Stack** — key libraries / files
+- **Out of Scope** — keeps scope honest
+- **Tasks** — bite-sized (2-5 min steps), with:
+  - **Files:** exact paths (Create / Modify with line ranges)
+  - **Steps:** numbered, each one action. Include complete code, not "add validation here". Include exact verification commands with expected output. End with a commit step.
+
+Granularity rule: if a step takes longer than 5 minutes, split it.
+
+### Step 3: One approval gate
+
+> "Quick plan saved to `docx/features/[NN-feature-name]/plan.md`. Review and approve to proceed to implementation. Run `/dev-workflow:spec execute` when ready."
+
+That's it. No EARS, no design alternatives, no RGR. Implementation is handled by `spec-driven-implementation` (which auto-detects `plan.md` and runs in Quick execution mode).
+
+### Quick mode is wrong if you find yourself...
+
+- Writing requirements that need approval from non-engineers → switch to Full
+- Comparing 2+ architectural approaches → switch to Full
+- Listing > 15 tasks → switch to Full
+- Needing traceability from requirement → task → test → switch to Full
+
+To upgrade, see "Upgrade path" at the bottom of this skill.
+
+---
+
+## Full Mode Playbook
+
+Three phases, three approval gates. Use this when signals say Full.
 
 ### Phase 1: Feature Creation
 
@@ -56,6 +149,23 @@ Next step: Define requirements using EARS format
 ### Phase 2: Requirements Definition (EARS Format)
 
 **Goal:** Capture clear, testable requirements using EARS methodology
+
+**Scope Decomposition Check (do FIRST):**
+
+Before eliciting requirements, scan the request. If it describes multiple independent subsystems (e.g., "auth + billing + admin dashboard"), STOP and decompose into separate features before refining any one. Don't burn elicitation questions on a feature that should be three.
+
+> 🗣 Say: "This request covers [N] independent subsystems. I'll create separate features for each before eliciting requirements."
+
+**No Placeholders Rule:**
+
+Requirements and downstream plans MUST NOT contain:
+- "TBD" / "to be determined" / "to be defined later"
+- "add appropriate X" / "handle errors as needed" / "validate as required"
+- "similar to [other thing]" / "see above" without specifics
+- vague verbs without objects: "update", "improve", "fix", "enhance"
+- "etc." or trailing ellipses in requirement text
+- references to undefined names (REQ-IDs that don't exist, modules not yet specified)
+If you cannot specify a requirement concretely, ask the user. Don't write a placeholder.
 
 **Brainstorming Integration (Optional):**
 - If user has rough idea but unclear requirements, use Skill tool to invoke: `dev-workflow:brainstorming`
@@ -309,79 +419,74 @@ Wait for explicit user approval before proceeding.
 
 ## Next Steps
 
-After design approval, use `/dev-workflow:spec tasks` or `/dev-workflow:spec execute` to activate the `spec-driven-implementation` skill, which will:
-- Break down your design into TDD tasks with Red-Green-Refactor cycles
-- Guide systematic execution with quality gates
-- Track progress with checkbox updates
-- Integrate with review and git-workflow skills
+### After Quick mode (plan.md saved):
+Run `/dev-workflow:spec execute`. The implementation skill auto-detects `plan.md` and runs Quick execution: follow the steps, run verification commands, commit. No RGR enforcement.
+
+### After Full mode (design.md approved):
+Run `/dev-workflow:spec tasks` then `/dev-workflow:spec execute`. The implementation skill detects `tasks.md` and runs Full execution: RED-GREEN-REFACTOR per task, traceability to requirement IDs, quality gates.
+
+Both modes integrate with `dev-workflow:review`, `dev-workflow:git-workflow`, and `dev-workflow:test-driven-development` (the last one is mandatory in Full mode, optional in Quick).
+
+---
+
+## Upgrade Path: Quick → Full
+
+If a Quick feature outgrows its plan (scope expands, stakeholders enter, architecture decisions emerge):
+
+1. Read existing `docx/features/[NN-name]/plan.md`
+2. Seed the three Full-mode files from it:
+   - **requirements.md** — extract Goal + implicit requirements from tasks; rewrite in EARS; assign REQ-### IDs
+   - **design.md** — extract Architecture + Tech Stack; add "Alternatives Considered" by interviewing the user
+   - **tasks.md** — re-break tasks into RED/GREEN/REFACTOR with linked requirement IDs
+3. Rename `plan.md` → `plan.archived.md` for traceability
+4. Resume from Phase 2 (Requirements) or Phase 3 (Design) of the Full playbook
+
+Downgrade (Full → Quick) is **not supported**. Once EARS requirements exist, throwing them away is wasteful — just continue in Full mode.
 
 ---
 
 ## Examples
 
-### Example 1: Creating User Authentication Feature
+### Example A: Quick mode (auto-picked)
 
-**User:** "I need to add user authentication"
-
-**Assistant:**
-```
-Activating spec-driven-planning skill for feature planning.
-
-Let me create the feature structure:
-
-Created feature: docx/features/01-user-authentication/
-- requirements.md
-- design.md
-- tasks.md
-
-Phase 1 Complete. Ready to define requirements?
-```
-
-**User:** "Yes"
+**User:** "Add a CSV export button to the reports page"
 
 **Assistant:**
 ```
-Phase 2: Requirements Definition (EARS Format)
+Signals: solo, ~1 day, no compliance, no architectural decision → Quick mode.
 
-Let me ask some questions to capture clear requirements:
-
-1. Core Functionality:
-   - What authentication methods should be supported? (email/password, OAuth, etc.)
-   - Should there be session management?
-
-2. Events:
-   - What happens when user tries to log in?
-   - What happens when session expires?
-
-[...continues with systematic questioning...]
+Created docx/features/03-csv-export/plan.md with 4 tasks.
+Review and approve, then run /dev-workflow:spec execute.
 ```
 
-### Example 2: Resuming at Design Phase
+### Example B: Full mode (auto-picked)
 
-**User:** "/dev-workflow:spec design"
+**User:** "Add user authentication across web + mobile, must meet SOC 2"
 
 **Assistant:**
 ```
-Activating spec-driven-planning skill at Phase 3: Design
+Signals: multi-platform, compliance required, JWT vs session decision → Full mode.
 
-Found latest feature: docx/features/01-user-authentication/
+Created docx/features/04-user-authentication/{requirements,design,tasks}.md.
+Phase 1 complete. Phase 2: I'll elicit requirements in EARS format.
 
-Requirements already defined. Let me propose architectural approaches:
+1. What authentication methods should be supported?
+2. What's the session lifetime requirement?
+[...]
+```
 
-**Option A: JWT-Based Authentication**
-Pros: Stateless, scalable, works across services
-Cons: Token invalidation complexity, larger payload
-Complexity: Medium
+### Example C: Ambiguous (asks user)
 
-**Option B: Session-Based Authentication**
-Pros: Simple invalidation, smaller cookies, familiar pattern
-Cons: Requires session storage, scaling challenges
-Complexity: Low
+**User:** "Add a notifications system"
 
-Recommendation: Option A (JWT-Based)
-Reasoning: Better for microservices, future-proof, industry standard
+**Assistant:**
+```
+Scope is ambiguous between Quick and Full. Pick one:
 
-Proceed with JWT-based design?
+1. Quick — single plan.md, no EARS, no RGR (≤3 days, solo)
+2. Full — 3-file spec with EARS + TDD (>1 week, team, compliance)
+
+Default if you don't pick: Quick.
 ```
 
 ---
@@ -391,6 +496,4 @@ Proceed with JWT-based design?
 - Always request explicit approval between phases
 - Use EARS format strictly for requirements
 - Focus on "what" and "how", not "doing"
-- Create clear, complete documentation before implementation
 - Explore multiple architectural options before recommending one
-- Wait for user approval before activating implementation skill

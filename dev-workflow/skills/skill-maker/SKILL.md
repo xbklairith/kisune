@@ -149,13 +149,37 @@ Use skill on real tasks → notice struggles → baseline test again → update 
 
 ## Claude Search Optimization (CSO)
 
-**Description field:** Start with "Use when...", use concrete triggers/symptoms, describe the *problem* not language-specific symptoms, write in third person.
+Skills must be discoverable by Claude's search heuristics. Without CSO, a well-written skill won't auto-activate when the user needs it.
 
-**Keywords:** Include error messages, symptoms, synonyms, and tool names Claude would search for.
+### Description field rules
 
-**Naming:** Use active voice, verb-first, gerunds work well (e.g., `creating-skills`, `testing-async-code`).
+- Start with "Use when..." in third person (not second person)
+- Include concrete triggers, error messages, and symptom keywords the user or agent would search for
+- Describe the *problem* the skill solves, not implementation details
+- Stay under 1024 chars; aim for 200-400
 
-**Token efficiency targets:** Frequently-loaded skills <500 words, others <1000 words, getting-started <200 words. Move large content to references, cross-reference other skills, use one excellent example over many mediocre ones.
+### Naming rules
+
+- Use verb-first or gerund form: `creating-skills`, `testing-async-code`, `dispatching-agents`
+- Letters, numbers, and hyphens only; max 64 chars
+- Avoid vague labels (`helper`, `utils`, `common`)
+
+### Token efficiency targets
+
+| Skill type | Target word count |
+|---|---|
+| Getting-started / bootstrap | < 150 words |
+| Frequently-loaded (auto-trigger common workflows) | < 500 words |
+| Domain / reference | < 1000 words |
+| Discipline-enforcing | up to 1500 words (rationalization tables justify length) |
+
+If SKILL.md exceeds the target, move reference material to a `references/` subfolder and link to it.
+
+### Cross-referencing rules
+
+- Reference other skills by name only (e.g., "use `dev-workflow:test-driven-development`")
+- Avoid `@filename.md` syntax — it force-loads files into context and defeats progressive disclosure
+- Use a "REQUIRED SUB-SKILL:" marker when a sub-skill must be invoked
 
 ---
 
