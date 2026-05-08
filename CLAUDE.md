@@ -22,7 +22,7 @@ kisune/
 │   └── README.md              # Complete documentation
 ├── dev-workflow/              # Dev-workflow plugin
 │   ├── .claude-plugin/        # Plugin metadata
-│   ├── skills/                # 10 skills (planning, implementation, quality)
+│   ├── skills/                # 11 skills (planning, implementation, quality)
 │   ├── agents/                # 4 agents (code-reviewer, tdd-guide, security-reviewer, planner)
 │   ├── commands/              # 1 slash command (spec)
 │   ├── templates/             # 3 spec-driven templates
@@ -43,7 +43,10 @@ kisune/
 - `pattern` - Chart pattern identification and personal library
 - `translate` - Convert strategies to Python + Pine Script
 
-### Dev-Workflow Plugin (10 skills, 4 agents, 1 command)
+### Dev-Workflow Plugin (11 skills, 4 agents, 1 command)
+
+**Bootstrap:**
+- `using-kisune` - Loads at session start; enforces skill-check before any action and indexes the skill registry
 
 **Planning Skills:**
 - `spec-driven-planning` - 3-phase workflow (Feature → Requirements/EARS → Design)
@@ -380,9 +383,9 @@ Skills reference and copy these templates during workflow execution.
 - 4 skills, 3 templates
 
 **Dev-Workflow Plugin:**
-- 10 skills, 8 agents, 1 command, 3 templates
+- 11 skills, 8 agents, 1 command, 3 templates
 
 **Combined:**
-- 14 skills, 8 agents, 1 command, 6 templates
+- 15 skills, 8 agents, 1 command, 6 templates
 - 51 files, ~9,600 lines
 - Language-agnostic, spec-compliant

@@ -40,7 +40,7 @@ claude --plugin-dir ./dev-workflow
 
 ## Dev-Workflow Plugin
 
-10 skills, 8 agents, 1 command. Language-agnostic, focused on spec-driven development discipline.
+11 skills, 8 agents, 1 command. Language-agnostic, focused on spec-driven development discipline.
 
 ### Command
 
@@ -49,6 +49,11 @@ claude --plugin-dir ./dev-workflow
 ```
 
 ### Skills by Category
+
+**Bootstrap**
+| Skill | Triggers |
+|-------|----------|
+| `using-kisune` | Session start; enforces skill-check before any action |
 
 **Planning**
 | Skill | Triggers |
