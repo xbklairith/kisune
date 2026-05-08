@@ -47,7 +47,7 @@ skill-name/
 
 **Frontmatter rules:**
 - `name`: Letters, numbers, hyphens only (max 64 chars)
-- `description`: Third-person, starts with "Use when...", includes triggers AND purpose (max 1024 chars)
+- `description`: Third-person, starts with "Use when...", includes triggers AND purpose (Anthropic caps `description` + optional `when_to_use` at 1536 chars combined; aim well under)
 - `allowed-tools`: Optional list restricting tool access
 
 **Writing style:** Use imperative/infinitive form ("To accomplish X, do Y"), not second person
@@ -149,14 +149,14 @@ Use skill on real tasks → notice struggles → baseline test again → update 
 
 ## Claude Search Optimization (CSO)
 
-Skills must be discoverable by Claude's search heuristics. Without CSO, a well-written skill won't auto-activate when the user needs it.
+> **Note:** "CSO" is kisune's framing, not an official Anthropic term. The underlying mechanics are official: Claude matches user intent against the frontmatter `description` (and optional `when_to_use`) of available skills to decide which to auto-invoke. **The body of SKILL.md is NOT scanned for matching** — padding the body with keywords does not help activation. Only frontmatter participates.
 
 ### Description field rules
 
 - Start with "Use when..." in third person (not second person)
-- Include concrete triggers, error messages, and symptom keywords the user or agent would search for
+- Include concrete triggers, error messages, and symptom keywords a user or agent would search for in the description itself (body keywords are wasted for matching)
 - Describe the *problem* the skill solves, not implementation details
-- Stay under 1024 chars; aim for 200-400
+- Anthropic caps `description` + `when_to_use` at **1536 chars combined**; aim for 200-400 chars to leave headroom
 
 ### Naming rules
 
@@ -166,12 +166,16 @@ Skills must be discoverable by Claude's search heuristics. Without CSO, a well-w
 
 ### Token efficiency targets
 
-| Skill type | Target word count |
+> **Official guidance:** Anthropic recommends SKILL.md body **under 500 lines** and progressive disclosure (move bulk into `references/`). The word-count tiers below are kisune heuristics layered on top, not Anthropic policy.
+
+| Skill type | Kisune target word count |
 |---|---|
 | Getting-started / bootstrap | < 150 words |
 | Frequently-loaded (auto-trigger common workflows) | < 500 words |
 | Domain / reference | < 1000 words |
 | Discipline-enforcing | up to 1500 words (rationalization tables justify length) |
+
+Hard ceiling either way: **500 lines** of SKILL.md body. If you're approaching that, move material to `references/`.
 
 If SKILL.md exceeds the target, move reference material to a `references/` subfolder and link to it.
 
@@ -204,7 +208,7 @@ Use TodoWrite to create todos for EACH item.
 - [ ] Identify patterns in rationalizations/failures
 
 **GREEN Phase:**
-- [ ] Valid frontmatter: name (letters/numbers/hyphens), description ("Use when...", third person, <1024 chars)
+- [ ] Valid frontmatter: name (letters/numbers/hyphens), description ("Use when...", third person, <1536 chars combined with `when_to_use`; aim for 200-400)
 - [ ] Keywords throughout for search (errors, symptoms, tools)
 - [ ] Clear overview with core principle
 - [ ] Address specific baseline failures from RED
