@@ -75,6 +75,9 @@ Skipping any step = lying, not verifying.
 | "Different words so rule doesn't apply" | Spirit over letter |
 | "Type-check passed, tests will too" | Type-check ≠ runtime behavior |
 | "I changed one line, full suite is overkill" | Run it anyway |
+| "I lowered [Confidence: 0.7] so I don't need to verify" | Confidence score ≠ evidence. Score reflects certainty about *verified* claims, not a license to skip the run |
+| "PM2 process is running, so tests are passing" | Running ≠ done. Read `pm2 logs --nostream` AND exit code |
+| "I wrote the User Action doc, the task is done" | Writing instructions ≠ executing them. Status is "pending user action", not "complete" |
 
 ## Key Patterns
 
@@ -112,6 +115,53 @@ Skipping any step = lying, not verifying.
 ```
 ✅ Start dev server → Open browser → Exercise the feature → Check golden path + edge cases
 ❌ "Type-check passed, frontend works"
+```
+
+## Kisune-Specific Patterns
+
+**Status Reporting block (`🔄 Checkpoint Update`):**
+Every line is its own claim and needs its own fresh evidence in the same turn.
+```
+✅ Tests: 48/48 passing      → ran `npm test` this turn, paste output
+✅ Type check: No errors     → ran `tsc --noEmit` this turn
+✅ Lint: Clean               → ran lint command this turn
+💾 Committed: "..."          → ran `git log -1` this turn
+```
+A status block built from runs scattered across earlier turns is a fabricated report. Re-run before posting.
+
+**Long-running commands under PM2 / `docx/logs/`:**
+Per kisune's command-execution convention, anything >30s runs under PM2 or redirects to `docx/logs/`. The verification workflow:
+```
+1. pm2 list                              → confirm process exited (status: stopped/online?)
+2. pm2 logs <name> --nostream --lines N  → read FULL output, not a tail
+3. Check exit code (PM2: `pm2 describe <name>` → exit_code field, OR check the log)
+4. ONLY THEN claim pass/fail
+```
+"Process is still running" is NOT a pass. "PM2 says online" is NOT a pass. Wait for completion, read logs, verify exit code.
+
+**Confidence score (`[Confidence: X.X]`):**
+The score reflects how certain you are about claims you've already verified. It is NOT a hedge to bypass verification.
+```
+✅ "Tests pass [output: 48/48, exit 0] [Confidence: 0.95]"
+❌ "Should work [Confidence: 0.6]"   ← unverified, score doesn't redeem it
+```
+If you haven't verified, the honest report is "not verified yet" — not a lower number.
+
+**Full-mode phase gate (Requirements check):**
+Before marking any Full-mode phase complete, write the checklist as an artifact, not in your head:
+```
+✅ Re-open requirements.md → For each EARS requirement, paste the line +
+   evidence (test name / file / output) → If any gap, list it explicitly
+❌ "I read it, looks covered, moving on"
+```
+The written checklist is the verification. Skipping the artifact = skipping the gate.
+
+**User Action Tasks (`docx/UserInstructions/*.md`):**
+Writing the instruction document IS NOT completing the underlying task. The doc is a hand-off, not a deliverable for the work it describes.
+```
+✅ "Created docx/UserInstructions/setup-supabase.md.
+    Status: pending user action — Supabase is NOT yet configured."
+❌ "Supabase is set up." (when only the doc exists)
 ```
 
 ## When To Apply
