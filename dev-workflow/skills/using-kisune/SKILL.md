@@ -1,6 +1,6 @@
 ---
 name: using-kisune
-description: Use at the start of every conversation to load the kisune skill index and bootstrap activation discipline — requires invoking the relevant Skill BEFORE any response, clarifying question, or tool call beyond skill invocation itself
+description: Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions
 ---
 
 <SUBAGENT-STOP>
