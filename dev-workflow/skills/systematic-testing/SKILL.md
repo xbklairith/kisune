@@ -1,6 +1,6 @@
 ---
 name: systematic-testing
-description: Systematic debugging framework and test generation patterns. Use when writing tests, debugging failures, or investigating bugs.
+description: Systematic debugging framework — root cause investigation, multi-layer instrumentation, 3-failures gate. Use when diagnosing flaky tests, unknown bugs, or cross-component failures.
 ---
 
 # Systematic Testing Skill

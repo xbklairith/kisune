@@ -200,7 +200,7 @@ If SKILL.md exceeds the target, move reference material to a `references/` subfo
 
 ## Skill Creation Checklist
 
-Use TodoWrite to create todos for EACH item.
+Use TaskCreate to create todos for EACH item.
 
 **RED Phase:**
 - [ ] Create pressure scenarios (3+ combined pressures for discipline skills)
@@ -245,7 +245,7 @@ Use TodoWrite to create todos for EACH item.
 
 ## Integration with Dev-Workflow
 
-**Leverage existing skills:** `test-driven-development` for testing, `review` for code review, `documentation` for docs, `brainstorming` for design exploration.
+**Leverage existing skills:** `test-driven-development` for testing, `review` for code review, `brainstorming` for design exploration.
 
 **Activation context:** Consider when skill activates in the workflow (planning, implementation, quality) and whether it auto-activates or requires explicit invocation.
 

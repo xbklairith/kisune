@@ -1,6 +1,7 @@
 ---
 name: review
 description: 25-point code quality checklist covering structure, errors, security, performance, and testing. Use before commits or when reviewing code.
+allowed-tools: Bash, Read, Grep
 ---
 
 # Code Quality Skill
@@ -315,7 +316,7 @@ Focus on: Named constants, extracted functions, input validation, and cleaner er
 
 ## Integration Points
 
-- Works with `spec-driven` skill during execution phase
+- Works with `spec-driven-implementation` skill during execution phase
 - Works with `git-workflow` skill for pre-commit reviews
 - Works with `systematic-testing` skill to verify test quality
 - Triggered automatically before commits if integrated

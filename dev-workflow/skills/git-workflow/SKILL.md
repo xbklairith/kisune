@@ -1,6 +1,7 @@
 ---
 name: git-workflow
 description: Smart git operations — commit messages, branch management, PR creation with summaries. Use for any git workflow.
+allowed-tools: Bash, Read
 ---
 
 # Git Workflow Skill
@@ -152,7 +153,7 @@ Closes #[issue number]
 ## Integration Points
 
 - Works with `review` skill for pre-commit reviews
-- Works with `spec-driven` skill for commit messages during execution
+- Works with `spec-driven-implementation` skill for commit messages during execution
 - Works with `systematic-testing` skill to verify tests before commit
 
 ## Best Practices

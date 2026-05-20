@@ -6,6 +6,7 @@ Route to the appropriate spec-driven skill. Mode (Quick vs Full) is decided by t
 
 - **Planning** (create, requirements, design, quick, full): Activate `spec-driven-planning` skill
 - **Implementation** (tasks, execute): Activate `spec-driven-implementation` skill (auto-detects mode from filesystem)
+- **Review** (review): Activate `spec-review` skill — 5–6 parallel agents across 6 dimensions: business, correctness+ambiguity smells, completeness+safety invariants, compatibility+implementation blockers, traceability (Full mode only), and testability scoring
 - **Utility** (list): Show feature status directly
 
 ## Interactive Menu
@@ -24,10 +25,13 @@ Implementation:
   6. Break down into TDD tasks (Full mode)
   7. Execute implementation (auto-detects Quick vs Full)
 
-Utility:
-  8. List all features
+Review:
+  8. Review feature spec (6 dimensions: business, correctness, completeness, compatibility, traceability*, testability)
 
-What would you like to do? (1-8)
+Utility:
+  9. List all features
+
+What would you like to do? (1-9)
 ```
 
 ## Argument Handling
@@ -49,6 +53,12 @@ What would you like to do? (1-8)
 /dev-workflow:spec execute           → spec-driven-implementation (auto-detect Quick or Full)
 ```
 
+**Review args:**
+```
+/dev-workflow:spec review            → spec-review (pick feature interactively)
+/dev-workflow:spec review "name"     → spec-review for named feature
+```
+
 **Utility:**
 ```
 /dev-workflow:spec list              → Show all features with mode + status
@@ -62,7 +72,8 @@ What would you like to do? (1-8)
 |---|---|---|
 | Options 1-5, args `create / "name" / quick / full / requirements / design` | `dev-workflow:spec-driven-planning` | Skill picks mode (or honors `quick`/`full` override) |
 | Options 6-7, args `tasks / execute` | `dev-workflow:spec-driven-implementation` | Skill auto-detects `plan.md` vs `tasks.md` |
-| Option 8, arg `list` | List `docx/features/` directly | Show NN-name + which file exists (plan.md / tasks.md) + status line |
+| Option 8, arg `review / review "name"` | `dev-workflow:spec-review` | 5–6 parallel agents across 6 dimensions; traceability only if all 3 Full mode files exist |
+| Option 9, arg `list` | List `docx/features/` directly | Show NN-name + which file exists (plan.md / tasks.md) + status line |
 
 ## Mode Reminder
 

@@ -4,7 +4,7 @@ Integrated development lifecycle plugin for Claude Code combining spec-driven de
 
 ## Overview
 
-The Dev-Workflow plugin provides a comprehensive, systematic approach to software development from initial concept through production deployment. It integrates ten specialized skills that work together seamlessly to ensure high-quality, well-tested, properly documented code with no external dependencies.
+The Dev-Workflow plugin provides a comprehensive, systematic approach to software development from initial concept through production deployment. It integrates thirteen specialized skills that work together seamlessly to ensure high-quality, well-tested, properly documented code with no external dependencies.
 
 ### What This Plugin Does
 
@@ -52,7 +52,7 @@ The Dev-Workflow plugin provides a comprehensive, systematic approach to softwar
 
 ## Core Skills
 
-The plugin includes 10 integrated skills organized into planning, implementation, and quality categories.
+The plugin includes 13 integrated skills organized into planning, implementation, and quality categories.
 
 ### Planning & Design Skills
 
@@ -491,6 +491,7 @@ The dev-workflow plugin is fully self-contained with integrated supporting skill
 - `completion-validation` - Evidence-before-claims gate before marking work done
 - `systematic-testing` - Testing guidance and systematic debugging framework
 - `skill-maker` - Create/edit skills with TDD methodology
+- `spec-review` - Multi-agent spec review across 6 dimensions
 
 **Skill Integration:**
 Skills automatically activate and work together based on context. For example:
@@ -501,6 +502,21 @@ Skills automatically activate and work together based on context. For example:
 - Git operations use `git-workflow` for smart commit messages
 
 **No External Dependencies Required** - All skills are included in the plugin.
+
+## Agents
+
+The plugin ships with 8 proactive agents that auto-activate based on context. Unlike skills (which respond to explicit requests), agents monitor the conversation and intervene when their specialization is relevant.
+
+| Agent | Specialization | Activates When |
+|-------|---------------|----------------|
+| `code-reviewer` | Auto-reviews code after changes | After writing or modifying code |
+| `tdd-guide` | Enforces write-tests-first methodology | New features, bug fixes, refactoring |
+| `security-reviewer` | Flags vulnerabilities in auth, input, APIs | Auth code, user input, API endpoints |
+| `planner` | Plans complex features and refactoring | Complex feature requests, large refactors |
+| `architect` | Software architecture specialist for system design and scalability | Planning new features, architectural decisions |
+| `build-error-resolver` | Fixes build/compilation errors with minimal diffs | Build fails, compilation errors |
+| `database-reviewer` | PostgreSQL/Supabase query optimization and schema design | Writing SQL, designing schemas |
+| `refactor-cleaner` | Dead code cleanup and consolidation specialist | Dead code, duplicates, unused dependencies |
 
 ## Example Workflows
 
@@ -664,9 +680,7 @@ project/
 - Spec-Driven: Starting new features, planning complex functionality
 - Review: Before commits, after completing components, when refactoring
 - Git-Workflow: Every commit, creating branches, opening PRs, before pushing
-- Documentation: After implementing functions, creating APIs, completing features
 - Systematic-Testing: Implementing functionality (TDD), when bugs occur, improving coverage
-- Frontend-Design: Building UI components, designing pages, creating distinctive interfaces
 
 ### Tips for Success
 
@@ -740,7 +754,19 @@ MIT License
 
 ## Version History
 
-**v1.2.0 (Current)**
+**v1.3.0 (Current)**
+- Add spec-review skill — 6-dimension sequential review (business, correctness+ambiguity smells, completeness+safety invariants, compatibility+implementation blockers, traceability, testability scoring)
+- Add allowed-tools frontmatter to 6 high-activity skills — reduces permission prompts
+- Add user-invocable: false to completion-validation; disable-model-invocation: true to using-kisune
+- Fix broken skill references (TodoWrite→TaskCreate, dead spec-driven/documentation refs)
+- Fix translate skill description (Backtrader→pandas/framework-agnostic)
+- Update all agent documentation — 8 agents now fully documented in README and CLAUDE.md
+- Sharpen skill descriptions: spec-driven-planning, spec-driven-implementation, systematic-testing
+
+**v1.2.1**
+- Add spec-review skill with 6-dimension parallel agent review
+
+**v1.2.0**
 - Added 6 shortcut commands for direct phase access (/dev-workflow:spec:create, :requirements, :design, :tasks, :execute, :list)
 - Fixed skill activation to use explicit Skill tool invocation
 - Prevents command collision with global /x:spec:* commands

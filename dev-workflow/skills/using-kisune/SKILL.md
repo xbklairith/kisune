@@ -1,6 +1,7 @@
 ---
 name: using-kisune
 description: Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions
+disable-model-invocation: true
 ---
 
 <SUBAGENT-STOP>
@@ -62,7 +63,7 @@ Then act / respond
 | "This feels productive" | Undisciplined action wastes time. |
 | "I know what that means" | Knowing the concept ≠ following the skill. |
 
-## Kisune Skill Index (11 skills)
+## Kisune Skill Index (12 skills)
 
 **Planning**
 
@@ -89,6 +90,7 @@ Then act / respond
 | `completion-validation` | **Before any "done", "tests pass", "ready to commit" claim** — non-negotiable gate |
 | `systematic-testing` | "debug this", flaky test, can't reproduce |
 | `skill-maker` | "create a skill", "edit skill", behavior-shaping changes |
+| `spec-review` | Review feature spec across 6 dimensions (business, correctness, completeness, compatibility, traceability, testability) | "review the spec", "check the spec", "validate spec" |
 
 ## Skill Priority When Multiple Apply
 

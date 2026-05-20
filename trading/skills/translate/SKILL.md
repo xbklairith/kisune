@@ -1,6 +1,6 @@
 ---
 name: translate
-description: Convert strategy docs to Python (Backtrader) and TradingView Pine Script. Use when translating strategies to code for backtesting.
+description: Convert strategy docs to Python (pandas, framework-agnostic) and TradingView Pine Script v5. Use when translating strategies to code for backtesting.
 ---
 
 # Strategy Translator Skill

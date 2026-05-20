@@ -77,6 +77,7 @@ claude --plugin-dir ./dev-workflow
 | `completion-validation` | "done", "ready to commit", before any success claim |
 | `systematic-testing` | "write tests", "debug this" |
 | `skill-maker` | "create a skill", "edit skill" |
+| `spec-review` | "review this spec", "check my requirements/design" |
 
 ### Agents (auto-activate proactively)
 
@@ -95,7 +96,7 @@ claude --plugin-dir ./dev-workflow
 
 ## Stats
 
-- **24 skills** (4 trading + 20 dev-workflow)
+- **17 skills** (4 trading + 13 dev-workflow)
 - **8 agents** (proactive, auto-activate)
 - **1 command** (`/dev-workflow:spec`)
 - **51 files**, ~9,600 lines

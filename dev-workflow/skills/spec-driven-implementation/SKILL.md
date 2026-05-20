@@ -1,6 +1,7 @@
 ---
 name: spec-driven-implementation
-description: MANDATORY implementation — auto-detects Quick (plan.md) vs Full (tasks.md) mode and executes accordingly. Quick = stepwise verification + commits; Full = Red-Green-Refactor TDD.
+description: Execute spec-driven implementation — auto-detects Quick (plan.md) or Full (tasks.md) mode and runs step-by-step with verification. Use when implementing a planned feature or running TDD tasks.
+allowed-tools: Read, Write, Edit, Bash
 ---
 
 # Spec-Driven Implementation Skill

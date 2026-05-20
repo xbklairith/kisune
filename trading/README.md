@@ -398,6 +398,8 @@ MIT License - See LICENSE file for details
 
 ## Version History
 
+- **v1.1.0** — Maintenance update; spec compliance verification and README accuracy improvements.
+
 - **v1.0.0** (2024-01-15): Initial release
   - Analyze skill (market analysis)
   - Research skill (strategy research)

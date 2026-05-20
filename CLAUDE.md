@@ -22,8 +22,8 @@ kisune/
 │   └── README.md              # Complete documentation
 ├── dev-workflow/              # Dev-workflow plugin
 │   ├── .claude-plugin/        # Plugin metadata
-│   ├── skills/                # 12 skills (planning, implementation, quality)
-│   ├── agents/                # 4 agents (code-reviewer, tdd-guide, security-reviewer, planner)
+│   ├── skills/                # 13 skills (planning, implementation, quality, review)
+│   ├── agents/                # 8 agents (code-reviewer, tdd-guide, security-reviewer, planner)
 │   ├── commands/              # 1 slash command (spec)
 │   ├── templates/             # 3 spec-driven templates
 │   └── README.md              # Complete documentation
@@ -43,7 +43,7 @@ kisune/
 - `pattern` - Chart pattern identification and personal library
 - `translate` - Convert strategies to Python + Pine Script
 
-### Dev-Workflow Plugin (12 skills, 4 agents, 1 command)
+### Dev-Workflow Plugin (13 skills, 8 agents, 1 command)
 
 **Bootstrap:**
 - `using-kisune` - Loads at session start; enforces skill-check before any action and indexes the skill registry
@@ -59,6 +59,7 @@ kisune/
 
 **Quality Skills:**
 - `review` - 25-point review checklist
+- `spec-review` - 4 parallel agents reviewing feature specs for business validity, correctness, completeness, and compatibility
 - `security-review` - OWASP Top 10 vulnerability detection and remediation
 - `git-workflow` - Smart commits, branch management, PR creation
 - `completion-validation` - Evidence-before-claims gate before marking work done
@@ -70,6 +71,10 @@ kisune/
 - `tdd-guide` - Enforces write-tests-first methodology
 - `security-reviewer` - Flags vulnerabilities in auth, input, APIs
 - `planner` - Plans complex features and refactoring
+- `architect` - Software architecture specialist, system design and scalability decisions
+- `build-error-resolver` - Fixes build/compilation errors with minimal diffs
+- `database-reviewer` - PostgreSQL/Supabase query optimization and schema design
+- `refactor-cleaner` - Dead code cleanup, removes unused code and duplicates
 
 **Commands:**
 - `/dev-workflow:spec` - Launch spec-driven workflow (interactive menu)
@@ -331,6 +336,7 @@ Skills should activate naturally based on user intent:
 - "Write tests" → test-driven-development (strict TDD enforcement)
 - "Debug this bug" → systematic-testing
 - "Done" / "ready to commit" → completion-validation (evidence-before-claims gate)
+- "Review the spec" / "check the spec" / "validate spec" → spec-review (4-agent parallel review)
 
 ### Skill Integration
 
@@ -384,9 +390,9 @@ Skills reference and copy these templates during workflow execution.
 - 4 skills, 3 templates
 
 **Dev-Workflow Plugin:**
-- 12 skills, 8 agents, 1 command, 3 templates
+- 13 skills, 8 agents, 1 command, 3 templates
 
 **Combined:**
-- 16 skills, 8 agents, 1 command, 6 templates
+- 17 skills, 8 agents, 1 command, 6 templates
 - 51 files, ~9,600 lines
 - Language-agnostic, spec-compliant

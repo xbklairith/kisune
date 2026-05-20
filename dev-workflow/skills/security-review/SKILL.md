@@ -1,6 +1,7 @@
 ---
 name: security-review
 description: OWASP Top 10 vulnerability detection. Use PROACTIVELY for code handling user input, auth, APIs, payments, or sensitive data.
+allowed-tools: Read, Grep, Bash
 ---
 
 # Security Review Skill
