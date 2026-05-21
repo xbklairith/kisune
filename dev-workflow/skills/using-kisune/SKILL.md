@@ -63,7 +63,7 @@ Then act / respond
 | "This feels productive" | Undisciplined action wastes time. |
 | "I know what that means" | Knowing the concept ≠ following the skill. |
 
-## Kisune Skill Index (12 skills)
+## Kisune Skill Index (15 skills)
 
 **Planning**
 
@@ -80,7 +80,7 @@ Then act / respond
 | `test-driven-development` | "write tests", "fix this bug", new feature work |
 | `spawn-agents` | 2+ independent problems (different test files, unrelated bugs); parallel dispatch |
 
-**Quality**
+**Quality / Debug**
 
 | Skill | Triggers |
 |---|---|
@@ -88,19 +88,27 @@ Then act / respond
 | `security-review` | code touches auth, user input, APIs, secrets, payments |
 | `git-workflow` | "commit", "push", "create PR", any git operation |
 | `completion-validation` | **Before any "done", "tests pass", "ready to commit" claim** — non-negotiable gate |
-| `systematic-testing` | "debug this", flaky test, can't reproduce |
+| `systematic-debug` | "debug this", flaky test, can't reproduce — 4-mantra discipline (reproduce, trace, falsify, breadcrumbs) + multi-layer investigation |
+| `post-mortem` | "write a post-mortem", "document the bug", after a fix lands — engineering record of root cause, mechanism, fix, validation, how it slipped through |
+| `scrutinize` | "take a hard look at this", "play devil's advocate", "outsider review" — deep outsider-perspective review, questions intent, traces code path end-to-end, verdict: ship/fix/rework/reject |
 | `skill-maker` | "create a skill", "edit skill", behavior-shaping changes |
 | `spec-review` | Review feature spec across 6 dimensions (business, correctness, completeness, compatibility, traceability, testability) | "review the spec", "check the spec", "validate spec" |
 
+**Comms**
+
+| Skill | Triggers |
+|---|---|
+| `management-talk` | "write for management/exec/VP/director/PM", "make this non-technical", "slack update/standup/email about this fix", "executive summary", "talking points for the meeting"; proactively offered after `post-mortem` |
+
 ## Skill Priority When Multiple Apply
 
-1. **Process skills first** (brainstorming, systematic-testing) — these determine HOW to approach
+1. **Process skills first** (brainstorming, systematic-debug) — these determine HOW to approach
 2. **Discipline gates next** (completion-validation, test-driven-development) — these enforce non-negotiables
 3. **Implementation skills last** (spec-driven-*, git-workflow) — these guide execution
 
 Examples:
 - "Let's build X" → `brainstorming` → `spec-driven-planning` → `spec-driven-implementation`
-- "Fix this bug" → `systematic-testing` → `test-driven-development`
+- "Fix this bug" → `systematic-debug` → `test-driven-development`
 - "Done, ready to commit" → `completion-validation` → `git-workflow`
 
 ## Skill Types

@@ -22,7 +22,7 @@ kisune/
 │   └── README.md              # Complete documentation
 ├── dev-workflow/              # Dev-workflow plugin
 │   ├── .claude-plugin/        # Plugin metadata
-│   ├── skills/                # 13 skills (planning, implementation, quality, review)
+│   ├── skills/                # 16 skills (planning, implementation, quality, review, comms)
 │   ├── agents/                # 8 agents (code-reviewer, tdd-guide, security-reviewer, planner)
 │   ├── commands/              # 1 slash command (spec)
 │   ├── templates/             # 3 spec-driven templates
@@ -43,7 +43,7 @@ kisune/
 - `pattern` - Chart pattern identification and personal library
 - `translate` - Convert strategies to Python + Pine Script
 
-### Dev-Workflow Plugin (13 skills, 8 agents, 1 command)
+### Dev-Workflow Plugin (16 skills, 8 agents, 1 command)
 
 **Bootstrap:**
 - `using-kisune` - Loads at session start; enforces skill-check before any action and indexes the skill registry
@@ -63,8 +63,13 @@ kisune/
 - `security-review` - OWASP Top 10 vulnerability detection and remediation
 - `git-workflow` - Smart commits, branch management, PR creation
 - `completion-validation` - Evidence-before-claims gate before marking work done
-- `systematic-testing` - TDD guidance and debugging framework
+- `systematic-debug` - Systematic debugging — 4-mantra discipline (reproduce, trace, falsify, breadcrumbs) + multi-layer investigation
+- `post-mortem` - Engineering record of a fixed bug — root cause, mechanism, fix, validation, how it slipped through
+- `scrutinize` - Deep outsider-perspective review — questions intent, traces code path end-to-end, verdict: ship/fix/rework/reject
 - `skill-maker` - Create/edit skills with TDD methodology
+
+**Communication Skills:**
+- `management-talk` - Rewrite technical content for leadership — shaped for Slack, JIRA, standup, email, or meeting
 
 **Agents (proactive):**
 - `code-reviewer` - Auto-reviews code after changes
