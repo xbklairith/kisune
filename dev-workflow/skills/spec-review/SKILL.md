@@ -2,7 +2,7 @@
 name: spec-review
 description: Review feature spec files with 3 focused agents — spec quality (business+correctness+ambiguity), completeness (missing scenarios+safety+testability), and buildability (compatibility+blockers+traceability). Sequential by default.
 argument-hint: [feature-name]
-allowed-tools: Read, Bash, Glob
+allowed-tools: Read, Bash, Glob, Agent
 context: fork
 ---
 

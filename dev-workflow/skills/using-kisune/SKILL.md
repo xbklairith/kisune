@@ -92,7 +92,7 @@ Then act / respond
 | `post-mortem` | "write a post-mortem", "document the bug", after a fix lands — engineering record of root cause, mechanism, fix, validation, how it slipped through |
 | `scrutinize` | "take a hard look at this", "play devil's advocate", "outsider review" — deep outsider-perspective review, questions intent, traces code path end-to-end, verdict: ship/fix/rework/reject |
 | `skill-maker` | "create a skill", "edit skill", behavior-shaping changes |
-| `spec-review` | Review feature spec across 6 dimensions (business, correctness, completeness, compatibility, traceability, testability) | "review the spec", "check the spec", "validate spec" |
+| `spec-review` | "review the spec", "check the spec", "validate spec" — 3 agents: spec quality, completeness, buildability |
 
 **Comms**
 
@@ -115,7 +115,7 @@ Examples:
 
 **Rigid** (TDD, completion-validation, security-review): Follow exactly. Do not adapt away discipline. "Just this once" = lying.
 
-**Flexible** (brainstorming, systematic-testing): Adapt principles to context.
+**Flexible** (brainstorming, systematic-debug): Adapt principles to context.
 
 The skill itself tells you which.
 

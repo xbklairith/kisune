@@ -77,6 +77,16 @@ Close with a one-line verdict:
 
 > **ship** / **fix-then-ship** / **rework** / **reject** — [single biggest reason]
 
+**Example output shape:**
+
+> 🔴 **Blocker** — `auth/token.go:84`: refresh token is written before the DB transaction commits; concurrent requests can read a token that will be rolled back. Suggests a two-phase write or write-after-commit.
+>
+> 🟡 **Major** — `api/user.go:212`: error path returns HTTP 200 with an error body; callers relying on status code will silently succeed.
+>
+> 🟢 **Nit** — `handler.go:31`: `ctx` is passed but never threaded into the downstream call; cancellation won't propagate.
+>
+> **fix-then-ship** — token visibility race is a data-integrity bug under concurrent load.
+
 ## Operating Rules
 
 - **No rubber-stamps.** If you genuinely find nothing, say what you traced and what you checked so the reviewer can judge whether coverage matched what they cared about.

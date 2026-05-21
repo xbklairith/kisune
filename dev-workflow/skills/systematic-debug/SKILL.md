@@ -207,6 +207,6 @@ After a root cause is confirmed and the fix is validated:
 2. **Fix the root cause** — not just the symptom.
 3. **Verify the test passes** and no existing tests regressed.
 4. **Remove all debug probes** — grep for your `[DBG-xxxx]` tags and strip them.
-5. **Commit with context** — reference the issue, explain the why, not the what.
+5. **Commit with context** — reference the issue, explain the why, not the what. Activate `git-workflow` for the commit itself.
 
 > The fix is incomplete until a regression test exists.

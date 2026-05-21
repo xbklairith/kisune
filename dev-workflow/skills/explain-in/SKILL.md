@@ -19,7 +19,7 @@ Use this any time engineering content needs to flow up the org, sideways into pr
 - "talking points for [meeting]" based on an engineering update
 - `/explain-in`
 
-**Proactive offer:** After a `post-mortem` is written, offer: *"Want a leadership version? I can shape this as a Slack post, JIRA comment, or standup note."*
+**Natural follow-on to `post-mortem`** — `post-mortem` offers this handoff automatically after drafting. Do not re-offer unprompted if already offered.
 
 If the channel is unclear, ask one question — *"JIRA, Slack, standup, email, or meeting talking-points?"* — and stop.
 
