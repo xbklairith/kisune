@@ -3,6 +3,7 @@ name: spec-review
 description: Review feature spec files across 6 dimensions — business, correctness+ambiguity smells, completeness+safety invariants, compatibility+implementation blockers, traceability, and testability scoring — launches 5–6 parallel agents and consolidates findings
 argument-hint: [feature-name]
 allowed-tools: Read, Bash, Glob
+context: fork
 ---
 
 # Spec Review Skill
@@ -50,7 +51,7 @@ Activate this skill when:
    - Quick mode: `plan.md`
    - Full mode: `requirements.md`, `design.md`, `tasks.md` (note which are present)
    - Record a `traceability_eligible` flag: `true` only if all three Full mode files exist
-6. Read all found spec files into context before dispatching agents
+6. Record the **absolute file paths** — do NOT read file contents into context. Agents will read files themselves.
 
 ---
 
@@ -59,7 +60,7 @@ Activate this skill when:
 Each agent prompt must be self-contained — agents have no access to the conversation. Include:
 
 1. **Role**: "You are reviewing a feature spec for [dimension]."
-2. **Files**: Paste full content of each spec file inline
+2. **File paths**: Pass the absolute paths to each spec file — tell the agent to read them with the Read tool. Do NOT paste file contents inline. Each agent reads only the files relevant to its dimension.
 3. **Checklist**: The specific check items for that dimension (from Step 2 below)
 4. **Output format**: Exactly `PASS` or `NEEDS REVISION`, then labeled bullet findings with severity icons
 
@@ -86,7 +87,7 @@ Sequential order:
 **Focus:** Does this spec make business sense?
 
 Prompt must include:
-- Full content of all spec files
+- Absolute paths to all spec files (agent reads them with Read tool)
 - Feature directory path
 
 Check:
@@ -108,7 +109,7 @@ Return:
 **Focus:** Are requirements syntactically correct AND free of systematic ambiguity patterns?
 
 Prompt must include:
-- Full content of all spec files
+- Absolute paths to all spec files (agent reads them with Read tool)
 - Feature directory path
 
 **EARS Correctness (Full mode):**
@@ -150,7 +151,7 @@ Return:
 **Focus:** What scenarios are missing, AND what must always/eventually be true?
 
 Prompt must include:
-- Full content of all spec files
+- Absolute paths to all spec files (agent reads them with Read tool)
 - Feature directory path
 
 **Completeness checks:**
@@ -194,7 +195,7 @@ Return:
 **Focus:** Can we build this, does it play well with the outside world, and are there obvious blockers before a line of code is written?
 
 Prompt must include:
-- Full content of all spec files
+- Absolute paths to all spec files (agent reads them with Read tool)
 - Feature directory path
 
 **Our side (internal):**
@@ -231,7 +232,7 @@ Return:
 **Only dispatch when `traceability_eligible = true`** (all three Full mode files — `requirements.md`, `design.md`, `tasks.md` — are present). Skip for Quick mode and partial Full mode.
 
 Prompt must include:
-- Full content of `requirements.md`, `design.md`, and `tasks.md`
+- Absolute paths to `requirements.md`, `design.md`, and `tasks.md` (agent reads only what it needs)
 - Feature directory path
 
 **Requirements → Design:**
@@ -265,7 +266,7 @@ Return:
 **Focus:** How testable is each requirement, and what's blocking test automation?
 
 Prompt must include:
-- Full content of all spec files
+- Absolute paths to all spec files (agent reads them with Read tool)
 - Feature directory path
 
 Score every requirement on this 0–3 scale:
