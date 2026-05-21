@@ -33,7 +33,7 @@ Activate this skill when:
 3. **Generate Commit Message** using format: `[type]: [concise description in present tense]`
 
 **Commit Types:**
-- `feat` - New feature
+- `feat` or `feature` - New feature
 - `fix` - Bug fix
 - `refactor` - Code restructuring without behavior change
 - `test` - Adding or updating tests

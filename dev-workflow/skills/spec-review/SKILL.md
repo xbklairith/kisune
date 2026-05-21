@@ -1,6 +1,6 @@
 ---
 name: spec-review
-description: Review feature spec files across 6 dimensions — business, correctness+ambiguity smells, completeness+safety invariants, compatibility+implementation blockers, traceability, and testability scoring — launches 5–6 parallel agents and consolidates findings
+description: Review feature spec files with 3 focused agents — spec quality (business+correctness+ambiguity), completeness (missing scenarios+safety+testability), and buildability (compatibility+blockers+traceability). Sequential by default.
 argument-hint: [feature-name]
 allowed-tools: Read, Bash, Glob
 context: fork
@@ -10,34 +10,27 @@ context: fork
 
 ## Purpose
 
-Run review agents against a feature's spec files (`requirements.md`, `design.md`, `tasks.md` or `plan.md`) across up to six independent review dimensions, then consolidate results into an actionable review report with a PASS / NEEDS REVISION verdict.
+Run 3 focused review agents against a feature's spec files, then consolidate into an actionable PASS / NEEDS REVISION report.
 
-Agents run **sequentially by default** — one at a time, in order. Run in parallel only if the user explicitly requests it.
+Agents run **sequentially by default**. Run in parallel only if the user explicitly requests it.
 
 **Agent count by mode:**
-- **Quick mode** (plan.md only): 5 agents (skip Agent 5 — Traceability)
-- **Full mode** (all 3 files present): 6 agents
-- **Partial Full mode** (some files missing): 5 agents (skip Agent 5)
+- **Quick mode** (plan.md only): 2 agents (skip Agent 3 — Buildability)
+- **Full mode** (all 3 files present): 3 agents
+- **Partial Full mode** (some files missing): 2 agents (skip Agent 3)
 
-**Dimensions covered:**
-
-| Agent | Dimension | Includes |
+| Agent | Name | Covers |
 |---|---|---|
-| 1 | Business | Goals, value, scope, assumptions |
-| 2 | Correctness + Ambiguity Smells | EARS syntax, 10-pattern smell scan |
-| 3 | Completeness + Safety/Liveness Invariants | Missing scenarios, invariants, liveness |
-| 4 | Compatibility + Implementation Blockers | Internal feasibility, external contracts, obvious blockers |
-| 5 | Traceability | REQ→Design→Tasks chain (Full mode only) |
-| 6 | Testability Scoring | Per-requirement 0–3 testability score |
+| 1 | Spec Quality | Business validity, EARS correctness, 10-pattern ambiguity smell scan |
+| 2 | Completeness | Missing scenarios, safety invariants, liveness properties, testability scoring |
+| 3 | Buildability | Compatibility, implementation blockers, REQ→Design→Tasks traceability |
 
 ## Activation Triggers
 
-Activate this skill when:
-- User says "review the spec", "review feature spec", "check the spec"
-- User says "is this spec good?", "validate the spec", "audit the spec"
-- User mentions reviewing requirements, design, or tasks files
+- "review the spec", "review feature spec", "check the spec"
+- "is this spec good?", "validate the spec", "audit the spec"
 - Before moving from planning to implementation
-- `/dev-workflow:spec review` command arg
+- `/dev-workflow:spec review`
 
 ---
 
@@ -46,321 +39,206 @@ Activate this skill when:
 1. List `docx/features/` to find all feature directories
 2. If a feature name was given as argument, match it
 3. If ambiguous, show the list and ask which feature to review
-4. If `docx/features/` does not exist, stop and tell the user: "No feature specs found. Run `/dev-workflow:spec create` to create your first feature."
-5. Identify which files exist:
+4. If `docx/features/` does not exist, stop: "No feature specs found. Run `/dev-workflow:spec create` first."
+5. Identify which files exist and record their **absolute paths** — do NOT read contents into context. Agents read files themselves.
    - Quick mode: `plan.md`
    - Full mode: `requirements.md`, `design.md`, `tasks.md` (note which are present)
-   - Record a `traceability_eligible` flag: `true` only if all three Full mode files exist
-6. Record the **absolute file paths** — do NOT read file contents into context. Agents will read files themselves.
+   - Set `traceability_eligible = true` only if all three Full mode files exist
 
 ---
 
 ## Dispatch Prompt Template
 
-Each agent prompt must be self-contained — agents have no access to the conversation. Include:
+Each agent prompt must be self-contained. Include:
 
-1. **Role**: "You are reviewing a feature spec for [dimension]."
-2. **File paths**: Pass the absolute paths to each spec file — tell the agent to read them with the Read tool. Do NOT paste file contents inline. Each agent reads only the files relevant to its dimension.
-3. **Checklist**: The specific check items for that dimension (from Step 2 below)
-4. **Output format**: Exactly `PASS` or `NEEDS REVISION`, then labeled bullet findings with severity icons
+1. **Role**: "You are reviewing a feature spec for [agent name]."
+2. **File paths**: Absolute paths — tell the agent to read them with the Read tool. Do NOT paste content inline.
+3. **Checklist**: The check items for that agent (from Step 2 below)
+4. **Output format**: `PASS` or `NEEDS REVISION`, then labeled findings with severity icons
 
 ---
 
 ## Step 2 — Run Review Agents
 
-**Default: sequential.** Run agents one at a time in order (1 → 2 → 3 → 4 → 5 → 6). After each agent returns, summarize its findings in a brief status line before proceeding to the next.
+**Default: sequential** (1 → 2 → 3). Summarize each agent's findings in one line before the next.
 
-**Parallel mode:** Only if the user explicitly says "run in parallel", "parallel review", or similar — emit all applicable Agent tool calls in a **single message** so they run concurrently.
-
-Sequential order:
-1. Business
-2. Correctness + Ambiguity Smells
-3. Completeness + Safety/Liveness Invariants
-4. Compatibility + Implementation Blockers
-5. Traceability (skip if `traceability_eligible = false`)
-6. Testability Scoring
+**Parallel:** Only if user explicitly says "run in parallel" — emit all Agent tool calls in a single message.
 
 ---
 
-### Agent 1: Business Review
+### Agent 1: Spec Quality
 
-**Focus:** Does this spec make business sense?
+**Covers:** Business validity + EARS correctness + ambiguity smell scan
 
-Prompt must include:
-- Absolute paths to all spec files (agent reads them with Read tool)
-- Feature directory path
+Prompt includes: absolute paths to all spec files
 
-Check:
-- Is the problem being solved clearly stated?
-- Is the value / benefit to the user or system explicit?
-- Are the goals realistic and well-scoped?
-- Are there requirements that seem gold-plated or out of scope?
-- Are acceptance criteria meaningful from a business perspective?
-- Are there unstated business assumptions that need surfacing?
-
-Return:
-- `PASS` or `NEEDS REVISION`
-- Bullet list of findings (each with severity: 🔴 Critical / 🟡 Warning / 🟢 Suggestion)
-
----
-
-### Agent 2: Correctness + Ambiguity Smells
-
-**Focus:** Are requirements syntactically correct AND free of systematic ambiguity patterns?
-
-Prompt must include:
-- Absolute paths to all spec files (agent reads them with Read tool)
-- Feature directory path
+**Business:**
+- Problem being solved clearly stated?
+- Value / benefit to user or system explicit?
+- Goals realistic and well-scoped?
+- Gold-plated or out-of-scope requirements?
+- Acceptance criteria meaningful?
+- Unstated business assumptions?
 
 **EARS Correctness (Full mode):**
-- Every requirement uses proper EARS syntax (WHEN/THEN, WHILE, IF/THEN, WHERE, or ubiquitous SHALL)
-- Each requirement is one atomic statement — no compound AND requirements that should be split
-- Active voice with SHALL for mandatory, SHOULD for desirable
+- Every requirement uses proper EARS syntax (WHEN/THEN, WHILE, IF/THEN, WHERE, ubiquitous SHALL)
+- Each requirement is one atomic statement (no compound AND)
+- Active voice, SHALL for mandatory, SHOULD for desirable
 - No contradicting requirements
 
 **Plan Correctness (Quick mode):**
-- Tasks are unambiguous and actionable
-- No vague tasks like "handle errors" without specifics
-- Each task has clear done criteria
+- Tasks unambiguous and actionable
+- Clear done criteria per task
 
-**Ambiguity Smell Detection — scan every requirement for these 10 patterns:**
+**Ambiguity Smell Scan — flag every occurrence:**
 
-| Smell | Pattern | Example |
-|---|---|---|
-| Vague intensifier | "quickly", "fast", "appropriate", "reasonable", "good", "user-friendly" | "responds quickly" → needs metric |
-| Implicit actor | "the system" with no named role | "the system shall notify" → who triggers it? |
-| Combinatorial explosion | `A and/or B` | "admin and/or moderator" → split or clarify |
-| Ambiguous pronoun | "it", "they", "this" with unclear referent | "it shall return" → what is "it"? |
-| Missing subject | Passive voice with no actor | "shall be validated" → by whom/what? |
-| Unbounded quantifier | "all", "every", "any", "never" without scope | "all users" → which users? |
-| Escape clause | "where possible", "if applicable", "as needed" | Removes enforceability |
-| Unverifiable adjective | "secure", "reliable", "scalable" without metric | "shall be secure" → by what measure? |
-| Temporal vagueness | "soon", "eventually", "periodically" | Needs concrete time bounds |
-| Implicit assumption | Behavior implied but not stated | Missing initial/boundary state |
+| Smell | Pattern |
+|---|---|
+| Vague intensifier | "quickly", "appropriate", "reasonable", "good", "user-friendly" |
+| Implicit actor | "the system" with no named role |
+| Combinatorial explosion | `A and/or B` |
+| Ambiguous pronoun | "it", "they", "this" with unclear referent |
+| Missing subject | Passive voice with no actor |
+| Unbounded quantifier | "all", "every", "any" without scope |
+| Escape clause | "where possible", "if applicable", "as needed" |
+| Unverifiable adjective | "secure", "reliable", "scalable" without metric |
+| Temporal vagueness | "soon", "eventually", "periodically" |
+| Implicit assumption | Behavior implied but not stated |
 
-For each smell found: cite the requirement ID (or text), name the smell type, and suggest a concrete rewrite.
+For each smell: cite requirement ID, name the smell, suggest a concrete rewrite.
 
-Return:
-- `PASS` or `NEEDS REVISION`
-- Findings per requirement (EARS issues + smell hits), severity labeled
+Return: `PASS` or `NEEDS REVISION` + severity-labeled findings
 
 ---
 
-### Agent 3: Completeness + Safety/Liveness Invariants
+### Agent 2: Completeness
 
-**Focus:** What scenarios are missing, AND what must always/eventually be true?
+**Covers:** Missing scenarios + safety/liveness invariants + testability scoring
 
-Prompt must include:
-- Absolute paths to all spec files (agent reads them with Read tool)
-- Feature directory path
+Prompt includes: absolute paths to all spec files
 
-**Completeness checks:**
-- Happy path fully covered?
-- Error / failure scenarios specified?
+**Completeness:**
+- Happy path covered?
+- Error / failure scenarios?
 - Edge cases: empty inputs, zero values, max bounds, concurrent access?
-- Auth / permission requirements stated?
-- Non-functional requirements present: performance, security, scalability?
-- Data validation rules specified?
-- Rollback / undo behavior defined (if relevant)?
-- Are all actors / user roles accounted for?
-- Are there implied behaviors not written down?
+- Auth / permission requirements?
+- NFRs: performance, security, scalability?
+- Data validation rules?
+- Rollback / undo behavior (if relevant)?
+- All actors / user roles accounted for?
+- Implied behaviors not written down?
 
 **Safety Invariants — what must NEVER be true?**
-Look for unstated system constraints that should be made explicit:
-- State invariants: "the system shall never allow X while Y is true"
-- Security invariants: "unauthorized users shall never access Z"
-- Data integrity invariants: "account balance shall never go negative"
-- Concurrency safety: "two requests shall never simultaneously modify the same record"
+- State: "shall never allow X while Y"
+- Security: "unauthorized users shall never access Z"
+- Data integrity: "balance shall never go negative"
+- Concurrency: "two requests shall never simultaneously modify the same record"
 
-For async, stateful, or multi-actor specs: explicitly check whether safety boundaries are stated.
+Flag specs with async/stateful/multi-actor behavior that have no safety boundaries stated.
 
-**Liveness Properties — what must EVENTUALLY happen?**
-Look for missing progress guarantees:
-- "the system shall eventually complete the job" (no infinite-wait)
-- "a pending request shall eventually receive a response or timeout"
-- "the queue shall eventually drain under normal load"
+**Liveness — what must EVENTUALLY happen?**
+- No infinite-wait guarantees
+- Every pending request eventually gets a response or timeout
+- Every queue eventually drains
 
-Flag specs that describe triggering behavior but never guarantee completion or termination.
+**Testability (0–3 per requirement):**
 
-Return:
-- `PASS` or `NEEDS REVISION`
-- Missing scenario list (severity labeled) with suggested EARS additions
-- Safety invariants that are implied but not written (flag as 🟡 or 🔴 based on risk)
-- Missing liveness guarantees (flag as 🟡 if async/stateful behavior is present)
+| Score | Meaning |
+|---|---|
+| 3 | Automatable — clear oracle, deterministic |
+| 2 | Manual-testable — defined procedure |
+| 1 | Partially testable — some aspects vague |
+| 0 | Not testable — vague or no pass/fail criteria |
 
----
+For each 0 or 1: explain the blocker and suggest a rewrite that raises the score.
 
-### Agent 4: Compatibility + Implementation Blockers
-
-**Focus:** Can we build this, does it play well with the outside world, and are there obvious blockers before a line of code is written?
-
-Prompt must include:
-- Absolute paths to all spec files (agent reads them with Read tool)
-- Feature directory path
-
-**Our side (internal):**
-- Does the design align with the existing tech stack and architecture patterns?
-- Does it introduce breaking changes to existing interfaces?
-- Are dependencies available and versioned?
-- (Only if `tasks.md` is present) Is the task breakdown consistent with the design (no orphaned requirements)?
-
-**Other side (external):**
-- Are all external API contracts defined?
-- Are integration points with third-party services specified?
-- Are data format / schema contracts clear?
-- Is backward compatibility addressed?
-- Are rate limits, quotas, or SLA constraints mentioned?
-- Are there regulatory / compliance implications (GDPR, PCI, HIPAA)?
-
-**Implementation blockers — obvious spec-level issues that will block implementation:**
-- Are there requirements that cannot be implemented without a decision that hasn't been made? (e.g., "store user data" — where? which database?)
-- Are there requirements that reference systems, APIs, or services that are not yet defined?
-- Are there requirements that contradict each other in a way that makes a single implementation impossible?
-- Are there missing technical definitions that developers will immediately ask about?
-
-Return:
-- `PASS` or `NEEDS REVISION`
-- Bullet list of compatibility concerns (severity labeled)
-- Bullet list of implementation blockers (each is 🔴 Critical — blocks implementation start)
+Return: `PASS` or `NEEDS REVISION` + missing scenarios + invariants + testability scorecard + avg score
 
 ---
 
-### Agent 5: Traceability
+### Agent 3: Buildability
 
-**Focus:** Does every requirement flow end-to-end through design into tasks?
+**Covers:** Compatibility + implementation blockers + traceability
 
-**Only dispatch when `traceability_eligible = true`** (all three Full mode files — `requirements.md`, `design.md`, `tasks.md` — are present). Skip for Quick mode and partial Full mode.
+**Only dispatch when `traceability_eligible = true`** (all 3 Full mode files present). Skip for Quick mode and partial Full mode.
 
-Prompt must include:
-- Absolute paths to `requirements.md`, `design.md`, and `tasks.md` (agent reads only what it needs)
-- Feature directory path
+Prompt includes: absolute paths to all spec files
 
-**Requirements → Design:**
-- Extract every `REQ-XXX` from `requirements.md`. If requirements do not use REQ-XXX IDs, note this and trace by requirement text/bullet instead.
-- For each REQ, check that at least one section or decision in `design.md` addresses it
-- Flag any REQ with no design coverage
+**Compatibility:**
+- Design aligns with existing tech stack?
+- Breaking changes to existing interfaces?
+- Dependencies available and versioned?
+- External API contracts defined?
+- Integration points with third-party services specified?
+- Backward compatibility addressed?
+- Rate limits, quotas, SLA constraints mentioned?
+- Regulatory / compliance implications (GDPR, PCI, HIPAA)?
 
-**Design → Tasks:**
-- Extract every named component / decision from `design.md`
-- For each design element, check that at least one task in `tasks.md` implements it
-- Flag design elements with no tasks
+**Implementation Blockers** — flag anything that will immediately block a developer:
+- Requirements that need an unresolved decision ("store user data" — where?)
+- References to undefined systems, APIs, or services
+- Contradicting requirements that make a single implementation impossible
+- Missing technical definitions developers will ask about immediately
 
-**Tasks → Requirements (reverse):**
-- Extract every task from `tasks.md`
-- Check that each task traces back to at least one REQ or design element
-- Flag orphaned tasks
+**Traceability chain:**
+- REQ→Design: every requirement addressed by at least one design decision?
+- Design→Tasks: every design element has at least one implementing task?
+- Tasks→REQ: every task traces back to a requirement or design element?
+- Acceptance criteria in requirements consistent with done-criteria in tasks?
 
-**Consistency:**
-- Are acceptance criteria in requirements consistent with done-criteria in tasks?
-- Does the scope in `design.md` match the scope in `requirements.md`?
+If requirements have no REQ-XXX IDs, trace by text — don't fail silently.
 
-Return:
-- `PASS` or `NEEDS REVISION`
-- Traceability matrix: `REQ-XXX | Design Coverage | Task Coverage | Status`
-- Broken links list (severity labeled)
-
----
-
-### Agent 6: Testability Scoring
-
-**Focus:** How testable is each requirement, and what's blocking test automation?
-
-Prompt must include:
-- Absolute paths to all spec files (agent reads them with Read tool)
-- Feature directory path
-
-Score every requirement on this 0–3 scale:
-
-| Score | Label | Meaning |
-|---|---|---|
-| 3 | Automatable | Clear oracle, deterministic, can be a unit/integration/e2e test today |
-| 2 | Manual-testable | Can be verified by a human tester with a defined procedure |
-| 1 | Partially testable | Some aspects can be tested, others are vague or environment-dependent |
-| 0 | Not testable | Vague, subjective, or no way to verify pass/fail |
-
-For each requirement scoring 0 or 1:
-- Explain what blocks testability (vague metric, missing oracle, environmental dependency, etc.)
-- Suggest a concrete rewrite that would raise the score to 2 or 3
-
-Also flag:
-- Requirements that conflict with TDD (no test can be written before implementation)
-- Missing acceptance criteria that would serve as test oracles
-- NFRs (performance, security) with no measurable threshold
-
-Return:
-- `PASS` (avg score ≥ 2.0, no score-0 requirements) or `NEEDS REVISION`
-- Testability scorecard table: `REQ-XXX | Score | Blocker | Suggested Fix`
-- Overall average testability score
+Return: `PASS` or `NEEDS REVISION` + compatibility concerns + blockers (🔴) + traceability matrix (`REQ | Design | Tasks | Status`)
 
 ---
 
-## Step 3 — Consolidate Results
+## Step 3 — Consolidate
 
-Wait for **all dispatched agent tool calls to return** before starting this step. Do not partially consolidate.
-
-After all agents return, synthesize into a single report:
+Wait for all agents to return before consolidating.
 
 ```
 # Spec Review: [Feature Name]
-**Files reviewed:** [list]
-**Mode:** Quick | Full | Partial Full
-**Agents run:** [N]
-**Date:** [today]
+**Mode:** Quick | Full | Partial Full  **Date:** [today]
 
 ## Verdict: PASS ✅ | NEEDS REVISION ❌
 
----
+## 1. Spec Quality [PASS|NEEDS REVISION]
+[business + correctness + smell findings]
 
-## 1. Business [PASS|NEEDS REVISION]
-[findings]
+## 2. Completeness [PASS|NEEDS REVISION]
+[missing scenarios + invariants + testability scorecard + avg score]
 
-## 2. Correctness + Ambiguity Smells [PASS|NEEDS REVISION]
-[EARS findings + smell hits per requirement]
-
-## 3. Completeness + Safety/Liveness [PASS|NEEDS REVISION]
-[missing scenarios + invariants + liveness gaps]
-
-## 4. Compatibility + Implementation Blockers [PASS|NEEDS REVISION]
-[compatibility concerns + blockers]
-
-## 5. Traceability [PASS|NEEDS REVISION|N/A]
-[traceability matrix + broken links]
-
-## 6. Testability Scoring [PASS|NEEDS REVISION]
-[scorecard table + avg score]
+## 3. Buildability [PASS|NEEDS REVISION|N/A]
+[compatibility + blockers + traceability matrix]
 
 ---
 
 ## Action Items
-| # | Severity | Dimension | Issue | Suggested Fix |
+| # | Sev | Agent | Issue | Fix |
 |---|---|---|---|---|
-| 1 | 🔴 | Correctness | REQ-003 uses "quickly" | Replace with "within 200ms" |
 ...
 
 ## Summary
-- Critical issues: N
-- Warnings: N
-- Suggestions: N
-- Avg testability score: X.X / 3.0
-- Recommended action: [Proceed to implementation | Revise spec first]
+Critical: N  Warnings: N  Suggestions: N  Avg testability: X.X/3.0
+→ [Proceed to implementation | Revise spec first]
 ```
 
 ---
 
 ## Verdict Rules
 
-- **PASS** — zero 🔴 Critical issues across all dispatched agents. May have warnings/suggestions.
-- **NEEDS REVISION** — any 🔴 Critical issue in any dimension. Block implementation until resolved.
-- Traceability (Agent 5) is `N/A` for Quick mode or partial Full mode.
+- **PASS** — zero 🔴 Critical issues across all agents
+- **NEEDS REVISION** — any 🔴 Critical issue blocks implementation
+- Agent 3 is `N/A` for Quick mode or partial Full mode
 
-If NEEDS REVISION: offer to open the relevant spec file for editing, or activate `spec-driven-planning` to revise the appropriate phase.
+If NEEDS REVISION: offer to open the spec file or activate `spec-driven-planning` to revise.
 
 ---
 
-## Severity Definitions
+## Severity
 
-| Icon | Level | Meaning |
-|---|---|---|
-| 🔴 | Critical | Blocks implementation — ambiguous, missing, incompatible, or untestable |
-| 🟡 | Warning | Should fix before implementation — risk of rework |
-| 🟢 | Suggestion | Optional improvement — clarity, coverage, or testability enhancement |
+| Icon | Meaning |
+|---|---|
+| 🔴 | Blocks implementation |
+| 🟡 | Risk of rework — fix before implementing |
+| 🟢 | Optional improvement |
