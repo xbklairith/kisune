@@ -69,7 +69,7 @@ kisune/
 - `skill-maker` - Create/edit skills with TDD methodology
 
 **Communication Skills:**
-- `management-talk` - Rewrite technical content for leadership — shaped for Slack, JIRA, standup, email, or meeting
+- `explain-in` - Rewrite technical content for leadership — shaped for Slack, JIRA, standup, email, or meeting
 
 **Agents (proactive):**
 - `code-reviewer` - Auto-reviews code after changes

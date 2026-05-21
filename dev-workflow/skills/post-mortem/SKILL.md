@@ -17,7 +17,7 @@ allowed-tools: Read, Write
 
 The canonical engineering record of a bug fix. Written after debugging lands a real fix, for other engineers and future-you who will have forgotten everything in six months. Code identifiers are welcome — this is the artifact that lets the next person recover the mental model fast.
 
-For the leadership-facing version of this content, hand the finished post-mortem to `management-talk`. Post-mortem owns the engineering truth; `management-talk` reframes it for stakeholders.
+For the leadership-facing version of this content, hand the finished post-mortem to `explain-in`. Post-mortem owns the engineering truth; `explain-in` reframes it for stakeholders.
 
 ## When NOT to Use
 
@@ -88,7 +88,7 @@ If there are no action items, write: *"None — the fix is sufficient and no cla
 
 ## Tone
 
-Engineer-to-engineer. Different from `management-talk`:
+Engineer-to-engineer. Different from `explain-in`:
 
 - **Code identifiers are first-class.** Function names, file paths, commit SHAs, line numbers — keep them. The point is that future engineers can grep their way back to the change.
 - **Mechanism over narrative.** Walk the actual cause chain. Don't soften "a synchronization issue" — name which function skipped which event under which gate.
@@ -103,7 +103,7 @@ Engineer-to-engineer. Different from `management-talk`:
 2. Confirm destination (default: JIRA comment on the source ticket). Other valid targets: PR description, `docs/postmortems/<ticket>.md`, internal wiki. Shape is the same — only the wrapping changes.
 3. Produce the draft as a single block.
 4. For JIRA posting: show the exact payload, wait for explicit "post it" / "go ahead" / "yes," then post. Print-only output needs no approval.
-5. Offer the handoff: *"Want a leadership-friendly version? I can hand this to `management-talk`."* Don't do it automatically.
+5. Offer the handoff: *"Want a leadership-friendly version? I can hand this to `explain-in`."* Don't do it automatically.
 
 ## Worked Example — Partial (JIRA-12345)
 
@@ -117,7 +117,7 @@ What the engineering record does that a management summary doesn't: names every 
 
 - **Refuse to draft without all four required inputs.** A post-mortem of a hypothesis is worse than no post-mortem.
 - **Never invent root cause, owner, validation runs, or action items.** If a section's facts aren't there, ask. Don't fill the gap with plausible prose.
-- **Never strip code identifiers.** They are the index. Reframing for leadership is `management-talk`'s job.
+- **Never strip code identifiers.** They are the index. Reframing for leadership is `explain-in`'s job.
 - **Blameless.** Gaps and bugs, never people.
 - **State validation coverage honestly.** Implying broader coverage than you have is the failure mode that breeds repeat regressions.
 - **Get sign-off before posting to JIRA.** Print-only output needs no approval.

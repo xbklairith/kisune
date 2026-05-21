@@ -1,10 +1,10 @@
 ---
-name: management-talk
+name: explain-in
 description: Rewrite engineer-to-engineer content for leadership audiences — VPs, directors, PMs, release managers. Shapes for the channel: JIRA comment, Slack post, standup note, email, or meeting talking-points. Use after post-mortem or any technical update that needs to flow up the org.
 allowed-tools: Read
 ---
 
-# Management Talk
+# Explain In
 
 Same audience and translation rules as a written status report, but **shaped for the channel** — JIRA comment, Slack post, async standup, email, or meeting talking-points. The channel decides the length, formatting, and how much structure to leave on the page.
 
@@ -17,7 +17,7 @@ Use this any time engineering content needs to flow up the org, sideways into pr
 - "send a slack update / standup note / email about [engineering work]"
 - "executive summary" / "leadership update" / "status update"
 - "talking points for [meeting]" based on an engineering update
-- `/management-talk`
+- `/explain-in`
 
 **Proactive offer:** After a `post-mortem` is written, offer: *"Want a leadership version? I can shape this as a Slack post, JIRA comment, or standup note."*
 

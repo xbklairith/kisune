@@ -98,7 +98,7 @@ Then act / respond
 
 | Skill | Triggers |
 |---|---|
-| `management-talk` | "write for management/exec/VP/director/PM", "make this non-technical", "slack update/standup/email about this fix", "executive summary", "talking points for the meeting"; proactively offered after `post-mortem` |
+| `explain-in` | "write for management/exec/VP/director/PM", "make this non-technical", "slack update/standup/email about this fix", "executive summary", "talking points for the meeting"; proactively offered after `post-mortem` |
 
 ## Skill Priority When Multiple Apply
 
