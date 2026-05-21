@@ -100,7 +100,7 @@ Engineer-to-engineer. Different from `explain-in`:
 ## Output Flow
 
 1. Confirm all four required inputs are satisfied. If any are missing, list them and stop.
-2. Confirm destination (default: `docs/postmortems/<ticket>.md`). Other valid targets: JIRA comment, PR description, internal wiki. Shape is the same — only the wrapping changes.
+2. Confirm destination (default: `docx/postmortems/<ticket>.md`). Other valid targets: JIRA comment, PR description, internal wiki. Shape is the same — only the wrapping changes.
 3. Produce the draft as a single block.
 4. For JIRA posting: show the exact payload, wait for explicit "post it" / "go ahead" / "yes," then post. Print-only output needs no approval.
 5. Offer the handoff: *"Want a leadership-friendly version? I can hand this to `explain-in`."* Don't do it automatically.
