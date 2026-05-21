@@ -754,7 +754,21 @@ MIT License
 
 ## Version History
 
-**v1.3.0 (Current)**
+**v1.5.0 (Current)**
+- Simplify spec-review to 3 agents (Spec Quality, Completeness, Buildability) — down from 6, significantly lower token usage
+- Add context:fork + Agent to spec-review allowed-tools for proper subagent isolation
+- Add systematic-debug skill — 4-mantra discipline (reproduce, trace, falsify, breadcrumbs) + multi-layer investigation + 3-Failures Gate
+- Add post-mortem skill — canonical engineering record with required-inputs gate, 9 sections, tracker-agnostic
+- Add scrutinize skill — outsider-perspective review questioning intent first, traces code path end-to-end, ship/fix/rework/reject verdict
+- Add explain-in skill — rewrite engineering content for leadership, shaped per channel (JIRA, Slack, standup, email, talking-points)
+- Rename management-talk → explain-in
+- Fix 7 review findings: dead systematic-testing ref, broken table row, missing git-workflow chain, double-offer overlap, worked example added
+- Generalize JIRA/ticket assumptions across post-mortem and explain-in — supports GitHub Issues, Linear, or no tracker
+
+**v1.4.0**
+- Add systematic-debug, post-mortem, scrutinize, explain-in skills
+
+**v1.3.0**
 - Add spec-review skill — 6-dimension sequential review (business, correctness+ambiguity smells, completeness+safety invariants, compatibility+implementation blockers, traceability, testability scoring)
 - Add allowed-tools frontmatter to 6 high-activity skills — reduces permission prompts
 - Add user-invocable: false to completion-validation; disable-model-invocation: true to using-kisune
