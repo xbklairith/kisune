@@ -1,6 +1,6 @@
 ---
 name: explain-in
-description: Rewrite engineer-to-engineer content for leadership audiences — VPs, directors, PMs, release managers. Shapes for the channel: JIRA comment, Slack post, standup note, email, or meeting talking-points. Use after post-mortem or any technical update that needs to flow up the org.
+description: "Rewrite engineer-to-engineer content for leadership audiences — VPs, directors, PMs, release managers. Shapes for the channel: JIRA comment, Slack post, standup note, email, or meeting talking-points. Use after post-mortem or any technical update that needs to flow up the org."
 allowed-tools: Read
 ---
 

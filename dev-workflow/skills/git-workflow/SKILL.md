@@ -154,7 +154,7 @@ Closes #[issue number]
 
 - Works with `review` skill for pre-commit reviews
 - Works with `spec-driven-implementation` skill for commit messages during execution
-- Works with `systematic-testing` skill to verify tests before commit
+- Works with `systematic-debug` skill to verify tests before commit
 
 ## Best Practices
 

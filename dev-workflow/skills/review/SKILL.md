@@ -318,7 +318,7 @@ Focus on: Named constants, extracted functions, input validation, and cleaner er
 
 - Works with `spec-driven-implementation` skill during execution phase
 - Works with `git-workflow` skill for pre-commit reviews
-- Works with `systematic-testing` skill to verify test quality
+- Works with `systematic-debug` skill to verify test quality
 - Triggered automatically before commits if integrated
 
 ## Notes
