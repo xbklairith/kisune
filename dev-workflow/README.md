@@ -479,6 +479,12 @@ The dev-workflow plugin is fully self-contained with integrated supporting skill
 **Planning & Design Skills:**
 - `spec-driven-planning` - Feature creation, requirements gathering (EARS), technical design
 - `brainstorming` - Collaborative exploration for requirements and design (WHAT and HOW)
+- `grilling` - Round-based interrogation of an existing plan (user-invoked via `/grilling`) — batches the unblocked frontier, recommends an answer per question
+- `grill-with-docs` - Composes `grilling` + `domain-modeling`
+- `domain-modeling` - Glossary and ADR discipline — `docx/glossary.md`, `docx/decisions/`
+- `codebase-design` - Deep-module vocabulary for interface and seam decisions
+- `prototype` - Throwaway code that answers one design question
+- `investigate` - Research against primary sources; cited findings to `docx/research/`
 
 **Implementation Skills:**
 - `spec-driven-implementation` - Task breakdown and execution with TDD
@@ -497,6 +503,7 @@ The dev-workflow plugin is fully self-contained with integrated supporting skill
 - `spec-review` - 3-agent spec review: spec quality, completeness, buildability
 
 **Communication Skills:**
+- `handoff` - Compact the conversation for a fresh agent to pick up
 - `explain-in` - Rewrite technical content for leadership — Slack, JIRA, standup, email, or meeting
 
 **Skill Integration:**
@@ -760,7 +767,14 @@ MIT License
 
 ## Version History
 
-**v1.5.0 (Current)**
+**v1.6.0 (Current)**
+- Add 7 skills derived from the mattpocock/skills reference — `grilling`, `grill-with-docs`, `domain-modeling`, `handoff`, `investigate`, `prototype`, `codebase-design`
+- Fix `explain-in` YAML parse failure — an unquoted description containing `": "` broke the frontmatter, silently dropping the skill from CLI discovery
+- Establish the `docx/` storage convention — every skill that persists a file now writes under `docx/` (see CLAUDE.md)
+- Fix dead `systematic-testing` references in `git-workflow` and `review`
+- Correct skill/command/template counts across README, CLAUDE.md, and the `using-kisune` index
+
+**v1.5.0**
 - Simplify spec-review to 3 agents (Spec Quality, Completeness, Buildability) — down from 6, significantly lower token usage
 - Add context:fork + Agent to spec-review allowed-tools for proper subagent isolation
 - Add systematic-debug skill — 4-mantra discipline (reproduce, trace, falsify, breadcrumbs) + multi-layer investigation + 3-Failures Gate

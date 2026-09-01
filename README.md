@@ -40,7 +40,7 @@ claude --plugin-dir ./dev-workflow
 
 ## Dev-Workflow Plugin
 
-16 skills, 8 agents, 7 commands. Language-agnostic, focused on spec-driven development discipline.
+23 skills, 8 agents, 7 commands. Language-agnostic, focused on spec-driven development discipline.
 
 ### Commands
 
@@ -66,6 +66,12 @@ claude --plugin-dir ./dev-workflow
 |-------|----------|
 | `spec-driven-planning` | "plan new feature", "create specs" |
 | `brainstorming` | "not sure how to approach this" |
+| `grilling` | `/grilling` — user-invoked; batched-round interrogation of a plan |
+| `grill-with-docs` | `/grill-with-docs` — grilling plus `domain-modeling` |
+| `domain-modeling` | fuzzy terminology, glossary entries, recording an ADR |
+| `codebase-design` | module interfaces, seam placement, deep-module vocabulary |
+| `prototype` | throwaway code to answer one design question |
+| `investigate` | research a question against primary sources |
 
 **Implementation**
 | Skill | Triggers |
@@ -86,6 +92,7 @@ claude --plugin-dir ./dev-workflow
 | `scrutinize` | "take a hard look", "play devil's advocate", outsider review |
 | `skill-maker` | "create a skill", "edit skill" |
 | `spec-review` | "review this spec", "check my requirements/design" |
+| `handoff` | `/handoff` — compact this conversation for a fresh agent |
 
 **Comms**
 | Skill | Triggers |
@@ -109,11 +116,11 @@ claude --plugin-dir ./dev-workflow
 
 ## Stats
 
-- **20 skills** (4 trading + 16 dev-workflow)
+- **27 skills** (4 trading + 23 dev-workflow)
 - **8 agents** (proactive, auto-activate)
 - **7 commands** (`/dev-workflow:spec` and its 6 subcommands)
 - **7 templates** (4 dev-workflow + 3 trading)
-- **52 files**, ~9,600 lines
+- **59 files**, ~9,918 lines
 - Language-agnostic, spec-compliant
 
 ## License

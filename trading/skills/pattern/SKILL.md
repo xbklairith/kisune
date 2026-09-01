@@ -95,7 +95,7 @@ Prior support becomes resistance (or vice versa). Trade the retest of the flippe
 
 ## Pattern Documentation Template
 
-**Use Write tool** to add entries to your personal pattern library (e.g., `patterns/[pattern-name].md`):
+**Use Write tool** to add entries to your pattern library at `docx/patterns/[pattern-name].md` (create the directory if it does not exist):
 
 ```markdown
 # [Pattern Name]

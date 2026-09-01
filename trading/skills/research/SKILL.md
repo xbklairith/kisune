@@ -401,11 +401,11 @@ When a user wants to research a strategy, guide them through this process:
 
 ## Output Format
 
-**Use Write tool** to save the completed strategy document to the user's strategy library (e.g., `strategies/[strategy-name].md`). Ensure all sections are complete and actionable.
+**Use Write tool** to save the completed strategy document to `docx/strategies/[strategy-name].md`. Ensure all sections are complete and actionable.
 
 **File naming convention:**
 - Lowercase with hyphens: `rsi-oversold-uptrend.md`
-- Location: `strategies/` directory (create if doesn't exist)
+- Location: `docx/strategies/` directory (create if doesn't exist)
 - Format: Markdown (.md)
 
 ## Guiding Principles

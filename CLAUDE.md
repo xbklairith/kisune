@@ -22,7 +22,7 @@ kisune/
 │   └── README.md              # Complete documentation
 ├── dev-workflow/              # Dev-workflow plugin
 │   ├── .claude-plugin/        # Plugin metadata
-│   ├── skills/                # 16 skills (planning, implementation, quality, review, comms)
+│   ├── skills/                # 23 skills (planning, implementation, quality, review, comms)
 │   ├── agents/                # 8 agents (code-reviewer, tdd-guide, security-reviewer, planner)
 │   ├── commands/              # 7 slash commands (spec + 6 spec:* subcommands)
 │   ├── templates/             # 4 spec-driven templates
@@ -43,7 +43,7 @@ kisune/
 - `pattern` - Chart pattern identification and personal library
 - `translate` - Convert strategies to Python + Pine Script
 
-### Dev-Workflow Plugin (16 skills, 8 agents, 7 commands)
+### Dev-Workflow Plugin (23 skills, 8 agents, 7 commands)
 
 **Bootstrap:**
 - `using-kisune` - Loads at session start; enforces skill-check before any action and indexes the skill registry
@@ -51,6 +51,12 @@ kisune/
 **Planning Skills:**
 - `spec-driven-planning` - 3-phase workflow (Feature → Requirements/EARS → Design)
 - `brainstorming` - Collaborative refinement for requirements and design
+- `grilling` - Round-based interrogation of an existing plan (user-invoked via `/grilling`); batches the unblocked frontier, one recommended answer per question
+- `grill-with-docs` - Composes `grilling` + `domain-modeling` (user-invoked via `/grill-with-docs`)
+- `domain-modeling` - Glossary and ADR discipline — writes `docx/glossary.md` and `docx/decisions/NNNN-*.md`
+- `codebase-design` - Deep-module vocabulary: module, interface, depth, seam, adapter
+- `prototype` - Throwaway code that answers one design question, then gets deleted
+- `investigate` - Research against primary sources via background agent; cited findings to `docx/research/`
 
 **Implementation Skills:**
 - `spec-driven-implementation` - Task breakdown and execution
@@ -69,6 +75,7 @@ kisune/
 - `skill-maker` - Create/edit skills with TDD methodology
 
 **Communication Skills:**
+- `handoff` - Compact the conversation into a handoff doc for a fresh agent (user-invoked via `/handoff`)
 - `explain-in` - Rewrite technical content for leadership — shaped for Slack, JIRA, standup, email, or meeting
 
 **Agents (proactive):**
@@ -328,6 +335,32 @@ When adding slash commands:
 - Trading: `trading/templates/` (strategy-doc.md, backtest-results.md, pattern-library.md)
 - Dev-workflow: `dev-workflow/templates/` (requirements.md, design.md, tasks.md)
 
+## docx/ Storage Convention
+
+**Every skill that persists a file writes it under `docx/`.** No skill writes to the OS temp directory, the repo root, or an invented top-level folder. Each category is a sibling directory:
+
+```
+docx/
+├── core/                       # human-authored orientation (product goals, tech stack, codebase guide)
+├── features/[NN-name]/         # requirements.md, design.md, tasks.md, plan.md
+├── decisions/NNNN-slug.md      # ADRs                       — domain-modeling
+├── glossary.md                 # canonical domain terms     — domain-modeling
+├── postmortems/<bug>.md        # bug-fix records            — post-mortem
+├── research/<topic>.md         # cited primary-source notes — investigate
+├── prototypes/<question>.md    # prototype verdicts         — prototype
+├── handoffs/<slug>.md          # session handoffs           — handoff
+├── strategies/<name>.md        # trading strategy docs      — trading:research
+├── patterns/<name>.md          # chart pattern library      — trading:pattern
+├── logs/                       # command output worth keeping
+└── UserInstructions/<name>.md  # manual setup steps for the user
+```
+
+**Rules:**
+- Create directories **lazily** — only when there is a first real file to put in them. An empty scaffold is noise.
+- If the repo already has an established location for a category (`docs/adr/`, an ADR tool), use that instead. Confirm once at the first write, then stop asking.
+- Source code is not storage. Prototype code, tests, and skill files live where the code lives; only the *record* of them goes in `docx/`.
+- When adding a skill that persists anything, add its directory to this table.
+
 ## Important Patterns
 
 ### Skill Auto-Activation
@@ -401,9 +434,9 @@ Skills reference and copy these templates during workflow execution.
 - 4 skills, 3 templates
 
 **Dev-Workflow Plugin:**
-- 16 skills, 8 agents, 7 commands, 4 templates
+- 23 skills, 8 agents, 7 commands, 4 templates
 
 **Combined:**
-- 20 skills, 8 agents, 7 commands, 7 templates
-- 52 files, ~9,608 lines
+- 27 skills, 8 agents, 7 commands, 7 templates
+- 59 files, ~9,918 lines
 - Language-agnostic, spec-compliant

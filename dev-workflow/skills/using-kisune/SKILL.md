@@ -63,7 +63,7 @@ Then act / respond
 | "This feels productive" | Undisciplined action wastes time. |
 | "I know what that means" | Knowing the concept ≠ following the skill. |
 
-## Kisune Skill Index (15 skills)
+## Kisune Skill Index (22 skills)
 
 **Planning**
 
@@ -71,6 +71,12 @@ Then act / respond
 |---|---|
 | `spec-driven-planning` | "plan a feature", "create specs", `/dev-workflow:spec`, ambiguous goals |
 | `brainstorming` | "not sure how to approach", "what do you think", before any architectural decision |
+| `grilling` | **`/grilling` only** — user-invoked; batched-round interrogation of an existing plan |
+| `grill-with-docs` | **`/grill-with-docs` only** — grilling that also writes a glossary and ADRs to `docx/` |
+| `domain-modeling` | fuzzy or contested terminology; writing a glossary entry or an ADR |
+| `codebase-design` | designing a module interface, placing a seam, deepening opportunities |
+| `prototype` | "does this state model feel right", "what should this look like" — throwaway code |
+| `investigate` | research a question against primary sources; delegate reading to a background agent |
 
 **Implementation**
 
@@ -98,6 +104,7 @@ Then act / respond
 
 | Skill | Triggers |
 |---|---|
+| `handoff` | **`/handoff` only** — compact this conversation for a fresh agent to pick up |
 | `explain-in` | "write for management/exec/VP/director/PM", "make this non-technical", "slack update/standup/email about this fix", "executive summary", "talking points for the meeting"; proactively offered after `post-mortem` |
 
 ## Skill Priority When Multiple Apply
@@ -108,6 +115,7 @@ Then act / respond
 
 Examples:
 - "Let's build X" → `brainstorming` → `spec-driven-planning` → `spec-driven-implementation`
+- "Here's my plan, tear it apart" → the user runs `/grilling` (or `/grill-with-docs`); do not auto-invoke either
 - "Fix this bug" → `systematic-debug` → `test-driven-development`
 - "Done, ready to commit" → `completion-validation` → `git-workflow`
 

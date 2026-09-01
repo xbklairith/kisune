@@ -398,6 +398,8 @@ MIT License - See LICENSE file for details
 
 ## Version History
 
+- **v1.2.0** — Output paths moved into the `docx/` knowledge base. `research` now writes strategy docs to `docx/strategies/` (was `strategies/`) and `pattern` writes to `docx/patterns/` (was `patterns/`). Existing documents are not moved — relocate them by hand, or keep using the old paths by pointing the skill at them explicitly.
+
 - **v1.1.0** — Maintenance update; spec compliance verification and README accuracy improvements.
 
 - **v1.0.0** (2024-01-15): Initial release
