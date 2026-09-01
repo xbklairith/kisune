@@ -24,8 +24,8 @@ kisune/
 │   ├── .claude-plugin/        # Plugin metadata
 │   ├── skills/                # 16 skills (planning, implementation, quality, review, comms)
 │   ├── agents/                # 8 agents (code-reviewer, tdd-guide, security-reviewer, planner)
-│   ├── commands/              # 1 slash command (spec)
-│   ├── templates/             # 3 spec-driven templates
+│   ├── commands/              # 7 slash commands (spec + 6 spec:* subcommands)
+│   ├── templates/             # 4 spec-driven templates
 │   └── README.md              # Complete documentation
 ├── .claude-plugin/            # Marketplace metadata
 ├── docx/                      # Documentation and planning
@@ -43,7 +43,7 @@ kisune/
 - `pattern` - Chart pattern identification and personal library
 - `translate` - Convert strategies to Python + Pine Script
 
-### Dev-Workflow Plugin (16 skills, 8 agents, 1 command)
+### Dev-Workflow Plugin (16 skills, 8 agents, 7 commands)
 
 **Bootstrap:**
 - `using-kisune` - Loads at session start; enforces skill-check before any action and indexes the skill registry
@@ -59,7 +59,7 @@ kisune/
 
 **Quality Skills:**
 - `review` - 25-point review checklist
-- `spec-review` - 4 parallel agents reviewing feature specs for business validity, correctness, completeness, and compatibility
+- `spec-review` - 3 sequential agents reviewing feature specs for spec quality, completeness, and buildability
 - `security-review` - OWASP Top 10 vulnerability detection and remediation
 - `git-workflow` - Smart commits, branch management, PR creation
 - `completion-validation` - Evidence-before-claims gate before marking work done
@@ -82,7 +82,13 @@ kisune/
 - `refactor-cleaner` - Dead code cleanup, removes unused code and duplicates
 
 **Commands:**
-- `/dev-workflow:spec` - Launch spec-driven workflow (interactive menu)
+- `/dev-workflow:spec` - Launch workflow — auto-picks Quick (plan.md) or Full (3-file EARS spec) mode
+- `/dev-workflow:spec:create` - Create new feature specification
+- `/dev-workflow:spec:requirements` - Define requirements using EARS format
+- `/dev-workflow:spec:design` - Generate technical design
+- `/dev-workflow:spec:tasks` - Break down design into TDD tasks
+- `/dev-workflow:spec:execute` - Execute implementation with TDD
+- `/dev-workflow:spec:list` - List all features with status
 
 **Integration Note:** The dev-workflow plugin integrates with existing `/x:spec:*` commands and uses the same `docx/features/` structure.
 
@@ -339,9 +345,9 @@ Skills should activate naturally based on user intent:
 - "Review my code" → review
 - "Commit changes" → git-workflow
 - "Write tests" → test-driven-development (strict TDD enforcement)
-- "Debug this bug" → systematic-testing
+- "Debug this bug" → systematic-debug
 - "Done" / "ready to commit" → completion-validation (evidence-before-claims gate)
-- "Review the spec" / "check the spec" / "validate spec" → spec-review (4-agent parallel review)
+- "Review the spec" / "check the spec" / "validate spec" → spec-review (3-agent review)
 
 ### Skill Integration
 
@@ -395,9 +401,9 @@ Skills reference and copy these templates during workflow execution.
 - 4 skills, 3 templates
 
 **Dev-Workflow Plugin:**
-- 13 skills, 8 agents, 1 command, 3 templates
+- 16 skills, 8 agents, 7 commands, 4 templates
 
 **Combined:**
-- 17 skills, 8 agents, 1 command, 6 templates
-- 51 files, ~9,600 lines
+- 20 skills, 8 agents, 7 commands, 7 templates
+- 52 files, ~9,608 lines
 - Language-agnostic, spec-compliant

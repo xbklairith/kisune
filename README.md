@@ -40,12 +40,18 @@ claude --plugin-dir ./dev-workflow
 
 ## Dev-Workflow Plugin
 
-12 skills, 8 agents, 1 command. Language-agnostic, focused on spec-driven development discipline.
+16 skills, 8 agents, 7 commands. Language-agnostic, focused on spec-driven development discipline.
 
-### Command
+### Commands
 
 ```
-/dev-workflow:spec    # Launch spec-driven workflow (interactive menu)
+/dev-workflow:spec                 # Launch workflow — auto-picks Quick or Full mode
+/dev-workflow:spec:create          # Create new feature specification
+/dev-workflow:spec:requirements    # Define requirements using EARS format
+/dev-workflow:spec:design          # Generate technical design
+/dev-workflow:spec:tasks           # Break down design into TDD tasks
+/dev-workflow:spec:execute         # Execute implementation with TDD
+/dev-workflow:spec:list            # List all features with status
 ```
 
 ### Skills by Category
@@ -75,9 +81,16 @@ claude --plugin-dir ./dev-workflow
 | `security-review` | "check security", handles auth/input code |
 | `git-workflow` | "commit", "create PR", "push" |
 | `completion-validation` | "done", "ready to commit", before any success claim |
-| `systematic-testing` | "write tests", "debug this" |
+| `systematic-debug` | "debug this", flaky test, unknown failure |
+| `post-mortem` | "write a post-mortem", after a fix lands |
+| `scrutinize` | "take a hard look", "play devil's advocate", outsider review |
 | `skill-maker` | "create a skill", "edit skill" |
 | `spec-review` | "review this spec", "check my requirements/design" |
+
+**Comms**
+| Skill | Triggers |
+|-------|----------|
+| `explain-in` | "write this for the VP", "slack update", "executive summary" |
 
 ### Agents (auto-activate proactively)
 
@@ -96,10 +109,11 @@ claude --plugin-dir ./dev-workflow
 
 ## Stats
 
-- **17 skills** (4 trading + 13 dev-workflow)
+- **20 skills** (4 trading + 16 dev-workflow)
 - **8 agents** (proactive, auto-activate)
-- **1 command** (`/dev-workflow:spec`)
-- **51 files**, ~9,600 lines
+- **7 commands** (`/dev-workflow:spec` and its 6 subcommands)
+- **7 templates** (4 dev-workflow + 3 trading)
+- **52 files**, ~9,600 lines
 - Language-agnostic, spec-compliant
 
 ## License

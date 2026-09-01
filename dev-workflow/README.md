@@ -483,15 +483,21 @@ The dev-workflow plugin is fully self-contained with integrated supporting skill
 **Implementation Skills:**
 - `spec-driven-implementation` - Task breakdown and execution with TDD
 - `test-driven-development` - Strict RED-GREEN-REFACTOR TDD enforcement
+- `spawn-agents` - Dispatch parallel subagents for 2+ independent problems; over-dispatch prevention
 
 **Quality Skills:**
 - `review` - Systematic code review and refactoring suggestions
 - `security-review` - OWASP Top 10 vulnerability detection and remediation
 - `git-workflow` - Smart commits, branch management, PR creation
 - `completion-validation` - Evidence-before-claims gate before marking work done
-- `systematic-testing` - Testing guidance and systematic debugging framework
+- `systematic-debug` - Systematic debugging framework — 4-mantra discipline plus multi-layer investigation
+- `post-mortem` - Engineering record of a fixed bug — root cause, mechanism, fix, validation
+- `scrutinize` - Outsider-perspective deep review — verdict: ship/fix/rework/reject
 - `skill-maker` - Create/edit skills with TDD methodology
-- `spec-review` - Multi-agent spec review across 6 dimensions
+- `spec-review` - 3-agent spec review: spec quality, completeness, buildability
+
+**Communication Skills:**
+- `explain-in` - Rewrite technical content for leadership — Slack, JIRA, standup, email, or meeting
 
 **Skill Integration:**
 Skills automatically activate and work together based on context. For example:
@@ -617,7 +623,7 @@ Would you like to push to remote?
 
 ```bash
 User: I have a bug where login fails for emails with + symbols
-Assistant: [Activates systematic-testing skill]
+Assistant: [Activates systematic-debug skill]
 
 Let me help debug this systematically.
 
