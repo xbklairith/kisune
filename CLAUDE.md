@@ -141,31 +141,71 @@ Both plugins follow the official Claude Code plugin spec:
 - `agents/` - Specialized agents (at plugin root)
 - `templates/` - Supporting templates (at plugin root)
 
-**Skill Frontmatter (YAML) — 10 valid fields:**
+**Skill Frontmatter (YAML) — 19 valid fields:**
 ```yaml
 ---
 name: skill-name                    # kebab-case, max 64 chars
 description: What it does           # Used for auto-activation
 argument-hint: [issue-number]       # Autocomplete hint
-disable-model-invocation: true      # Prevent Claude auto-loading
-user-invocable: false               # Hide from / menu
-allowed-tools: Read, Grep, Bash     # Tools without permission prompts
-model: sonnet                       # Model override (haiku/sonnet/opus)
+arguments: {}                       # Structured argument schema
+disable-model-invocation: true      # Removes the skill from Claude's context
+                                    #   entirely — it cannot be invoked via the
+                                    #   Skill tool, only by the user via /name
+user-invocable: false               # Hide from / menu (Claude can still invoke)
+allowed-tools: Read, Grep, Bash     # PRE-APPROVES these tools for the turn.
+                                    #   Does NOT restrict — every tool stays
+                                    #   callable under normal permissions.
+disallowed-tools: AskUserQuestion   # Actually removes tools while skill is active
+model: sonnet                       # Model override; also `inherit`
+effort: high                        # low/medium/high/xhigh/max
 context: fork                       # Run in subagent
 agent: Explore                      # Subagent type when context: fork
+background: true                    # Run without blocking the session
 hooks: {}                           # Skill-scoped hooks
+paths: []                           # Path scoping
+shell: bash                         # Shell for skill commands
+metadata: {}                        # Arbitrary metadata
+license: MIT                        # License identifier
+compatibility: {}                   # Compatibility constraints
 ---
 ```
 
-**IMPORTANT:** Only the 10 fields above are spec-compliant. Do NOT add custom fields like `version`, `dependencies`, `origin`, or `tools`.
+**IMPORTANT:** Do NOT invent fields outside this list (`version`, `dependencies`,
+`origin`, `tools`). Note the two easily-confused pairs:
+- `allowed-tools` pre-approves; `disallowed-tools` restricts. They are not opposites
+  of the same axis — omitting `allowed-tools` never reduces what Claude can call.
+- `disable-model-invocation: true` blocks the Skill tool, so a skill carrying it
+  **cannot be invoked by another skill** and cannot be preloaded into a subagent
+  via that subagent's `skills:` field. Reserve it for entry points only.
 
-**Agent Frontmatter — only 2 fields:**
+Skills published to claude.ai / the Skills API accept a narrower set:
+`name`, `description`, `license`, `compatibility`, `metadata`, `allowed-tools`.
+
+**Agent Frontmatter — `name` and `description` required, 16 optional:**
 ```yaml
 ---
-name: agent-name
-description: What it specializes in
+name: agent-name                    # required
+description: What it specializes in # required
+tools: Read, Glob, Grep             # optional — subagent's tool list
+disallowedTools: Write              # optional — note camelCase, unlike skills
+model: sonnet                       # optional — also `inherit`
+permissionMode: default             # optional
+maxTurns: 20                        # optional
+skills: [skill-name]                # optional — preloaded at startup; a skill
+                                    #   with disable-model-invocation is SKIPPED
+mcpServers: {}                      # optional
+hooks: {}                           # optional
+memory: project                     # optional — user/project/local
+background: true                    # optional
+effort: high                        # optional
+isolation: worktree                 # optional
+color: blue                         # optional
+initialPrompt: ...                  # optional
+experimental: {}                    # optional
 ---
 ```
+
+Our 8 agents deliberately use only `name` and `description`.
 
 **Command Frontmatter:**
 ```yaml

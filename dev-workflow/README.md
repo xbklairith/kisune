@@ -767,7 +767,12 @@ MIT License
 
 ## Version History
 
-**v1.6.0 (Current)**
+**v1.6.1 (Current)**
+- Fix `using-kisune` index — `grilling` was still documented as `/grilling` only after v1.6.0 made it model-invocable
+- Fix `skill-maker` definition of `allowed-tools` — it pre-approves tools, it does not restrict them (`disallowed-tools` restricts)
+- Correct the frontmatter reference in CLAUDE.md — 19 skill fields (not 10) and 18 agent fields (not 2)
+
+**v1.6.0**
 - Add 7 skills derived from the mattpocock/skills reference — `grilling`, `grill-with-docs`, `domain-modeling`, `handoff`, `investigate`, `prototype`, `codebase-design`
 - Fix `explain-in` YAML parse failure — an unquoted description containing `": "` broke the frontmatter, silently dropping the skill from CLI discovery
 - Establish the `docx/` storage convention — every skill that persists a file now writes under `docx/` (see CLAUDE.md)

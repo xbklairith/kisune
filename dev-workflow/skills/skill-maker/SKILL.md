@@ -48,7 +48,7 @@ skill-name/
 **Frontmatter rules:**
 - `name`: Letters, numbers, hyphens only (max 64 chars)
 - `description`: Third-person, starts with "Use when...", includes triggers AND purpose (Anthropic caps `description` + optional `when_to_use` at 1536 chars combined; aim well under)
-- `allowed-tools`: Optional list restricting tool access
+- `allowed-tools`: Optional. **Pre-approves** the listed tools for the invoking turn so they run without a permission prompt. It does NOT restrict access — every tool stays callable under normal permissions. Use `disallowed-tools` to actually remove tools.
 
 **Writing style:** Use imperative/infinitive form ("To accomplish X, do Y"), not second person
 
