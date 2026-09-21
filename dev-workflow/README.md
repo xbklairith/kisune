@@ -478,6 +478,7 @@ The dev-workflow plugin is fully self-contained with integrated supporting skill
 
 **Planning & Design Skills:**
 - `spec-driven-planning` - Feature creation, requirements gathering (EARS), technical design
+- `more-creativity` - Divergent idea and hypothesis generation — cross-domain techniques, evaluation suppressed while generating, non-obviousness gate
 - `brainstorming` - Collaborative exploration for requirements and design (WHAT and HOW)
 - `grilling` - Round-based interrogation of an existing plan (user-invoked via `/grilling`) — batches the unblocked frontier, recommends an answer per question
 - `grill-with-docs` - Composes `grilling` + `domain-modeling`
@@ -767,7 +768,12 @@ MIT License
 
 ## Version History
 
-**v1.6.1 (Current)**
+**v1.7.0 (Current)**
+- Add more-creativity skill — divergent idea and hypothesis generation, placed ahead of `brainstorming` in the planning flow. 15-technique library selected by problem type, with at least one technique forced from outside the problem's own category; intensity dial (0.1–1.0); divergence lock suppressing feasibility/cost/priority language until after the quality gate; non-obviousness gate rejecting anything the user could have reached alone; hypothesis mode requiring `Mechanism:` and `False if:` per claim plus a cheapest-discriminator triage line
+- more-creativity defers to `brainstorming`'s design-approval gate rather than bypassing it, and makes its discard step observable via an `Obvious options skipped:` line
+- Record the skill's RED/GREEN test scenarios in `references/test-scenarios.md` so behaviour is re-testable after edits; upstream MIT notice in `references/NOTICE.md`
+
+**v1.6.1**
 - Fix `using-kisune` index — `grilling` was still documented as `/grilling` only after v1.6.0 made it model-invocable
 - Fix `skill-maker` definition of `allowed-tools` — it pre-approves tools, it does not restrict them (`disallowed-tools` restricts)
 - Correct the frontmatter reference in CLAUDE.md — 19 skill fields (not 10) and 18 agent fields (not 2)

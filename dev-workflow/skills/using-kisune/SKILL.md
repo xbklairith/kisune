@@ -63,13 +63,14 @@ Then act / respond
 | "This feels productive" | Undisciplined action wastes time. |
 | "I know what that means" | Knowing the concept ≠ following the skill. |
 
-## Kisune Skill Index (22 skills)
+## Kisune Skill Index (23 skills)
 
 **Planning**
 
 | Skill | Triggers |
 |---|---|
 | `spec-driven-planning` | "plan a feature", "create specs", `/dev-workflow:spec`, ambiguous goals |
+| `more-creativity` | "give me ideas", "what are the possibilities", "I'm stuck", "hypotheses for why X" — diverge first, then hand to `brainstorming` |
 | `brainstorming` | "not sure how to approach", "what do you think", before any architectural decision |
 | `grilling` | "here's my plan, tear it apart", "grill me on this" — batched-round interrogation of a plan that lives in the user's head. If the plan is already written down, use `scrutinize` instead |
 | `grill-with-docs` | **`/grill-with-docs` only** — grilling that also writes a glossary and ADRs to `docx/` |

@@ -22,7 +22,7 @@ kisune/
 │   └── README.md              # Complete documentation
 ├── dev-workflow/              # Dev-workflow plugin
 │   ├── .claude-plugin/        # Plugin metadata
-│   ├── skills/                # 23 skills (planning, implementation, quality, review, comms)
+│   ├── skills/                # 24 skills (planning, implementation, quality, review, comms)
 │   ├── agents/                # 8 agents (code-reviewer, tdd-guide, security-reviewer, planner)
 │   ├── commands/              # 7 slash commands (spec + 6 spec:* subcommands)
 │   ├── templates/             # 4 spec-driven templates
@@ -43,13 +43,14 @@ kisune/
 - `pattern` - Chart pattern identification and personal library
 - `translate` - Convert strategies to Python + Pine Script
 
-### Dev-Workflow Plugin (23 skills, 8 agents, 7 commands)
+### Dev-Workflow Plugin (24 skills, 8 agents, 7 commands)
 
 **Bootstrap:**
 - `using-kisune` - Loads at session start; enforces skill-check before any action and indexes the skill registry
 
 **Planning Skills:**
 - `spec-driven-planning` - 3-phase workflow (Feature → Requirements/EARS → Design)
+- `more-creativity` - Divergent generation of ideas and hypotheses — 15 techniques, intensity dial, quota-and-discard, non-obviousness gate
 - `brainstorming` - Collaborative refinement for requirements and design
 - `grilling` - Round-based interrogation of an existing plan (user-invoked via `/grilling`); batches the unblocked frontier, one recommended answer per question
 - `grill-with-docs` - Composes `grilling` + `domain-modeling` (user-invoked via `/grill-with-docs`)
@@ -474,9 +475,9 @@ Skills reference and copy these templates during workflow execution.
 - 4 skills, 3 templates
 
 **Dev-Workflow Plugin:**
-- 23 skills, 8 agents, 7 commands, 4 templates
+- 24 skills, 8 agents, 7 commands, 4 templates
 
 **Combined:**
-- 27 skills, 8 agents, 7 commands, 7 templates
-- 59 files, ~9,918 lines
+- 28 skills, 8 agents, 7 commands, 7 templates
+- 58 files, ~10,060 lines
 - Language-agnostic, spec-compliant
