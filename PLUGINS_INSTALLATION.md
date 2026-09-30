@@ -71,7 +71,7 @@ kisune/
 │   └── templates/ (3)
 ├── dev-workflow/               # Dev-workflow plugin
 │   ├── .claude-plugin/         # Plugin manifest
-│   ├── skills/ (20)            # All dev-workflow skills
+│   ├── skills/ (24)            # All dev-workflow skills
 │   ├── agents/ (8)             # Proactive agents
 │   ├── commands/ (1)           # /dev-workflow:spec
 │   └── templates/ (3)

@@ -93,11 +93,7 @@ claude --plugin-dir ./dev-workflow
 | `skill-maker` | "create a skill", "edit skill" |
 | `spec-review` | "review this spec", "check my requirements/design" |
 | `handoff` | `/handoff` — compact this conversation for a fresh agent |
-
-**Comms**
-| Skill | Triggers |
-|-------|----------|
-| `explain-in` | "write this for the VP", "slack update", "executive summary" |
+| `explain-in-html` | "show me visually", "diagram it", 3+ structured questions — renders the output as an HTML page |
 
 ### Agents (auto-activate proactively)
 

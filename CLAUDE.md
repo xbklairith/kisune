@@ -77,7 +77,7 @@ kisune/
 
 **Communication Skills:**
 - `handoff` - Compact the conversation into a handoff doc for a fresh agent (user-invoked via `/handoff`)
-- `explain-in` - Rewrite technical content for leadership — shaped for Slack, JIRA, standup, email, or meeting
+- `explain-in-html` - Render structure as an HTML page (Mermaid, UML, inline SVG) or a question round answered in-browser; delegates design to `Artifact quickstart` and figures to `artifact-diagramming`
 
 **Agents (proactive):**
 - `code-reviewer` - Auto-reviews code after changes
@@ -390,6 +390,7 @@ docx/
 ├── research/<topic>.md         # cited primary-source notes — investigate
 ├── prototypes/<question>.md    # prototype verdicts         — prototype
 ├── handoffs/<slug>.md          # session handoffs           — handoff
+├── explainers/<slug>.html      # saved explainer pages      — explain-in-html
 ├── strategies/<name>.md        # trading strategy docs      — trading:research
 ├── patterns/<name>.md          # chart pattern library      — trading:pattern
 ├── logs/                       # command output worth keeping

@@ -4,7 +4,7 @@ Integrated development lifecycle plugin for Claude Code combining spec-driven de
 
 ## Overview
 
-The Dev-Workflow plugin provides a comprehensive, systematic approach to software development from initial concept through production deployment. It integrates thirteen specialized skills that work together seamlessly to ensure high-quality, well-tested, properly documented code with no external dependencies.
+The Dev-Workflow plugin provides a comprehensive, systematic approach to software development from initial concept through production deployment. It integrates twenty-four specialized skills that work together seamlessly to ensure high-quality, well-tested, properly documented code with no external dependencies.
 
 ### What This Plugin Does
 
@@ -52,7 +52,7 @@ The Dev-Workflow plugin provides a comprehensive, systematic approach to softwar
 
 ## Core Skills
 
-The plugin includes 13 integrated skills organized into planning, implementation, and quality categories.
+The plugin includes 24 integrated skills organized into planning, implementation, and quality categories.
 
 ### Planning & Design Skills
 
@@ -505,7 +505,7 @@ The dev-workflow plugin is fully self-contained with integrated supporting skill
 
 **Communication Skills:**
 - `handoff` - Compact the conversation for a fresh agent to pick up
-- `explain-in` - Rewrite technical content for leadership — Slack, JIRA, standup, email, or meeting
+- `explain-in-html` - Render structure as an HTML page — Mermaid/UML/SVG diagrams, or a question round answered in-browser. Owns the medium, not the decision
 
 **Skill Integration:**
 Skills automatically activate and work together based on context. For example:
@@ -768,7 +768,19 @@ MIT License
 
 ## Version History
 
-**v1.7.0 (Current)**
+**v2.0.0 (Current)**
+
+**Removed**
+- Remove `explain-in` — the leadership-reframing skill. Its name is reused by `explain-in-html`, which does something different. Any workflow invoking `explain-in` must be updated; `post-mortem` no longer offers the leadership handoff (breaking, hence the major bump)
+
+**Added**
+- Add `explain-in-html` skill — renders output as an HTML page instead of terminal text. Two modes inferred from content: **explain** (Mermaid, UML, ER and state charts, hand-authored SVG for before/after comparisons) and **interact** (a question round answered in-browser, answers read back via `ArtifactData`). Owns the medium only — `grilling`, `brainstorming` and `scrutinize` keep deciding *what* to ask or say and hand the rendering here. Delegates page design to `Artifact quickstart` and figure judgment to the built-in `artifact-diagramming` skill. Falls back to a local `docx/explainers/<slug>.html` when Artifacts are unavailable, and to `AskUserQuestion` in interact mode
+- Add `docx/explainers/` to the storage convention
+
+**Fixed**
+- Correct long-stale skill counts in `dev-workflow/README.md` ("thirteen"/"13") and `PLUGINS_INSTALLATION.md` ("20")
+
+**v1.7.0**
 - Add more-creativity skill — divergent idea and hypothesis generation, placed ahead of `brainstorming` in the planning flow. 15-technique library selected by problem type, with at least one technique forced from outside the problem's own category; intensity dial (0.1–1.0); divergence lock suppressing feasibility/cost/priority language until after the quality gate; non-obviousness gate rejecting anything the user could have reached alone; hypothesis mode requiring `Mechanism:` and `False if:` per claim plus a cheapest-discriminator triage line
 - more-creativity defers to `brainstorming`'s design-approval gate rather than bypassing it, and makes its discard step observable via an `Obvious options skipped:` line
 - Record the skill's RED/GREEN test scenarios in `references/test-scenarios.md` so behaviour is re-testable after edits; upstream MIT notice in `references/NOTICE.md`

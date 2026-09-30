@@ -106,7 +106,7 @@ Then act / respond
 | Skill | Triggers |
 |---|---|
 | `handoff` | **`/handoff` only** — compact this conversation for a fresh agent to pick up |
-| `explain-in` | "write for management/exec/VP/director/PM", "make this non-technical", "slack update/standup/email about this fix", "executive summary", "talking points for the meeting"; proactively offered after `post-mortem` |
+| `explain-in-html` | "show me visually", "draw this", "diagram it", a schema/state-machine/dependency-graph explanation, or any round of 3+ structured questions — renders as an HTML page; other skills decide what to say, this one decides the medium |
 
 ## Skill Priority When Multiple Apply
 

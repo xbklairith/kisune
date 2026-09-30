@@ -17,8 +17,6 @@ allowed-tools: Read, Write
 
 The canonical engineering record of a bug fix. Written after debugging lands a real fix, for other engineers and future-you who will have forgotten everything in six months. Code identifiers are welcome — this is the artifact that lets the next person recover the mental model fast.
 
-For the leadership-facing version of this content, hand the finished post-mortem to `explain-in`. Post-mortem owns the engineering truth; `explain-in` reframes it for stakeholders.
-
 ## When NOT to Use
 
 - **Bug not fixed or fix not validated.** A post-mortem of a hypothesis is misleading. Refuse, list what's missing, and stop.
@@ -88,7 +86,7 @@ If there are no action items, write: *"None — the fix is sufficient and no cla
 
 ## Tone
 
-Engineer-to-engineer. Different from `explain-in`:
+Engineer-to-engineer: precise, mechanism-first, written for someone who will grep their way back to the change.
 
 - **Code identifiers are first-class.** Function names, file paths, commit SHAs, line numbers — keep them. The point is that future engineers can grep their way back to the change.
 - **Mechanism over narrative.** Walk the actual cause chain. Don't soften "a synchronization issue" — name which function skipped which event under which gate.
@@ -103,7 +101,6 @@ Engineer-to-engineer. Different from `explain-in`:
 2. Confirm destination (default: `docx/postmortems/<bug-name>.md`). Other valid targets: issue tracker comment (JIRA, GitHub Issues, Linear), PR description, internal wiki. Shape is the same — only the wrapping changes.
 3. Produce the draft as a single block.
 4. For issue tracker back-post (JIRA, GitHub Issues, Linear): show the exact payload, wait for explicit "post it" / "go ahead" / "yes," then post. Print-only output needs no approval.
-5. Offer the handoff: *"Want a leadership-friendly version? I can hand this to `explain-in`."* Don't do it automatically.
 
 ## Worked Example — Partial (JIRA-12345)
 
@@ -117,7 +114,7 @@ What the engineering record does that a management summary doesn't: names every 
 
 - **Refuse to draft without all four required inputs.** A post-mortem of a hypothesis is worse than no post-mortem.
 - **Never invent root cause, owner, validation runs, or action items.** If a section's facts aren't there, ask. Don't fill the gap with plausible prose.
-- **Never strip code identifiers.** They are the index. Reframing for leadership is `explain-in`'s job.
+- **Never strip code identifiers.** They are the index.
 - **Blameless.** Gaps and bugs, never people.
 - **State validation coverage honestly.** Implying broader coverage than you have is the failure mode that breeds repeat regressions.
 - **Get sign-off before posting to any issue tracker.** Print-only output needs no approval.
