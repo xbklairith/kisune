@@ -22,7 +22,7 @@ kisune/
 │   └── README.md              # Complete documentation
 ├── dev-workflow/              # Dev-workflow plugin
 │   ├── .claude-plugin/        # Plugin metadata
-│   ├── skills/                # 24 skills (planning, implementation, quality, review, comms)
+│   ├── skills/                # 27 skills (planning, implementation, quality, review, comms)
 │   ├── agents/                # 8 agents (code-reviewer, tdd-guide, security-reviewer, planner)
 │   ├── commands/              # 7 slash commands (spec + 6 spec:* subcommands)
 │   ├── templates/             # 4 spec-driven templates
@@ -43,7 +43,7 @@ kisune/
 - `pattern` - Chart pattern identification and personal library
 - `translate` - Convert strategies to Python + Pine Script
 
-### Dev-Workflow Plugin (24 skills, 8 agents, 7 commands)
+### Dev-Workflow Plugin (27 skills, 8 agents, 7 commands)
 
 **Bootstrap:**
 - `using-kisune` - Loads at session start; enforces skill-check before any action and indexes the skill registry
@@ -58,11 +58,13 @@ kisune/
 - `codebase-design` - Deep-module vocabulary: module, interface, depth, seam, adapter
 - `prototype` - Throwaway code that answers one design question, then gets deleted
 - `investigate` - Research against primary sources via background agent; cited findings to `docx/research/`
+- `wayfinder` - Map of decision tickets for efforts too big for one session; one ticket per session, frontier via `scripts/frontier.py`
 
 **Implementation Skills:**
 - `spec-driven-implementation` - Task breakdown and execution
 - `test-driven-development` - Strict RED-GREEN-REFACTOR enforcement
 - `spawn-agents` - Dispatch parallel subagents for independent problems; over-dispatch prevention
+- `wizard` - Generate a runnable bash wizard for steps only a human can do (dashboard keys, `.env`, GitHub secrets)
 
 **Quality Skills:**
 - `review` - 25-point review checklist
@@ -74,6 +76,7 @@ kisune/
 - `post-mortem` - Engineering record of a fixed bug — root cause, mechanism, fix, validation, how it slipped through
 - `scrutinize` - Deep outsider-perspective review — questions intent, traces code path end-to-end, verdict: ship/fix/rework/reject
 - `skill-maker` - Create/edit skills with TDD methodology
+- `retro` - Session retrospective from this project's log; proposes checks over steering-file rules
 
 **Communication Skills:**
 - `handoff` - Compact the conversation into a handoff doc for a fresh agent (user-invoked via `/handoff`)
@@ -388,6 +391,8 @@ docx/
 ├── glossary.md                 # canonical domain terms     — domain-modeling
 ├── postmortems/<bug>.md        # bug-fix records            — post-mortem
 ├── research/<topic>.md         # cited primary-source notes — investigate
+├── wayfinder/<effort>/         # map.md + tickets/NN-*.md   — wayfinder
+├── retros/<date>-<slug>.md     # retros, when asked to save — retro
 ├── prototypes/<question>.md    # prototype verdicts         — prototype
 ├── handoffs/<slug>.md          # session handoffs           — handoff
 ├── explainers/<slug>.html      # saved explainer pages      — explain-in-html
@@ -476,9 +481,9 @@ Skills reference and copy these templates during workflow execution.
 - 4 skills, 3 templates
 
 **Dev-Workflow Plugin:**
-- 24 skills, 8 agents, 7 commands, 4 templates
+- 27 skills, 8 agents, 7 commands, 4 templates
 
 **Combined:**
-- 28 skills, 8 agents, 7 commands, 7 templates
+- 31 skills, 8 agents, 7 commands, 7 templates
 - 58 files, ~10,060 lines
 - Language-agnostic, spec-compliant

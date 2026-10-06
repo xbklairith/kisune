@@ -52,7 +52,7 @@ The Dev-Workflow plugin provides a comprehensive, systematic approach to softwar
 
 ## Core Skills
 
-The plugin includes 24 integrated skills organized into planning, implementation, and quality categories.
+The plugin includes 27 integrated skills organized into planning, implementation, and quality categories.
 
 ### Planning & Design Skills
 
@@ -486,11 +486,13 @@ The dev-workflow plugin is fully self-contained with integrated supporting skill
 - `codebase-design` - Deep-module vocabulary for interface and seam decisions
 - `prototype` - Throwaway code that answers one design question
 - `investigate` - Research against primary sources; cited findings to `docx/research/`
+- `wayfinder` - Map of decision tickets for efforts too big for one session, under `docx/wayfinder/`; one ticket per session
 
 **Implementation Skills:**
 - `spec-driven-implementation` - Task breakdown and execution with TDD
 - `test-driven-development` - Strict RED-GREEN-REFACTOR TDD enforcement
 - `spawn-agents` - Dispatch parallel subagents for 2+ independent problems; over-dispatch prevention
+- `wizard` - Generate a runnable bash wizard for steps only a human can do: dashboard keys, `.env` values, GitHub secrets
 
 **Quality Skills:**
 - `review` - Systematic code review and refactoring suggestions
@@ -501,6 +503,7 @@ The dev-workflow plugin is fully self-contained with integrated supporting skill
 - `post-mortem` - Engineering record of a fixed bug — root cause, mechanism, fix, validation
 - `scrutinize` - Outsider-perspective deep review — verdict: ship/fix/rework/reject
 - `skill-maker` - Create/edit skills with TDD methodology
+- `retro` - Session retrospective from this project's own log; proposes automated checks before steering-file rules
 - `spec-review` - 3-agent spec review: spec quality, completeness, buildability
 
 **Communication Skills:**
@@ -776,7 +779,14 @@ MIT License
 **Added**
 - `skill-maker` RED phase gains a blinding protocol: no leakage words in anything the subagent sees, no chain-eliciting cues, grade the artifact rather than the self-report, judge on a different model family, and treat judge disagreement as an ambiguous rubric rather than a tie to break. Adapted from the `eval.md` playbook in michael-denyer/pstack-claude (MIT)
 - `tools/check.py` — fails when a fact kisune keeps in more than one place has drifted: version strings across the three manifests, skill counts in four documents, the `using-kisune` index row set (equality, failing by name), and references to removed skills. `tools/check-selftest.sh` proves each of the four checks can fail
-- `.githooks/pre-commit` runs the checker; enable with `git config core.hooksPath .githooks`
+- `.githooks/pre-commit` runs the checker, `tools/test_skill_scripts.py` (the wayfinder and retro scripts) and `tools/wizard-selftest.sh`; enable with `git config core.hooksPath .githooks`
+
+**Added (skills)** — three skills adapted from mattpocock/skills (MIT; notice in each skill's `references/NOTICE.md`)
+- `wizard` — generates a runnable bash wizard for steps only a human can do (dashboard keys, `.env`, GitHub secrets/variables). The deliverable is the script; a setup doc may point at it, never replace it. `assets/template.sh` adds a guard upstream lacks: it will not write secrets into an `.env` that git does not ignore without asking. `tools/wizard-selftest.sh` runs 6 behavioural checks against it under the system bash
+- `retro` — session retrospective from this project's own log. `scripts/session_log.py` reads only the current project's directory under `~/.claude/projects/` (never other projects' private chats) and summarises re-reads, re-runs and failed calls. Orders fixes check-first: a mechanical mistake gets a lint rule, hook or CI job, not a `CLAUDE.md` line, and a retro should usually shrink the steering file
+- `wayfinder` — for efforts too big for one session: a map of decision tickets in `docx/wayfinder/<effort>/`, fog left unsliced until the questions are sharp, one ticket per session. `scripts/frontier.py` computes closed/claimed/blocked/frontier from ticket frontmatter so a fresh session can resume without reading every ticket
+
+**Evaluated, not changed** — upstream updates to `systematic-debug`, `review`, `test-driven-development`, `skill-maker` and `codebase-design` were checked against current behaviour first; each existing skill already produced the target behaviour on its scenario, so nothing was ported
 
 **v2.0.0**
 

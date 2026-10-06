@@ -63,7 +63,7 @@ Then act / respond
 | "This feels productive" | Undisciplined action wastes time. |
 | "I know what that means" | Knowing the concept ≠ following the skill. |
 
-## Kisune Skill Index (23 skills)
+## Kisune Skill Index (26 skills)
 
 **Planning**
 
@@ -78,6 +78,7 @@ Then act / respond
 | `codebase-design` | designing a module interface, placing a seam, deepening opportunities |
 | `prototype` | "does this state model feel right", "what should this look like" — throwaway code |
 | `investigate` | research a question against primary sources; delegate reading to a background agent |
+| `wayfinder` | "huge job, don't know where to start", an effort spanning many sessions with open decisions, "pick up where we left off" on one — a map of decision tickets in `docx/wayfinder/`, one resolved per session |
 
 **Implementation**
 
@@ -86,6 +87,7 @@ Then act / respond
 | `spec-driven-implementation` | "implement this", "execute the plan", any `plan.md` or `tasks.md` exists |
 | `test-driven-development` | "write tests", "fix this bug", new feature work |
 | `spawn-agents` | 2+ independent problems (different test files, unrelated bugs); parallel dispatch |
+| `wizard` | "set up the keys/secrets/env", "get me running on a new machine", deploy setup needing dashboard logins — generates a runnable bash wizard, not a checklist doc |
 
 **Quality / Debug**
 
@@ -100,6 +102,7 @@ Then act / respond
 | `scrutinize` | "take a hard look at this", "play devil's advocate", "outsider review" — deep outsider-perspective review, questions intent, traces code path end-to-end, verdict: ship/fix/rework/reject |
 | `skill-maker` | "create a skill", "edit skill", behavior-shaping changes |
 | `spec-review` | "review the spec", "check the spec", "validate spec" — 3 agents: spec quality, completeness, buildability |
+| `retro` | "that session was painful/slow", "what should we change for next time", "retro" — reads this project's session log, proposes checks over CLAUDE.md rules |
 
 **Comms**
 

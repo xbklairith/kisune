@@ -1,6 +1,16 @@
 #!/bin/sh
-# Blocks a commit that would ship drifted facts. Bypass with --no-verify.
-python3 "$(git rev-parse --show-toplevel)/tools/check.py" || {
+# Blocks a commit that would ship drifted facts or broken skill scripts.
+# Bypass with --no-verify.
+root="$(git rev-parse --show-toplevel)"
+python3 "$root/tools/check.py" || {
   echo "pre-commit: tools/check.py failed — fix the drift or commit with --no-verify" >&2
+  exit 1
+}
+python3 "$root/tools/test_skill_scripts.py" >/dev/null 2>&1 || {
+  echo "pre-commit: tools/test_skill_scripts.py failed — run it to see which" >&2
+  exit 1
+}
+/bin/bash "$root/tools/wizard-selftest.sh" >/dev/null 2>&1 || {
+  echo "pre-commit: tools/wizard-selftest.sh failed — run it to see which" >&2
   exit 1
 }

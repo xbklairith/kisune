@@ -40,7 +40,7 @@ claude --plugin-dir ./dev-workflow
 
 ## Dev-Workflow Plugin
 
-23 skills, 8 agents, 7 commands. Language-agnostic, focused on spec-driven development discipline.
+27 skills, 8 agents, 7 commands. Language-agnostic, focused on spec-driven development discipline.
 
 ### Commands
 
@@ -72,6 +72,7 @@ claude --plugin-dir ./dev-workflow
 | `codebase-design` | module interfaces, seam placement, deep-module vocabulary |
 | `prototype` | throwaway code to answer one design question |
 | `investigate` | research a question against primary sources |
+| `wayfinder` | huge multi-session effort, "don't know where to start" |
 
 **Implementation**
 | Skill | Triggers |
@@ -79,6 +80,7 @@ claude --plugin-dir ./dev-workflow
 | `spec-driven-implementation` | "implement this", "let's code" |
 | `test-driven-development` | "implement feature", "fix this bug" |
 | `spawn-agents` | 2+ independent problems, parallel investigation |
+| `wizard` | "set up keys/secrets/env", deploy setup needing logins |
 
 **Quality**
 | Skill | Triggers |
@@ -91,6 +93,7 @@ claude --plugin-dir ./dev-workflow
 | `post-mortem` | "write a post-mortem", after a fix lands |
 | `scrutinize` | "take a hard look", "play devil's advocate", outsider review |
 | `skill-maker` | "create a skill", "edit skill" |
+| `retro` | "that session was slow", "what should we change" |
 | `spec-review` | "review this spec", "check my requirements/design" |
 | `handoff` | `/handoff` — compact this conversation for a fresh agent |
 | `explain-in-html` | "show me visually", "diagram it", 3+ structured questions — renders the output as an HTML page |
@@ -112,7 +115,7 @@ claude --plugin-dir ./dev-workflow
 
 ## Stats
 
-- **27 skills** (4 trading + 23 dev-workflow)
+- **31 skills** (4 trading + 27 dev-workflow)
 - **8 agents** (proactive, auto-activate)
 - **7 commands** (`/dev-workflow:spec` and its 6 subcommands)
 - **7 templates** (4 dev-workflow + 3 trading)
