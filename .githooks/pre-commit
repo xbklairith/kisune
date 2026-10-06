@@ -1,0 +1,6 @@
+#!/bin/sh
+# Blocks a commit that would ship drifted facts. Bypass with --no-verify.
+python3 "$(git rev-parse --show-toplevel)/tools/check.py" || {
+  echo "pre-commit: tools/check.py failed — fix the drift or commit with --no-verify" >&2
+  exit 1
+}

@@ -768,7 +768,17 @@ MIT License
 
 ## Version History
 
-**v2.0.0 (Current)**
+**v2.1.0 (Current)**
+
+**Fixed**
+- `SessionStart` hook matcher now includes `resume` — was `startup|clear|compact`, so a resumed session loaded no `using-kisune` router and the skill-check discipline was silently absent there
+
+**Added**
+- `skill-maker` RED phase gains a blinding protocol: no leakage words in anything the subagent sees, no chain-eliciting cues, grade the artifact rather than the self-report, judge on a different model family, and treat judge disagreement as an ambiguous rubric rather than a tie to break. Adapted from the `eval.md` playbook in michael-denyer/pstack-claude (MIT)
+- `tools/check.py` — fails when a fact kisune keeps in more than one place has drifted: version strings across the three manifests, skill counts in four documents, the `using-kisune` index row set (equality, failing by name), and references to removed skills. `tools/check-selftest.sh` proves each of the four checks can fail
+- `.githooks/pre-commit` runs the checker; enable with `git config core.hooksPath .githooks`
+
+**v2.0.0**
 
 **Removed**
 - Remove `explain-in` — the leadership-reframing skill. Its name is reused by `explain-in-html`, which does something different. Any workflow invoking `explain-in` must be updated; `post-mortem` no longer offers the leadership handoff (breaking, hence the major bump)

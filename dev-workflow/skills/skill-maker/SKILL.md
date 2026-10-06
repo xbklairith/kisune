@@ -79,6 +79,31 @@ Run pressure scenarios WITHOUT the skill. Document exact behavior:
 
 **Method:** Create new conversation/subagent → present scenario → apply pressure (time constraints, sunk cost, authority, exhaustion) → document failures
 
+#### Blind the test, or it measures nothing
+
+A subagent that knows it is being tested performs the skill instead of revealing
+its default. Every rule here exists because breaking it produces a passing test
+that proves nothing.
+
+- **No leakage words** in any prompt, file, or directory name the subagent sees:
+  *test, baseline, eval, judge, rubric, score, compare, benchmark, candidate*.
+  Name the agent after the work, not the experiment.
+- **No chain-eliciting cues.** Never ask which skills, files, or tools it would
+  use. That invites a plausible answer instead of a real action.
+- **Grade the artifact, not the self-report.** "What would you do?" measures
+  narration. Give it a task, let it act, then read what it actually produced —
+  the files it opened, the code it wrote, the page it published. A skill that
+  only ever got asked to *describe* its behavior is untested.
+- **One organic prompt.** Phrase it as a user would, stating the goal and not
+  the meta. Do not mention that other subagents exist.
+- **Judge on a different model family** than the candidate, and show the judge
+  sanitized labels rather than which variant produced what.
+- **Judge disagreement is a result, not a tie to break.** Two judges splitting
+  means a biased model or an ambiguous rubric. Fix the rubric and re-run; do
+  not average them and ship.
+
+*Adapted from the `eval.md` playbook in michael-denyer/pstack-claude (MIT).*
+
 ### GREEN: Write Minimal Skill
 
 Write skill addressing those specific rationalizations. Don't add content for hypothetical cases.
