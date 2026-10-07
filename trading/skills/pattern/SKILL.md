@@ -1,6 +1,6 @@
 ---
 name: pattern
-description: Chart pattern identification — head and shoulders, double tops, triangles, flags. Documents pattern library with entry/exit criteria.
+description: "Identifies chart patterns (head and shoulders, double tops and bottoms, triangles, flags) and records them in a personal pattern library with entry and exit criteria. Use when the user describes a chart and asks what pattern it is, asks whether a setup is valid, or wants to document a pattern."
 ---
 
 # Pattern Recognition Skill

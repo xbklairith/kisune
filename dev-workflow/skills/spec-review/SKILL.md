@@ -1,6 +1,6 @@
 ---
 name: spec-review
-description: Review feature spec files with 3 focused agents — spec quality (business+correctness+ambiguity), completeness (missing scenarios+safety+testability), and buildability (compatibility+blockers+traceability). Sequential by default.
+description: "Reviews a feature spec under docx/features/ (requirements, design, tasks) with three sequential agents — spec quality, completeness, and buildability. Use when the user says 'review the spec', 'check the spec', or 'validate the spec', or before a feature moves from planning to implementation."
 argument-hint: [feature-name]
 allowed-tools: Read, Bash, Glob, Agent
 context: fork

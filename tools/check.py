@@ -95,16 +95,67 @@ def check_references():
                     fail("references", f"{rel} references removed skill `{ref}`")
 
 
+# --- 5-10. skill-authoring rules (Anthropic skill best-practices guide) ---
+# https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
+# description <= 1024 is the API limit; Claude Code allows 1536, but a skill
+# that should also work on claude.ai / the API must fit the stricter one.
+NAME_RE = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
+# A "when" clause: "Use when", "Use for", "Use PROACTIVELY for", "Use after"...
+WHEN_RE = re.compile(r"\buse\b(?:\s+\w+)?\s+(?:when|whenever|for|after|before)\b", re.I)
+
+
+def frontmatter(text):
+    m = re.match(r"---\n(.*?)\n---\n", text, re.S)
+    if not m:
+        return None, text
+    fields = dict(re.findall(r"^([a-z-]+):[ \t]*(.*)$", m.group(1), re.M))
+    return {k: v.strip().strip("\"'") for k, v in fields.items()}, text[m.end():]
+
+
+def check_skill_authoring():
+    for plugin in ("dev-workflow", "trading"):
+        for sk in sorted((ROOT / plugin / "skills").glob("*/SKILL.md")):
+            rel = sk.relative_to(ROOT)
+            fm, body = frontmatter(sk.read_text())
+            if fm is None:
+                fail("name", f"{rel}: no YAML frontmatter")
+                continue
+            name, desc = fm.get("name", ""), fm.get("description", "")
+            if name != sk.parent.name:
+                fail("name", f"{rel}: name `{name}` != directory `{sk.parent.name}`")
+            if not NAME_RE.fullmatch(name) or len(name) > 64 or re.search("anthropic|claude", name):
+                fail("name", f"{rel}: name `{name}` breaks the rules (lowercase-hyphen, <=64, no reserved words)")
+            if not desc or len(desc) > 1024:
+                fail("description", f"{rel}: description is {len(desc)} chars (want 1-1024)")
+            if re.search(r"<[A-Za-z/][^>]*>", desc):
+                fail("description", f"{rel}: description contains an XML/HTML tag")
+            if fm.get("disable-model-invocation") != "true" and not WHEN_RE.search(desc):
+                fail("when", f"{rel}: description says what, not when (add 'Use when ...')")
+            if body.count("\n") >= 500:
+                fail("length", f"{rel}: body is {body.count(chr(10))} lines (want < 500; move detail to references/)")
+            for link in re.findall(r"\]\(([^)#\s]+\.md)\)", body):
+                if "\\" in link:
+                    fail("links", f"{rel}: link `{link}` uses a backslash path")
+                elif link.count("/") > 1:
+                    fail("links", f"{rel}: link `{link}` nests deeper than one level")
+            for ref in sorted(sk.parent.rglob("*.md")):
+                if ref == sk:
+                    continue
+                text = ref.read_text()
+                if text.count("\n") > 100 and not re.search(r"^#+\s*(table of )?contents\b", text, re.I | re.M):
+                    fail("toc", f"{ref.relative_to(ROOT)}: over 100 lines with no Contents heading")
+
+
 # Names that WERE skills and must never be referenced again.
 STALE_SKILL_NAMES = {"explain-in", "management-talk"}
 
 
 if __name__ == "__main__":
-    for fn in (check_versions, check_counts, check_index, check_references):
+    for fn in (check_versions, check_counts, check_index, check_references, check_skill_authoring):
         fn()
     if fails:
         print(f"FAIL ({len(fails)}):")
         for check, msg in fails:
             print(f"  [{check}] {msg}")
         sys.exit(1)
-    print("ok: versions, counts, index, references all consistent")
+    print("ok: versions, counts, index, references, skill authoring all consistent")

@@ -1,6 +1,6 @@
 ---
 name: grilling
-description: "Relentless round-based interview that stress-tests a plan before building. Maps the plan as a design tree and works it in rounds, asking every unblocked question at once with a recommended answer for each, until nothing is left silently assumed."
+description: "Interviews the user round by round to stress-test a plan that lives in their head — maps it as a design tree and asks every unblocked question at once, each with a recommended answer, until nothing is silently assumed. Use when the user says 'grill me', 'tear my plan apart', or runs /grilling. For a plan already written down, use scrutinize instead."
 allowed-tools: Read, Glob, Grep, Bash, Agent, WebSearch, WebFetch
 ---
 

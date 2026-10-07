@@ -1,6 +1,6 @@
 ---
 name: research
-description: Systematic trading strategy research — edge hypothesis, statistical validation, and strategy documentation (entry, exit, risk management).
+description: "Turns a trading idea into a documented strategy — edge hypothesis, statistical validation, and entry, exit, and risk rules. Use when the user has a new trading idea, wants to document or formalize a strategy, or asks whether a trading edge is real."
 ---
 
 # Strategy Research Skill

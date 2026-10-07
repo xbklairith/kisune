@@ -1,6 +1,6 @@
 ---
 name: systematic-debug
-description: Systematic debugging framework — opens every session by reciting the 4-mantra block (reproduce, trace the fail path, falsify the hypothesis, cross-reference breadcrumbs), then applies multi-layer investigation. Use when diagnosing bugs, flaky tests, unknown failures, or cross-component issues.
+description: "Finds the root cause of a bug before any fix is written, including failures that cross component boundaries. Use when the user says debug, broken, failing, flaky, or root cause, pastes a stack trace or error log, or tests fail unexpectedly."
 allowed-tools: Read, Bash, Grep
 ---
 

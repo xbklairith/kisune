@@ -1,6 +1,6 @@
 ---
 name: git-workflow
-description: Smart git operations — commit messages, branch management, PR creation with summaries. Use for any git workflow.
+description: "Writes commit messages, manages branches, and opens pull requests with summaries. Use when the user asks to commit, push, branch, or create a PR, and before any destructive git operation such as reset, rebase, or force-push."
 allowed-tools: Bash, Read
 ---
 

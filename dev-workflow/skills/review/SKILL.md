@@ -1,6 +1,6 @@
 ---
 name: review
-description: 25-point code quality checklist covering structure, errors, security, performance, and testing. Use before commits or when reviewing code.
+description: "Reviews changed code against a 25-point checklist covering structure, error handling, security, performance, and tests. Use when the user asks to review or improve code or mentions a code smell, before a commit or PR, and after finishing a feature."
 allowed-tools: Bash, Read, Grep
 ---
 
