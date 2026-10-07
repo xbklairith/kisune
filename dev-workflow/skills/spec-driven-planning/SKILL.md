@@ -76,7 +76,7 @@ Then run the matching playbook below.
 
 1. `ls docx/features/` to find next NN number
 2. `mkdir -p docx/features/[NN-feature-name]`
-3. Read `dev-workflow/templates/plan.md`
+3. Read `plan.md` from the plugin's templates (`<base>/../../templates/plan.md`, where `<base>` is this skill's base directory)
 4. Write to `docx/features/[NN-feature-name]/plan.md`, replacing `[Feature Name]` with the actual name
 
 ### Step 2: Fill in the plan
@@ -115,303 +115,53 @@ To upgrade, see "Upgrade path" at the bottom of this skill.
 
 Three phases, three approval gates. Use this when signals say Full.
 
+**Templates** live in the plugin's `templates/` directory, two levels above this skill's base directory (`<base>/../../templates/`). Read them from there, not from the user's project.
+
 ### Phase 1: Feature Creation
 
-**Goal:** Establish feature structure and placeholder files
+1. Find the next `NN` in `docx/features/` and create `docx/features/[NN-feature-name]/`.
+2. Copy `requirements.md`, `design.md` and `tasks.md` from the templates, replacing `[Feature Name]`.
 
-**Process:**
-1. Parse feature name from user input
-2. Check existing features using Bash tool: `ls docx/features/`
-3. Determine next number (NN) for feature directory
-4. Create directory using Bash tool: `mkdir -p docx/features/[NN-feature-name]`
-5. Copy templates from plugin to feature directory:
-   - Use Read tool: `dev-workflow/templates/requirements.md`
-   - Use Write tool: `docx/features/[NN-feature-name]/requirements.md` (replace [Feature Name] with actual name)
-   - Use Read tool: `dev-workflow/templates/design.md`
-   - Use Write tool: `docx/features/[NN-feature-name]/design.md` (replace [Feature Name] with actual name)
-   - Use Read tool: `dev-workflow/templates/tasks.md`
-   - Use Write tool: `docx/features/[NN-feature-name]/tasks.md` (replace [Feature Name] with actual name)
-
-**Output:**
-```
-Created feature: docx/features/[NN-feature-name]/
-- requirements.md (from template)
-- design.md (from template)
-- tasks.md (from template)
-
-Next step: Define requirements using EARS format
-```
-
-**User Confirmation:**
 > "Feature structure created. Ready to define requirements?"
 
 ---
 
 ### Phase 2: Requirements Definition (EARS Format)
 
-**Goal:** Capture clear, testable requirements using EARS methodology
+**Scope check first.** If the request spans independent subsystems ("auth + billing + admin dashboard"), split it into separate features before eliciting anything.
 
-**Scope Decomposition Check (do FIRST):**
+**Research before asking.** Look at how similar features and products handle it (WebSearch / WebFetch on docs and APIs) and record what you learn under `## Research Summary` in requirements.md.
 
-Before eliciting requirements, scan the request. If it describes multiple independent subsystems (e.g., "auth + billing + admin dashboard"), STOP and decompose into separate features before refining any one. Don't burn elicitation questions on a feature that should be three.
+**Elicit** what the request leaves open: purpose, triggering events, states, role- or condition-dependent behaviour, performance targets, security, failure modes, and edge cases. For a rough idea with unclear scope, invoke `dev-workflow:brainstorming` first.
 
-> 🗣 Say: "This request covers [N] independent subsystems. I'll create separate features for each before eliciting requirements."
+**Write every requirement in one EARS form:**
 
-**No Placeholders Rule:**
+| Form | Template |
+|---|---|
+| Ubiquitous | The system SHALL [requirement] |
+| Event-driven | WHEN [trigger] THEN the system SHALL [response] |
+| State-driven | WHILE [state] the system SHALL [requirement] |
+| Conditional | IF [condition] THEN the system SHALL [requirement] |
+| Optional | WHERE [feature included] the system SHALL [requirement] |
 
-Requirements and downstream plans MUST NOT contain:
-- "TBD" / "to be determined" / "to be defined later"
-- "add appropriate X" / "handle errors as needed" / "validate as required"
-- "similar to [other thing]" / "see above" without specifics
-- vague verbs without objects: "update", "improve", "fix", "enhance"
-- "etc." or trailing ellipses in requirement text
-- references to undefined names (REQ-IDs that don't exist, modules not yet specified)
-If you cannot specify a requirement concretely, ask the user. Don't write a placeholder.
+- One requirement per statement, active voice, measurable ("within 2 seconds", not "quickly").
+- Give each a sequential ID (`REQ-001`, …) across functional and non-functional requirements, so design and tasks can trace back to it.
 
-**Brainstorming Integration (Optional):**
-- If user has rough idea but unclear requirements, use Skill tool to invoke: `dev-workflow:brainstorming`
-- Helps clarify what to build vs. what's out of scope
-- Explores different feature scopes through collaborative questioning
-- Determines must-haves vs. nice-to-haves
+**No placeholders.** Never write "TBD", "etc.", "add appropriate X", "handle errors as needed", "similar to Y", a bare "update/improve/fix", or a reference to a REQ-ID or module that doesn't exist. If you cannot state a requirement concretely, ask.
 
-**How to activate:**
-```
-Use Skill tool: Skill(skill: "dev-workflow:brainstorming")
-```
+Fill the sections of the requirements template (overview, functional, non-functional, constraints, acceptance criteria, out of scope).
 
-**EARS Format Explained:**
-
-EARS (Easy Approach to Requirements Syntax) provides five templates for unambiguous requirements:
-
-1. **Ubiquitous Requirements** - Always true
-   - Template: "The system SHALL [requirement]"
-   - Example: "The system SHALL validate all user inputs before processing"
-
-2. **Event-Driven Requirements** - Triggered by events
-   - Template: "WHEN [trigger] THEN the system SHALL [response]"
-   - Example: "WHEN user clicks submit THEN the system SHALL validate form data"
-
-3. **State-Driven Requirements** - Active during specific states
-   - Template: "WHILE [state] the system SHALL [requirement]"
-   - Example: "WHILE processing payment the system SHALL display loading indicator"
-
-4. **Conditional Requirements** - Based on conditions
-   - Template: "IF [condition] THEN the system SHALL [requirement]"
-   - Example: "IF user role is admin THEN the system SHALL show management panel"
-
-5. **Optional Requirements** - Feature toggles
-   - Template: "WHERE [feature included] the system SHALL [requirement]"
-   - Example: "WHERE premium subscription is active the system SHALL enable advanced analytics"
-
-**Research Protocol (Before Eliciting Requirements):**
-
-Before diving into requirement questions, gather context through research:
-
-1. **Prior Art Research**
-   - Use WebSearch to find similar features/products
-   - Query: "[feature type] best practices 2025"
-   - Query: "[feature type] common requirements"
-
-2. **Technical Documentation**
-   - Use WebFetch on relevant technical docs, APIs, or standards
-   - Fetch competitor/similar product documentation
-
-3. **API Research (if applicable)**
-   - Use Bash with `curl` to explore API endpoints
-   - Fetch API documentation and schemas
-
-4. **Document Findings**
-   - Summarize key insights in requirements.md under "## Research Summary"
-   - Note patterns, anti-patterns, and industry standards discovered
-
-> 🗣 Say: "Let me research similar implementations before we define requirements."
-
----
-
-**Systematic Questioning Approach:**
-
-Ask the user these questions to elicit requirements:
-
-1. **Core Functionality**
-   - "What is the primary purpose of this feature?"
-   - "What problem does it solve?"
-
-2. **Event-Driven Requirements**
-   - "What user actions trigger this feature?"
-   - "What system events are involved?"
-
-3. **State-Driven Requirements**
-   - "Are there different states or modes?"
-   - "What should happen during each state?"
-
-4. **Conditional Requirements**
-   - "Are there different behaviors for different users/roles?"
-   - "What conditions affect functionality?"
-
-5. **Performance Requirements**
-   - "Are there response time requirements?"
-   - "What's the expected load/scale?"
-
-6. **Security Requirements**
-   - "What data needs protection?"
-   - "Who should have access?"
-
-7. **Error Handling**
-   - "What can go wrong?"
-   - "How should errors be handled?"
-
-8. **Edge Cases**
-   - "What are the boundary conditions?"
-   - "What happens at extremes?"
-
-**Best Practices:**
-- Use "SHALL" for mandatory requirements
-- Be specific and measurable (avoid "quickly", use "within 2 seconds")
-- One requirement per statement
-- Avoid ambiguous terms ("appropriate", "reasonable", "user-friendly")
-- Use active voice
-
-**Requirement IDs & Traceability:**
-- Assign unique IDs to every requirement using a consistent prefix (e.g., `REQ-001`).
-- Keep numbering sequential across all requirement types (functional + non-functional).
-- Record the IDs directly in each requirement line so later tasks can reference them.
-- Add a short traceability note indicating how tasks/design will map back to these IDs.
-
-**Output Format:**
-Update `docx/features/[NN-feature-name]/requirements.md` with:
-- Overview section
-- Functional requirements (organized by EARS type)
-- Non-functional requirements (performance, security, usability)
-- Constraints
-- Acceptance criteria (checkboxes)
-- Out of scope items
-
-**User Confirmation:**
 > "Requirements complete. Ready for design phase?"
 
 ---
 
 ### Phase 3: Technical Design
 
-**Goal:** Create comprehensive technical design with architectural decisions
+1. **Research** candidate architectures and libraries (docs, similar projects, external APIs) and record sources under `## Technical Research` in design.md.
+2. **Explore approaches.** Invoke `dev-workflow:brainstorming` to work through 2-3 approaches. When the design has several services, non-obvious trade-offs, or security/scale impact, stop and question the problem itself first: are we solving the right problem, what are we assuming, and what is the simplest thing that works?
+3. **Compare** the options (pros, cons, complexity) and **recommend** one with the reason it best fits the requirements.
+4. **Write design.md** by filling the design template: architecture, components and interfaces, data flow, API contracts, error handling, security, performance, testing strategy. Reference the REQ-IDs each part satisfies.
 
-**Research Protocol (Before Design):**
-
-Before proposing architectural approaches, research solutions:
-
-1. **Architecture Research**
-   - Use WebSearch: "[technology] architecture patterns 2025"
-   - Use WebSearch: "[problem domain] implementation approaches"
-
-2. **Library/Framework Research**
-   - Use WebFetch on documentation for potential libraries
-   - Compare approaches used by similar projects
-
-3. **API Research (if applicable)**
-   - Use WebFetch on external API documentation
-   - Use Bash with `curl` to test API endpoints
-   - Understand integration requirements and constraints
-
-4. **Document Findings**
-   - Add "## Technical Research" section to design.md
-   - Include links to sources and key insights
-
-> 🗣 Say: "Let me research technical approaches before proposing architecture options."
-
----
-
-**Process:**
-
-1. **Brainstorming Integration**
-   - Use Skill tool to invoke: `dev-workflow:brainstorming` for collaborative design exploration
-   - Explore 2-3 different architectural approaches
-   - Discuss trade-offs for each approach
-
-   **How to activate:**
-   ```
-   Use Skill tool: Skill(skill: "dev-workflow:brainstorming")
-   ```
-
-**UltraThink for Complex Designs:**
-Before proposing technical approaches, activate deep thinking when:
-- Architecture involves multiple services or complex data flows
-- Trade-offs between approaches aren't obvious
-- Design impacts security, performance, or scalability
-- Requirements seem contradictory or incomplete
-
-> 🗣 Say: "This design requires deep thinking. Let me ultrathink the architectural fundamentals before proposing approaches."
-
-**During UltraThink, question:**
-- Are we solving the right problem?
-- What are we assuming that might be wrong?
-- What could break at scale?
-- What's the simplest architecture that works?
-- What are the hidden costs of each approach?
-- What would we do differently if starting from scratch?
-
-**After UltraThink:** Present approaches with explicit reasoning about architectural trade-offs and scalability considerations.
-
-2. **Approach Comparison**
-   Present options with trade-offs:
-
-   **Option A: [Approach Name]**
-   - Pros: [Advantages]
-   - Cons: [Disadvantages]
-   - Complexity: Low/Medium/High
-   - Timeline: [Estimate]
-
-   **Option B: [Approach Name]**
-   - Pros: [Advantages]
-   - Cons: [Disadvantages]
-   - Complexity: Low/Medium/High
-   - Timeline: [Estimate]
-
-3. **Recommendation**
-   - State recommended approach
-   - Provide clear reasoning
-   - Explain why it best fits requirements
-
-4. **Design Document Structure**
-   Create comprehensive `design.md` covering:
-
-   **Architecture Overview**
-   - How feature fits into system
-   - High-level component diagram (ASCII art)
-
-   **Component Structure**
-   - List components with responsibilities
-   - Define dependencies between components
-   - Specify public interfaces
-
-   **Data Flow**
-   - Step-by-step data movement
-   - Diagram showing flow
-
-   **API Contracts**
-   - Input/output schemas
-   - Error responses
-   - Example requests/responses
-
-   **Error Handling**
-   - Error scenarios and handling strategy
-   - Fallback behaviors
-
-   **Security Considerations**
-   - Authentication/authorization
-   - Input validation
-   - Data protection
-
-   **Performance Considerations**
-   - Optimization strategies
-   - Caching approach
-   - Database indexing needs
-
-   **Testing Strategy**
-   - Unit test areas
-   - Integration test scenarios
-   - E2E test workflows
-
-**Approval Gate:**
 > "Design complete. Ready for task breakdown?"
 
 Wait for explicit user approval before proceeding.
