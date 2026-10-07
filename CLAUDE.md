@@ -120,6 +120,17 @@ ls -R trading/
 ls -R dev-workflow/
 ```
 
+### Behaviour Evals
+
+```bash
+cd dev-workflow
+claude plugin eval . --trust-plugin --scaffold \
+  --allow-tools Skill Read Glob Grep Edit Write \
+  --runs 3 -j 6 --no-publish --model sonnet --ablation none
+```
+
+Run on Sonnet and Opus before and after changing `using-kisune` or any skill description. Cases and flags: `dev-workflow/evals/README.md`.
+
 ### Test Plugins
 
 ```bash
@@ -337,7 +348,7 @@ When adding skills to either plugin:
 4. Update plugin README.md
 5. Test skill activation
 
-**IMPORTANT:** Only use the 10 spec-compliant frontmatter fields documented above. Keep SKILL.md under 500 lines — move reference material to separate files.
+**IMPORTANT:** Only use the 19 frontmatter fields documented above. Keep SKILL.md under 500 lines — move reference material to separate files. Descriptions say what AND when, in third person, at most 1024 chars (`tools/check.py` enforces this). Add eval cases for the new skill (see below).
 
 ### Creating New Commands
 

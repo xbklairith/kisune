@@ -1,0 +1,1 @@
+In notes-plugin, create a new skill called changelog-writer that drafts CHANGELOG.md entries from a list of recent commit messages the user pastes in. Use the dev-workflow skill-maker process. Work autonomously; don't ask me questions.

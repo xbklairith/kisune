@@ -47,7 +47,7 @@ skill-name/
 
 **Frontmatter rules:**
 - `name`: Letters, numbers, hyphens only (max 64 chars)
-- `description`: Third-person, starts with "Use when...", includes triggers AND purpose (Anthropic caps `description` + optional `when_to_use` at 1536 chars combined; aim well under)
+- `description`: Third person, says what the skill does AND when to use it, no XML tags, at most **1024 chars**. That is the API / claude.ai limit; Claude Code alone allows 1536 combined with `when_to_use`, but a skill held to 1024 works everywhere. kisune's `tools/check.py` enforces it.
 - `allowed-tools`: Optional. **Pre-approves** the listed tools for the invoking turn so they run without a permission prompt. It does NOT restrict access — every tool stays callable under normal permissions. Use `disallowed-tools` to actually remove tools.
 
 **Writing style:** Use imperative/infinitive form ("To accomplish X, do Y"), not second person
@@ -79,6 +79,8 @@ Run pressure scenarios WITHOUT the skill. Document exact behavior:
 
 **Method:** Create new conversation/subagent → present scenario → apply pressure (time constraints, sunk cost, authority, exhaustion) → document failures
 
+**Leave the scenarios behind as eval cases.** Subagent runs vanish with the session; eval files re-run on every later edit. Write at least three cases under `<plugin>/evals/<case>/` in the `claude plugin eval` format: one prompt that should trigger the skill, one that should NOT, and one that checks the work it produces. Then run them on every model the plugin targets. Format, fixtures, and flags: `references/plugin-evals.md`.
+
 #### Blind the test, or it measures nothing
 
 A subagent that knows it is being tested performs the skill instead of revealing
@@ -108,7 +110,9 @@ that proves nothing.
 
 Write skill addressing those specific rationalizations. Don't add content for hypothetical cases.
 
-Run same scenarios WITH skill present. Agent should now comply. Document any new violations.
+Run same scenarios WITH skill present (`claude plugin eval` runs the with/without arms for you). Agent should now comply. Document any new violations.
+
+**Match the degree of freedom to the task.** Fragile, exact sequences (a migration, a release) get a script or exact commands. Tasks with one preferred pattern get a template. Judgement tasks (review, design) get principles and heuristics, not steps.
 
 ### REFACTOR: Close Loopholes
 
@@ -181,7 +185,7 @@ Use skill on real tasks → notice struggles → baseline test again → update 
 - Start with "Use when..." in third person (not second person)
 - Include concrete triggers, error messages, and symptom keywords a user or agent would search for in the description itself (body keywords are wasted for matching)
 - Describe the *problem* the skill solves, not implementation details
-- Anthropic caps `description` + `when_to_use` at **1536 chars combined**; aim for 200-400 chars to leave headroom
+- At most 1024 chars (see Frontmatter rules); aim for 200-400
 
 ### Naming rules
 
@@ -230,15 +234,16 @@ Use TaskCreate to create todos for EACH item.
 **RED Phase:**
 - [ ] Create pressure scenarios (3+ combined pressures for discipline skills)
 - [ ] Run scenarios WITHOUT skill - document baseline verbatim
+- [ ] Save 3+ scenarios as `evals/<case>/` files (trigger, no-trigger, work quality)
 - [ ] Identify patterns in rationalizations/failures
 
 **GREEN Phase:**
-- [ ] Valid frontmatter: name (letters/numbers/hyphens), description ("Use when...", third person, <1536 chars combined with `when_to_use`; aim for 200-400)
+- [ ] Valid frontmatter: name (lowercase letters/numbers/hyphens, no "anthropic"/"claude"), description (what + when, third person, ≤1024 chars; aim for 200-400)
 - [ ] Keywords throughout for search (errors, symptoms, tools)
 - [ ] Clear overview with core principle
 - [ ] Address specific baseline failures from RED
 - [ ] One excellent example (not multi-language)
-- [ ] Run scenarios WITH skill - verify compliance
+- [ ] Run the eval cases WITH skill on each target model - verify compliance
 
 **REFACTOR Phase:**
 - [ ] Add counters for new rationalizations
@@ -251,6 +256,9 @@ Use TaskCreate to create todos for EACH item.
 - [ ] Common mistakes section
 - [ ] No narrative storytelling
 - [ ] Token count within targets
+- [ ] Reference files over 100 lines start with a Contents list; links from SKILL.md go one level deep
+- [ ] Scripts handle their own errors instead of leaving them to Claude; no unexplained constants
+- [ ] MCP tools named fully (`ServerName:tool_name`); forward-slash paths; no dated "as of" facts
 
 **Deployment:**
 - [ ] Commit skill to git
@@ -274,10 +282,12 @@ Use TaskCreate to create todos for EACH item.
 
 **Activation context:** Consider when skill activates in the workflow (planning, implementation, quality) and whether it auto-activates or requires explicit invocation.
 
-**Tool restrictions by phase:**
+**Typical `allowed-tools` by phase** (pre-approval only; use `disallowed-tools` to restrict):
 - Planning: `Read, Write, Glob, Grep`
 - Implementation: `Read, Write, Edit, Glob, Grep, Bash`
 - Quality: `Read, Grep, Glob`
+
+*Aligned with Anthropic's skill authoring best practices: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices*
 
 ---
 
