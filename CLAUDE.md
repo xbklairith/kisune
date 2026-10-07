@@ -125,7 +125,7 @@ ls -R dev-workflow/
 ```bash
 cd dev-workflow
 claude plugin eval . --trust-plugin --scaffold \
-  --allow-tools Skill Read Glob Grep Edit Write \
+  --allow-tools Skill Read Glob Grep Edit Write Bash \
   --runs 3 -j 6 --no-publish --model sonnet --ablation none
 ```
 
