@@ -771,7 +771,38 @@ MIT License
 
 ## Version History
 
-**v2.1.0 (Current)**
+**v2.2.0 (Current)**
+
+Skills rewritten against Anthropic's [skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices), with each change checked by before/after behaviour evals on Sonnet and Opus.
+
+**Changed**
+- Session-start injection cut from about 9.5 KB to 3.2 KB (`using-kisune`). The index now says what each skill is for, and a new rule says when the user wins: speed words are not an opt-out, and an explicit opt-out is followed and the skipped skill is named. On prompts that push for a quick fix, Opus invoked a skill before editing in about 13 of 18 runs, up from 0 of 3.
+- Shortened skills, with no regression on their evals:
+  - `spec-driven-planning`: 500 → 250 lines. It also fixes the template path, which broke when the plugin was installed.
+  - `test-driven-development`: 377 → 245 lines.
+  - `spec-driven-implementation`: 351 → 184 lines. Sonnet's Full-mode runs now commit per phase in 3 of 3 runs, up from 1 of 3.
+  - `brainstorming`: 255 → 50 lines.
+  - `systematic-debug`: 212 → 161 lines.
+- Seven descriptions rewritten to say both what the skill does and when to use it: grilling, spec-review, git-workflow, review, systematic-debug, and the trading skills pattern and research.
+
+**Added**
+- `tools/check.py` lints every skill against the guide:
+  - name format and length;
+  - description length, with no XML in it;
+  - a "use when" clause on every model-invocable skill;
+  - a body under 500 lines;
+  - links one level deep, written with forward slashes;
+  - a table of contents in long reference files.
+
+  `tools/check-selftest.sh` proves that each check can fail.
+- `dev-workflow/evals/` has 15 `claude plugin eval` cases. They check that:
+  - skills fire on their triggers and stay quiet otherwise;
+  - the agent reaches for a skill under pressure;
+  - Quick and Full planning produce the right files;
+  - implementation writes tests before code, runs them, and commits per phase.
+- `skill-maker` now leaves at least three eval cases behind with every new skill (trigger, no-trigger, work). Reference: `references/plugin-evals.md`.
+
+
 
 **Fixed**
 - `SessionStart` hook matcher now includes `resume` — was `startup|clear|compact`, so a resumed session loaded no `using-kisune` router and the skill-check discipline was silently absent there

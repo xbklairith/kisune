@@ -129,7 +129,7 @@ claude plugin eval . --trust-plugin --scaffold \
   --runs 3 -j 6 --no-publish --model sonnet --ablation none
 ```
 
-Run on Sonnet and Opus before and after changing `using-kisune` or any skill description. Cases and flags: `dev-workflow/evals/README.md`.
+Run on Sonnet and Opus before and after changing `using-kisune`, a skill description, or a skill body. Cases and flags: `dev-workflow/evals/README.md`; trading cases: `trading/evals/README.md` (same command from `trading/`).
 
 ### Test Plugins
 
@@ -275,35 +275,9 @@ The `test-driven-development` skill enforces strict discipline:
 - No "keep as reference" - delete means delete completely
 - Verification checklist before marking work complete
 
-### UltraThink Pattern
+### First-Principles Checkpoints
 
-The UltraThink pattern is integrated across 8 skills to ensure deep, first-principles thinking for complex decisions:
-
-**What is UltraThink?**
-- Deep thinking pattern that questions fundamentals, not just symptoms
-- Activates before major architectural, strategic, or high-stakes decisions
-- Forces consideration of assumptions, second-order effects, and failure modes
-
-**When Skills Use UltraThink:**
-- **brainstorming** - Before proposing architectural approaches
-- **spec-driven-planning** - Before technical design with complex architectures
-- **spec-driven-implementation** - Before task breakdown for complex implementations
-- **research** - Before edge hypothesis formation and validation
-- **analyze** - When market conditions show conflicting signals
-- **skill-maker** - Before creating new skill structures
-- **pattern** - When pattern validity is ambiguous
-- **review** - When architectural issues are detected
-
-**UltraThink Process:**
-1. **Trigger** - Skill identifies high-complexity decision point
-2. **Announcement** - "Let me ultrathink [specific aspect] before [action]"
-3. **Deep Questions** - Question assumptions, consider failure modes, think from first principles
-4. **Output** - Provide decision with explicit reasoning about trade-offs
-
-**Example Trigger:**
-> 🗣 Say: "This design requires deep thinking. Let me ultrathink the architectural fundamentals before proposing approaches."
-
-**Benefit:** Prevents heading down wrong paths that seemed obvious but have hidden complexities or flawed assumptions.
+Before high-stakes decisions, skills question the problem rather than the symptom: what is assumed, what could go wrong, and what is the simplest thing that works. `brainstorming` (before choosing an architecture), `research` (edge hypothesis and validation) and `analyze` (conflicting signals) build these questions into their steps. `skill-maker`, `review` and `pattern` still announce them explicitly as "UltraThink".
 
 ## Common Workflows
 
