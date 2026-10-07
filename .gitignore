@@ -27,3 +27,6 @@ __pycache__/
 # Logs
 *.log
 logs/
+
+# Plugin eval run output
+dev-workflow/evals/results/

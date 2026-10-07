@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: plain question, skill-fire indicator (unscored)
+context:
+  scaffold_script: scaffold.sh
+execution:
+  max_turns: 6
+  allowed_tools: [Skill, Read, Glob, Grep, Edit, Write]
+runs: 1

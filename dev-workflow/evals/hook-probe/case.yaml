@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: session-start context present
+execution:
+  max_turns: 2
+  allowed_tools: [Skill, Read, Glob, Grep, Edit, Write]
+runs: 1

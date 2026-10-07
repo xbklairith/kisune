@@ -1,0 +1,1 @@
+I just cloned linkshort onto a new laptop. I need local dev working and the GitHub deploy working, and I haven't grabbed any of the keys from the various accounts yet. Get me set up. I'll handle anything that needs my logins.
