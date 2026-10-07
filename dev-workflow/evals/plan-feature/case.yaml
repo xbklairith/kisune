@@ -3,6 +3,6 @@ name: feature idea invokes a planning skill
 context:
   scaffold_script: scaffold.sh
 execution:
-  max_turns: 8
+  max_turns: 15
   allowed_tools: [Skill, Read, Glob, Grep, Edit, Write]
 runs: 1

@@ -8,248 +8,43 @@ allowed-tools: Read, Write, Glob, Grep, WebSearch, WebFetch, Bash
 
 ## Overview
 
-Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
-
-Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design in small sections (200-300 words), checking after each section whether it looks right so far.
+Turn a rough idea into an approved design through dialogue: understand the context, ask one question at a time, propose approaches, then present the design in short sections the user approves one by one.
 
 <HARD-GATE>
 Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it. This applies to EVERY project regardless of perceived simplicity.
 </HARD-GATE>
 
-## Anti-Pattern: "This Is Too Simple To Need A Design"
+**"Too simple to need a design" is the trap.** Simple projects are where unexamined assumptions waste the most work. The design can be a few sentences, but present it and get approval before acting.
 
-Every project goes through this process. A todo list, a single-function utility, a config change — all of them. "Simple" projects are where unexamined assumptions cause the most wasted work. The design can be short (a few sentences for truly simple projects), but you MUST present it and get the user's approval before any implementation action.
+## When to Use
 
-## When to Activate
-
-Activate this skill when:
-- User has a rough idea that needs refinement
-- User is uncertain about scope or approach
-- User says "I'm not sure what we need" or "I'm not sure how to approach this"
-- During Phase 2 (Requirements) to explore WHAT to build
-- During Phase 3 (Technical Design) to explore HOW to build it
-
-**Phase 2 Focus (Requirements):**
-- Clarifying what the feature should do
-- Exploring different requirement scopes
-- Understanding user needs and constraints
-- Determining must-haves vs. nice-to-haves
-
-**Phase 3 Focus (Design):**
-- Exploring architectural approaches
-- Comparing technical solutions
-- Analyzing implementation trade-offs
-
-## Research-Driven Exploration
-
-When exploring unclear requirements or designs, use web research to inform decisions:
-
-**For Requirements Exploration:**
-- Use WebSearch to find how others have solved similar problems
-- Use WebFetch to analyze competitor features and documentation
-- Research user expectations and industry standards
-
-**For Design Exploration:**
-- Use WebSearch to find architectural patterns and best practices
-- Use WebFetch to read library/framework documentation
-- Research performance benchmarks and case studies
-
-**For API Integration:**
-- Use Bash with `curl` to explore and test API endpoints
-- Fetch API schemas and documentation
-- Understand rate limits, authentication, and constraints
-
-**Research Questions to Answer:**
-- "How do similar products handle this?"
-- "What are common pitfalls to avoid?"
-- "What's the current best practice (2025)?"
-- "Are there established patterns for this problem?"
-
-> 🗣 Say: "Let me research this before proposing options. I'll look for prior art and best practices."
-
-**Document Research:**
-- Share key findings with user before presenting options
-- Include sources for transparency
-- Note any conflicting approaches found
-
----
+- A rough idea, unclear scope, or "not sure how to approach this".
+- Requirements phase of `spec-driven-planning`: explore *what* to build (scope, must-haves vs nice-to-haves).
+- Design phase: explore *how* (architectures, trade-offs).
 
 ## The Process
 
-**Understanding the idea:**
-- Check out the current project state first (files, docs, recent commits)
-- Ask questions one at a time to refine the idea
-- Prefer multiple choice questions when possible, but open-ended is fine too
-- Only one question per message - if a topic needs more exploration, break it into multiple questions
-- Focus on understanding: purpose, constraints, success criteria
+1. **Look first.** Read the project state (files, docs, recent commits) before asking anything you could find out yourself. When the answer depends on how others solve it, research prior art, library docs, or the external API, and share what you found with sources.
+2. **Ask one question per message**, multiple choice where possible, until you know the purpose, constraints, and success criteria.
+3. **Propose 2-3 approaches** with trade-offs (complexity, maintainability, performance, security, testability). Lead with the one you recommend and say why. When the choice has long-term or security consequences, question the problem first: what are we assuming, what could go wrong, what is the simplest thing that works?
+4. **Present the design in sections of 200-300 words** (architecture, components, data flow, error handling, testing) and ask after each whether it looks right. Go back when something doesn't fit.
 
-**When to UltraThink:**
-Before proposing architectural approaches, activate deep thinking if:
-- Multiple valid solutions exist with significant trade-offs
-- Decision has long-term architectural implications
-- Requirements involve complex system interactions
-- Security or performance are critical concerns
-
-> 🗣 Say: "Let me ultrathink this before proposing approaches. I'll question fundamentals and consider implications from first principles."
-
-**During UltraThink:**
-- Question assumptions about requirements
-- Consider second-order effects of each approach
-- Think about what could go wrong (pre-mortem)
-- Evaluate against similar systems you've seen
-- Consider future maintainability and evolution
-
-**After UltraThink:** Provide approaches with clear reasoning about trade-offs and long-term implications.
-
-**Exploring approaches:**
-- Propose 2-3 different approaches with trade-offs
-- Present options conversationally with your recommendation and reasoning
-- Lead with your recommended option and explain why
-- Consider:
-  - Complexity (Low/Medium/High)
-  - Maintainability
-  - Performance implications
-  - Security considerations
-  - Testability
-
-**Presenting the design:**
-- Once you believe you understand what you're building, present the design
-- Break it into sections of 200-300 words
-- Ask after each section whether it looks right so far
-- Cover: architecture, components, data flow, error handling, testing
-- Be ready to go back and clarify if something doesn't make sense
+**YAGNI ruthlessly.** Cut features nobody asked for from every option.
 
 ## After Brainstorming
 
-**For Requirements (Phase 2):**
-- Write validated requirements to `docx/features/[NN-feature-name]/requirements.md`
-- Use EARS format (Event-Driven, State-Driven, Ubiquitous, Conditional, Optional)
-- Include:
-  - Overview
-  - Functional requirements
-  - Non-functional requirements (performance, security, usability)
-  - Constraints
-  - Acceptance criteria
-  - Out of scope items
-- Ask: "Requirements complete. Ready for design phase?"
+- **Requirements:** write the validated requirements to `docx/features/[NN-feature-name]/requirements.md` in EARS form (see `spec-driven-planning`), then ask "Requirements complete. Ready for design phase?"
+- **Design:** write the validated design to `docx/features/[NN-feature-name]/design.md` following the plugin's design template, then ask "Design complete. Ready for task breakdown?" and hand off to `spec-driven-implementation`.
 
-**For Design (Phase 3):**
-- Write the validated design to `docx/features/[NN-feature-name]/design.md`
-- Include:
-  - Architecture Overview
-  - Component Structure
-  - Data Flow
-  - API Contracts
-  - Error Handling Strategy
-  - Security Considerations
-  - Performance Considerations
-  - Testing Strategy
-- Ask: "Design complete. Ready for task breakdown?"
+## Example: exploring approaches
 
-**Transition:**
-- After requirements → Proceed to Phase 3 (Technical Design)
-- After design → Transition to `spec-driven-implementation` skill for task breakdown
-
-## Key Principles
-
-- **One question at a time** - Don't overwhelm with multiple questions
-- **Multiple choice preferred** - Easier to answer than open-ended when possible
-- **YAGNI ruthlessly** - Remove unnecessary features from all designs
-- **Explore alternatives** - Always propose 2-3 approaches before settling
-- **Incremental validation** - Present design in sections, validate each
-- **Be flexible** - Go back and clarify when something doesn't make sense
-- **Think about testing** - Good designs are testable designs
-- **Consider security** - Build security in, don't bolt it on later
-
-## Example Questioning Flow
-
-**Understanding Purpose:**
 ```
-Q: "What's the primary goal of this authentication feature?"
-→ User answers
+Based on your answers I see three approaches:
 
-Q: "Should it support multiple auth methods (email/password, OAuth, etc.)
-   or just one method initially?"
-→ User answers
+**A. JWT-based auth** (recommended) — stateless, works across services; revocation is harder.
+**B. Server sessions** — simple revocation; needs shared session storage to scale.
+**C. Hybrid** — both benefits, most complexity.
 
-Q: "What happens when a session expires - force re-login or offer refresh?"
-→ User answers
+I recommend A because you mentioned a mobile app and other API clients.
+Does that match your thinking?
 ```
-
-**Exploring Approaches:**
-```
-Based on your requirements, I see 3 main approaches:
-
-**Option A: JWT-Based Authentication** [RECOMMENDED]
-Pros: Stateless, scalable, works across services, standard
-Cons: Token invalidation complexity, larger payload
-Complexity: Medium
-Best for: Microservices, APIs, future scalability
-
-**Option B: Session-Based Authentication**
-Pros: Simple invalidation, smaller cookies, familiar
-Cons: Requires session storage, scaling challenges
-Complexity: Low
-Best for: Monolithic apps, simple use cases
-
-**Option C: Hybrid Approach**
-Pros: Combines benefits of both
-Cons: More complex, harder to maintain
-Complexity: High
-Best for: Complex enterprise requirements
-
-I recommend Option A (JWT) because your requirements mention
-potential API integrations and future mobile app support.
-JWT is industry-standard for this use case.
-
-Does this align with your thinking?
-```
-
-**Presenting Design Incrementally:**
-```
-Let me present the architecture in sections:
-
-**Section 1: High-Level Flow**
-[200-300 words describing auth flow]
-
-Does this look right so far?
-→ User validates or requests changes
-
-**Section 2: Component Structure**
-[200-300 words describing components]
-
-How does this look?
-→ Continue...
-```
-
-## Integration with Spec-Driven Workflow
-
-This skill can be used in two phases:
-
-**Phase 2 (Requirements):**
-- Use when user has rough idea but unclear requirements
-- Helps clarify what to build vs. what's out of scope
-- Explores different feature scopes and priorities
-- Outputs to `requirements.md` in EARS format
-
-**Phase 3 (Technical Design):**
-- Use after requirements are defined
-- Helps explore how to build the feature
-- Compares architectural approaches with trade-offs
-- Outputs to `design.md` with complete technical specs
-
-After brainstorming completes:
-- Phase 2 → Proceed to Phase 3 (Technical Design)
-- Phase 3 → Transition to `spec-driven-implementation` for task breakdown
-
-## Notes
-
-- **Phase 2:** Focus on "what" (what should system do? what's in/out of scope?)
-- **Phase 3:** Focus on "how" (how should we build it? what are trade-offs?)
-- Always present multiple options before recommending
-- Validate incrementally - don't dump everything at once
-- Be ready to backtrack if something doesn't make sense
-- One question at a time - let user think and respond
-- Good requirements lead to good designs
-- Good designs enable good tests - think about testability
-- Security and error handling are not afterthoughts
