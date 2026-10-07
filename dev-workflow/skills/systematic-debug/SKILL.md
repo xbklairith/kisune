@@ -6,15 +6,6 @@ allowed-tools: Read, Bash, Grep
 
 # Systematic Debug Skill
 
-## Activation Triggers
-
-Activate this skill when:
-- User says "debug", "bug", "broken", "throwing", "failing", "flaky"
-- User pastes a stack trace or error log
-- User says "investigate", "diagnose", or "root cause"
-- Tests fail unexpectedly, especially across components
-- User invokes `/systematic-debug`
-
 ## Purpose
 
 Resolve bugs methodically using a four-step discipline. The mantra enforces order: no fix before a reliable repro, no hypothesis before the fail path is known, no commitment to a cause before it survives a disproof attempt, no declaration of success before every prior breadcrumb has been checked.
@@ -108,53 +99,11 @@ Maintain a running ledger of every experiment in the session. Each entry: what c
 
 ---
 
-## Investigation Tools
+## Quick Checks
 
-### Log Analysis
-
-```bash
-# Filter errors and warnings from application logs
-grep -E "(ERROR|WARN|FATAL)" app.log | tail -50
-
-# Time-windowed grep around the failure
-grep "2024-01-15 14:3" app.log
-
-# Count occurrences to spot patterns
-grep "pattern" app.log | sort | uniq -c | sort -rn
-```
-
-### Stack Trace Reading
-
-1. Identify the top frame — that is where the error was thrown.
-2. Scan down for the first frame in your own code (skip library frames).
-3. Note any async boundary crossings; the real cause may be several frames below the throw site.
-4. Check the message for variable values embedded in the exception.
-
-### Test Isolation
-
-- Run the single failing test in isolation before assuming the full suite is broken.
-- Add `--verbose` or equivalent to get the full assertion diff.
-- Check whether the test passes alone but fails in suite — that indicates shared state leakage.
-- Check whether the test is order-dependent by reversing test execution order.
-
-### Environment Comparison
-
-Identify the discriminator between failing and passing environments:
-
-| Axis | Check |
-|---|---|
-| Language / runtime version | `node --version`, `python --version` |
-| Installed package versions | `npm ls`, `pip freeze` |
-| Environment variables | diff `.env` files |
-| Recent git changes | `git log --since="2 days ago" --oneline` |
-| OS / architecture | `uname -a` |
-
-```bash
-# Find the exact commit that introduced the bug
-git bisect start
-git bisect bad HEAD
-git bisect good <last-known-good-sha>
-```
+- **Stack trace:** start at the first frame in your own code; the real cause may sit below an async boundary.
+- **Test passes alone, fails in suite:** shared state leakage; try reversing test order.
+- **Works here, fails there:** diff runtime and package versions, env vars, and recent commits. `git bisect` finds the commit that introduced it.
 
 ---
 

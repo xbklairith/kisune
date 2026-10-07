@@ -4,5 +4,5 @@ context:
   scaffold_script: scaffold.sh
 execution:
   max_turns: 25
-  allowed_tools: [Skill, Read, Glob, Grep, Edit, Write]
+  allowed_tools: [Skill, Read, Glob, Grep, Edit, Write, Bash]
 runs: 1
