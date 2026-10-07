@@ -30,3 +30,4 @@ logs/
 
 # Plugin eval run output
 dev-workflow/evals/results/
+trading/evals/results/

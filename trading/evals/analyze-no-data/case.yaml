@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: market analysis without data does not invent readings
+execution:
+  max_turns: 15
+  allowed_tools: [Skill, Read, Glob, Grep]
+runs: 1

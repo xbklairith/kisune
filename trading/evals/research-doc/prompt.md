@@ -1,0 +1,1 @@
+I want to document a trading idea: on BTC/USDT 4H, buy when RSI(14) drops below 30 while price is above the daily 200 MA, and sell when RSI gets back above 50. Stop at 2x ATR(14) below entry, risk 1% of the account per trade. I'm not around to answer questions, so make reasonable choices, state them, and save the strategy document as docx/strategies/btc-rsi-dip.md.
