@@ -79,7 +79,7 @@ Identify and document chart patterns:
 
 Convert strategies into code:
 - **Python:** Pandas-compatible functions for custom backtesting frameworks
-- **Pine Script:** TradingView indicators and strategies (v5)
+- **Pine Script:** TradingView indicators and strategies (v6, non-repainting)
 - **Parameterized:** All values configurable, no hardcoding
 - **Documented:** Clear docstrings and usage examples
 - **Production-Ready:** Error handling, type hints, best practices
@@ -146,7 +146,7 @@ Personal pattern library template with:
 2. Research Phase
    Ask Claude to research your strategy
    → Documents strategy with edge hypothesis, rules, risk management
-   → Output: strategies/rsi-mean-reversion.md
+   → Output: docx/strategies/rsi-mean-reversion.md
 
 3. Translation Phase
    Ask Claude to translate your strategy to code
@@ -397,6 +397,8 @@ MIT License - See LICENSE file for details
 ---
 
 ## Version History
+
+- **v1.3.0** — Skills rewritten to Anthropic's skill best practices: `research`, `translate`, and `analyze` cut from 1,063 to about 150 lines combined. `analyze` now computes readings from the data you give it and says so plainly when it has none, instead of filling in levels. `translate` enforces next-bar fills, Wilder RSI/ATR, intrabar stops, fees, and runs the code; Pine Script output moves to v6. `research` fills the shared `templates/strategy-doc.md` with no placeholders left and adds a "why it might not work" section. New behaviour evals in `evals/` (`claude plugin eval`).
 
 - **v1.2.0** — Output paths moved into the `docx/` knowledge base. `research` now writes strategy docs to `docx/strategies/` (was `strategies/`) and `pattern` writes to `docx/patterns/` (was `patterns/`). Existing documents are not moved — relocate them by hand, or keep using the old paths by pointing the skill at them explicitly.
 
