@@ -31,7 +31,7 @@ Apply an outsider perspective — forget who wrote it and why they believe it is
 
 ## Workflow
 
-Run these steps in order. Do not skip ahead.
+Settle intent before tracing — a simpler alternative found in Step 1 changes what the rest of the review is for.
 
 ### Step 1: Intent — what is this actually trying to do?
 

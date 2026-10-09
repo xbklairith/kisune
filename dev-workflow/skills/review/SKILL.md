@@ -161,12 +161,7 @@ Activate this skill when:
 
 ### Step 1: Determine Scope
 
-Ask user what to review:
-1. Current staged changes (`git diff --cached`)
-2. Current unstaged changes (`git diff`)
-3. Specific file or directory
-4. Entire feature
-5. Recent commits
+Review what the user names. Otherwise review staged changes (`git diff --cached`), then unstaged (`git diff`); on a feature branch, `git diff main...HEAD`.
 
 ### Step 2: Analyze Code
 
@@ -265,12 +260,7 @@ If review reveals fundamental architectural problems, activate deep thinking:
 - [Benefit 2]
 
 ### Code Metrics
-
-- **Complexity:** [Low/Medium/High]
-- **Test Coverage:** [X%]
-- **Maintainability:** [A/B/C/D/F]
-- **Lines of Code:** [N]
-- **Duplicated Code:** [X%]
+Include only metrics a tool produced this session (coverage report, linter output), with the command that produced them.
 
 ### Action Items
 
@@ -323,10 +313,4 @@ Focus on: Named constants, extracted functions, input validation, and cleaner er
 
 ## Notes
 
-- Be thorough but constructive
-- Prioritize issues appropriately
-- Always provide specific code examples
-- Explain WHY something is an issue, not just WHAT
-- Offer concrete solutions, not just criticism
-- Balance between perfectionism and pragmatism
-- Focus on high-impact improvements
+Explain why each issue matters and give a concrete fix.

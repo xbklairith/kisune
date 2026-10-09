@@ -131,7 +131,7 @@ Every line is its own claim and needs its own fresh evidence in the same turn.
 A status block built from runs scattered across earlier turns is a fabricated report. Re-run before posting.
 
 **Long-running commands under PM2 / `docx/logs/`:**
-Per kisune's command-execution convention, anything >30s runs under PM2 or redirects to `docx/logs/`. The verification workflow:
+When a command ran under PM2 or wrote its output to `docx/logs/`, verify it like this:
 ```
 1. pm2 list                              → confirm process exited (status: stopped/online?)
 2. pm2 logs <name> --nostream --lines N  → read FULL output, not a tail

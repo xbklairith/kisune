@@ -149,7 +149,7 @@ Create `SKILL.md` with frontmatter template:
 ```markdown
 ---
 name: skill-name
-description: Use when [triggers] - [what it does]
+description: [What it does, third person]. Use when [triggers].
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
@@ -182,7 +182,7 @@ Use skill on real tasks → notice struggles → baseline test again → update 
 
 ### Description field rules
 
-- Start with "Use when..." in third person (not second person)
+- Third person: state what the skill does, then "Use when ..." with its triggers
 - Include concrete triggers, error messages, and symptom keywords a user or agent would search for in the description itself (body keywords are wasted for matching)
 - Describe the *problem* the skill solves, not implementation details
 - At most 1024 chars (see Frontmatter rules); aim for 200-400
@@ -239,7 +239,7 @@ Use TaskCreate to create todos for EACH item.
 
 **GREEN Phase:**
 - [ ] Valid frontmatter: name (lowercase letters/numbers/hyphens, no "anthropic"/"claude"), description (what + when, third person, ≤1024 chars; aim for 200-400)
-- [ ] Keywords throughout for search (errors, symptoms, tools)
+- [ ] Trigger keywords (errors, symptoms, tools) in the description, not the body
 - [ ] Clear overview with core principle
 - [ ] Address specific baseline failures from RED
 - [ ] One excellent example (not multi-language)

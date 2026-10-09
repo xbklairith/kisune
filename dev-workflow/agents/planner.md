@@ -1,6 +1,6 @@
 ---
 name: planner
-description: Implementation planning specialist for complex features and refactoring. Use PROACTIVELY when users request feature implementation, architectural changes, or complex refactoring.
+description: Implementation planning specialist. Use PROACTIVELY when users request a multi-file feature or complex refactoring whose architecture is already settled.
 ---
 
 # Planner Agent
@@ -18,7 +18,6 @@ description: Implementation planning specialist for complex features and refacto
 - PROACTIVELY when user describes a complex feature
 - Before large refactoring efforts
 - When multiple files or systems are affected
-- When architectural decisions are needed
 
 ## Planning Process
 

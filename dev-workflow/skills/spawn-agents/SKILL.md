@@ -19,19 +19,17 @@ Delegate independent work to subagents with isolated context. By precisely craft
 - Agents won't edit the same files or rely on the same in-flight changes
 - You'd otherwise lose tokens to context bloat investigating sequentially yourself
 
-**DO NOT dispatch when:**
+**Dispatch only when streams share no state** — agents that share state conflict, and integrating them costs more than the parallelism saved. Don't dispatch when:
 - The problems share a domain model, schema, or core utility (the bugs may have one root cause)
 - The work is one cohesive feature decomposed into pieces (e.g. "implement auth: signup + login + reset + verify" — all four touch User, middleware, and schema)
 - You don't yet know what's broken (exploratory debugging needs full context)
 - The task fits in one agent (don't shard for the sake of sharding)
 
-**Over-dispatch is the failure mode to fear most.** Capable models reach for parallelism reflexively. Resist: if streams share state, agents will conflict and you'll spend more time integrating than you saved dispatching.
-
 **Soft cap: ~3-4 agents per message.** If you're tempted to spawn 5+ in parallel, the more likely diagnosis is that they aren't truly independent — re-examine the decomposition before dispatching.
 
 ## The Mechanism (Claude Code)
 
-Parallelism in Claude Code is NOT a special `Task()` function. It is:
+Parallelism in Claude Code is:
 
 > **Multiple `Agent` tool invocations in a single assistant message.**
 

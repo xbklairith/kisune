@@ -10,7 +10,7 @@ allowed-tools: Read, Write, Bash
 
 Guide feature planning in one of two modes:
 
-- **Quick mode** — single `docx/features/[NN-name]/plan.md` with bite-sized tasks. No EARS, no RGR. For solo work, ≤3 days, no compliance/handoff. Derived from the superpowers writing-plans pattern.
+- **Quick mode** — single `docx/features/[NN-name]/plan.md` with bite-sized tasks. No EARS, no RGR. For solo work, ≤3 days, no compliance/handoff.
 - **Full mode** — three files (`requirements.md` EARS + `design.md` + `tasks.md`) with three approval gates and TDD enforcement downstream. For team work, multi-week, compliance/audit, or stakeholder review.
 
 The skill picks a mode (or asks when ambiguous), then runs the matching playbook.
@@ -240,11 +240,3 @@ Scope is ambiguous between Quick and Full. Pick one:
 Default if you don't pick: Quick.
 ```
 
----
-
-## Notes
-
-- Always request explicit approval between phases
-- Use EARS format strictly for requirements
-- Focus on "what" and "how", not "doing"
-- Explore multiple architectural options before recommending one

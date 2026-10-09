@@ -102,11 +102,11 @@ claude --plugin-dir ./dev-workflow
 
 | Agent | When it activates |
 |-------|------------------|
-| `architect` | Planning new features, architectural decisions |
+| `architect` | System-design or technology decisions, comparing architectural options |
 | `build-error-resolver` | Build fails, compilation errors |
 | `code-reviewer` | After writing or modifying code |
 | `database-reviewer` | Writing SQL, designing schemas |
-| `planner` | Complex feature requests, large refactors |
+| `planner` | Multi-file features or refactors whose architecture is settled |
 | `refactor-cleaner` | Dead code, duplicates, unused dependencies |
 | `security-reviewer` | Auth code, user input, API endpoints |
 | `tdd-guide` | New features, bug fixes, refactoring |

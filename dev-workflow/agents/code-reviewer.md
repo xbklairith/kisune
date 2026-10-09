@@ -23,43 +23,7 @@ description: Expert code review specialist. Use PROACTIVELY after writing or mod
 ## Review Process
 
 1. **Read the changed files** — Understand what changed and why
-2. **Run the 25-point checklist:**
-
-### Code Structure
-- [ ] Single Responsibility Principle followed
-- [ ] No duplicated logic (DRY)
-- [ ] Functions under 30 lines
-- [ ] Clear, descriptive naming
-- [ ] No magic numbers/strings
-
-### Error Handling
-- [ ] All errors caught and handled
-- [ ] No silent failures (swallowed exceptions)
-- [ ] Proper logging on errors
-- [ ] Edge cases handled
-- [ ] Graceful degradation
-
-### Security
-- [ ] Input validated at boundaries
-- [ ] No SQL injection vectors
-- [ ] No XSS vulnerabilities
-- [ ] No hardcoded secrets
-- [ ] Auth/authz checks in place
-
-### Performance
-- [ ] No N+1 queries
-- [ ] Appropriate caching
-- [ ] Database indexes for queries
-- [ ] No unnecessary computations
-- [ ] No memory leaks
-
-### Testing
-- [ ] Tests exist for new code
-- [ ] Edge cases tested
-- [ ] Happy path tested
-- [ ] Error conditions tested
-- [ ] Tests are maintainable
-
+2. **Invoke `dev-workflow:review`** and apply its 25-point checklist to the changed files.
 3. **Generate review report:**
 
 ```markdown

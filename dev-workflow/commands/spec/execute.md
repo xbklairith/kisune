@@ -13,9 +13,7 @@ Activate the `spec-driven-implementation` skill to execute Phase 5 (Execution).
 2. Use the Skill tool to invoke: `dev-workflow:spec-driven-implementation`
 
 3. Tell the skill:
-   "Execute Phase 5 (Implementation) for feature [feature-name]:
-   - Read tasks from docx/features/[NN-feature-name]/tasks.md
-   - Execute tasks systematically following TDD (Red-Green-Refactor)
+   "Execute implementation for feature [feature-name]: detect the mode from docx/features/[NN-feature-name]/ (plan.md → Quick, tasks.md → Full) and run the matching playbook.
    - Update checkboxes as tasks complete
    - Integrate with review and git-workflow skills
    - Run quality gates before marking tasks complete
@@ -23,7 +21,7 @@ Activate the `spec-driven-implementation` skill to execute Phase 5 (Execution).
    Work through all tasks until feature is complete."
 
 **Expected Outcome:**
-- All tasks executed with TDD discipline
-- Checkboxes updated in tasks.md
+- Each task executed and verified for its mode (Full mode: RED-GREEN-REFACTOR)
+- Checkboxes updated in plan.md or tasks.md
 - Code quality verified
 - Feature implementation complete

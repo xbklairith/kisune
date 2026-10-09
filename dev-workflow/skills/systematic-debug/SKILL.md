@@ -48,9 +48,9 @@ Target: a fast (1–5 s), deterministic pass/fail signal. Pin time, seed the RNG
 
 ## Step 2: Trace the Fail Path
 
-Once reproducible, find where the code breaks and what stops it from breaking. The differential narrows the search. Try in this order — escalate only when the prior tactic fails.
+Once reproducible, find where the code breaks and what stops it from breaking. The differential narrows the search. Use whichever narrows fastest:
 
-1. **Attach a debugger.** If the environment supports it, attach and step to the failure site. One breakpoint beats ten logs. Do this before turning any knobs.
+1. **Attach a debugger.** If the environment supports it, attach and step to the failure site. One breakpoint beats ten logs.
 
 2. **Source trace + knob enumeration.** If no debugger (or it can't reach the bug), trace the code path end-to-end and list every knob that can influence the outcome:
    - config flags, env vars, feature toggles
@@ -150,7 +150,7 @@ When you hear these, immediately pause hypothesis generation and gather evidence
 
 ## Fix and Protect
 
-After a root cause is confirmed and the fix is validated:
+After a root cause is confirmed:
 
 1. **Write a regression test** that fails before the fix and passes after.
 2. **Fix the root cause** — not just the symptom.

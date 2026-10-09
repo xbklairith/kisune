@@ -10,11 +10,7 @@ allowed-tools: Read, Write, Glob, Grep, WebSearch, WebFetch, Bash
 
 Turn a rough idea into an approved design through dialogue: understand the context, ask one question at a time, propose approaches, then present the design in short sections the user approves one by one.
 
-<HARD-GATE>
-Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it. This applies to EVERY project regardless of perceived simplicity.
-</HARD-GATE>
-
-**"Too simple to need a design" is the trap.** Simple projects are where unexamined assumptions waste the most work. The design can be a few sentences, but present it and get approval before acting.
+Present a design and get the user's approval before writing code, scaffolding, or invoking an implementation skill — simple projects included, because that is where unexamined assumptions waste the most work. The design can be a few sentences.
 
 ## When to Use
 
@@ -27,7 +23,7 @@ Do NOT invoke any implementation skill, write any code, scaffold any project, or
 1. **Look first.** Read the project state (files, docs, recent commits) before asking anything you could find out yourself. When the answer depends on how others solve it, research prior art, library docs, or the external API, and share what you found with sources.
 2. **Ask one question per message**, multiple choice where possible, until you know the purpose, constraints, and success criteria.
 3. **Propose 2-3 approaches** with trade-offs (complexity, maintainability, performance, security, testability). Lead with the one you recommend and say why. When the choice has long-term or security consequences, question the problem first: what are we assuming, what could go wrong, what is the simplest thing that works?
-4. **Present the design in sections of 200-300 words** (architecture, components, data flow, error handling, testing) and ask after each whether it looks right. Go back when something doesn't fit.
+4. **Present the design in short sections** (architecture, components, data flow, error handling, testing) and ask after each whether it looks right. Go back when something doesn't fit.
 
 **YAGNI ruthlessly.** Cut features nobody asked for from every option.
 

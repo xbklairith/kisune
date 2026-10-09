@@ -57,6 +57,4 @@ Every question carries a recommendation. A user who agrees with all of them shou
 
 The session ends when the frontier is empty. Summarize the settled tree — every decision and the answer it landed on — then ask whether to proceed, and to what.
 
-<HARD-GATE>
-Do NOT write code, scaffold, edit files, or invoke any implementation skill until the user confirms shared understanding has been reached. An empty frontier is necessary but not sufficient — the user must say so.
-</HARD-GATE>
+Don't write code, edit files, or invoke an implementation skill until the user confirms shared understanding. An empty frontier is necessary but not sufficient — the user must say so.

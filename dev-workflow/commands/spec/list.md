@@ -8,7 +8,7 @@ List all features in `docx/features/` directory with their current status:
 2. For each feature, show:
    - Feature number and name
    - Completion status (✅ Complete, 🔄 In Progress, ⏳ Not Started)
-   - Files present: requirements.md, design.md, tasks.md
-   - Task progress if tasks.md exists: X/Y tasks complete
+   - Mode and files present: plan.md (Quick) or requirements.md/design.md/tasks.md (Full)
+   - Task progress from plan.md or tasks.md: X/Y
 
 Format as table or bulleted list.

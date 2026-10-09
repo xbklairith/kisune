@@ -19,7 +19,6 @@ The canonical engineering record of a bug fix. Written after debugging lands a r
 
 ## When NOT to Use
 
-- **Bug not fixed or fix not validated.** A post-mortem of a hypothesis is misleading. Refuse, list what's missing, and stop.
 - **Customer-visible outage or incident.** Those need a separate incident report covering timeline, blast radius, paging history, and comms. This skill is bug-fix scope. Flag and confirm before proceeding.
 - **Trivial one-liner fix.** The PR description is the record. Don't manufacture ceremony.
 
@@ -97,10 +96,9 @@ Engineer-to-engineer: precise, mechanism-first, written for someone who will gre
 
 ## Output Flow
 
-1. Confirm all four required inputs are satisfied. If any are missing, list them and stop.
-2. Confirm destination (default: `docx/postmortems/<bug-name>.md`). Other valid targets: issue tracker comment (JIRA, GitHub Issues, Linear), PR description, internal wiki. Shape is the same — only the wrapping changes.
-3. Produce the draft as a single block.
-4. For issue tracker back-post (JIRA, GitHub Issues, Linear): show the exact payload, wait for explicit "post it" / "go ahead" / "yes," then post. Print-only output needs no approval.
+1. Confirm destination (default: `docx/postmortems/<bug-name>.md`). Other valid targets: issue tracker comment (JIRA, GitHub Issues, Linear), PR description, internal wiki. Shape is the same — only the wrapping changes.
+2. Produce the draft as a single block.
+3. For issue tracker back-post (JIRA, GitHub Issues, Linear): show the exact payload, wait for explicit "post it" / "go ahead" / "yes," then post. Print-only output needs no approval.
 
 ## Worked Example — Partial (JIRA-12345)
 

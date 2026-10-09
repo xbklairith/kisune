@@ -57,7 +57,7 @@ description: TDD specialist enforcing write-tests-first methodology. Use PROACTI
 
 ### Unit Tests
 - Test one function/method per test
-- Mock external dependencies
+- Use real code; mock only dependencies you cannot run in a test (network services, paid APIs)
 - Use descriptive test names: `test_[action]_[condition]_[expected]`
 
 ### Integration Tests

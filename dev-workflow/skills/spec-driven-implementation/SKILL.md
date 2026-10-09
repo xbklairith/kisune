@@ -173,7 +173,7 @@ Invoke `dev-workflow:test-driven-development` and follow it for every task. Set 
 
 **Edit the file, then announce.** Saying a box is done is not checking it; a resumed session only sees what is in `tasks.md`.
 
-Every 2-3 tasks, post a checkpoint: tests passing, type check, lint, tasks done, next task.
+Post a checkpoint when a meaningful unit of work lands: tests passing, type check, lint, tasks done, next task.
 
 Before each commit, invoke `dev-workflow:review` and fix critical findings. When all tasks are `[x]`, set `Status:` to `Complete`, confirm tests, lint and type check pass (`dev-workflow:completion-validation`), and report tasks, tests added, commits and files changed.
 

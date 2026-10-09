@@ -9,7 +9,7 @@ This repository contains two production-ready Claude Code plugins:
 1. **Trading Plugin** (`trading/`) - Multi-market trading analysis and strategy research toolkit
 2. **Dev-Workflow Plugin** (`dev-workflow/`) - Integrated development lifecycle with spec-driven methodology
 
-Both plugins are 100% compliant with official Claude Code plugin specifications.
+Both plugins follow the official Claude Code plugin specification; `claude plugin validate` checks it.
 
 ## Repository Structure
 
@@ -86,8 +86,8 @@ kisune/
 - `code-reviewer` - Auto-reviews code after changes
 - `tdd-guide` - Enforces write-tests-first methodology
 - `security-reviewer` - Flags vulnerabilities in auth, input, APIs
-- `planner` - Plans complex features and refactoring
-- `architect` - Software architecture specialist, system design and scalability decisions
+- `planner` - Plans multi-file features and refactors once the architecture is settled
+- `architect` - System-design and technology decisions, scalability, comparing architectural options
 - `build-error-resolver` - Fixes build/compilation errors with minimal diffs
 - `database-reviewer` - PostgreSQL/Supabase query optimization and schema design
 - `refactor-cleaner` - Dead code cleanup, removes unused code and duplicates
@@ -114,6 +114,10 @@ This repository does not have traditional build/test commands as it contains plu
 python3 -m json.tool trading/.claude-plugin/plugin.json
 python3 -m json.tool dev-workflow/.claude-plugin/plugin.json
 python3 -m json.tool .claude-plugin/marketplace.json
+
+# Validate plugin structure
+claude plugin validate ./trading
+claude plugin validate ./dev-workflow
 
 # Check file structure
 ls -R trading/
@@ -156,16 +160,15 @@ Both plugins follow the official Claude Code plugin spec:
 - `agents/` - Specialized agents (at plugin root)
 - `templates/` - Supporting templates (at plugin root)
 
-**Skill Frontmatter (YAML) — 19 valid fields:**
+**Skill Frontmatter (YAML) — 20 valid fields:**
 ```yaml
 ---
 name: skill-name                    # kebab-case, max 64 chars
 description: What it does           # Used for auto-activation
+when_to_use: ...                   # Extra trigger text; description + when_to_use capped at 1,536 chars
 argument-hint: [issue-number]       # Autocomplete hint
 arguments: {}                       # Structured argument schema
-disable-model-invocation: true      # Removes the skill from Claude's context
-                                    #   entirely — it cannot be invoked via the
-                                    #   Skill tool, only by the user via /name
+disable-model-invocation: true      # Claude cannot invoke it (no Skill tool); only the user via /name
 user-invocable: false               # Hide from / menu (Claude can still invoke)
 allowed-tools: Read, Grep, Bash     # PRE-APPROVES these tools for the turn.
                                     #   Does NOT restrict — every tool stays
@@ -185,8 +188,8 @@ compatibility: {}                   # Compatibility constraints
 ---
 ```
 
-**IMPORTANT:** Do NOT invent fields outside this list (`version`, `dependencies`,
-`origin`, `tools`). Note the two easily-confused pairs:
+Don't add SKILL.md fields outside this list (`version`, `dependencies`, `origin`,
+`tools`); those belong in `plugin.json`, if anywhere. Note the two easily-confused pairs:
 - `allowed-tools` pre-approves; `disallowed-tools` restricts. They are not opposites
   of the same axis — omitting `allowed-tools` never reduces what Claude can call.
 - `disable-model-invocation: true` blocks the Skill tool, so a skill carrying it
@@ -196,7 +199,7 @@ compatibility: {}                   # Compatibility constraints
 Skills published to claude.ai / the Skills API accept a narrower set:
 `name`, `description`, `license`, `compatibility`, `metadata`, `allowed-tools`.
 
-**Agent Frontmatter — `name` and `description` required, 16 optional:**
+**Agent Frontmatter — `name` and `description` required, 17 optional:**
 ```yaml
 ---
 name: agent-name                    # required
@@ -217,6 +220,7 @@ isolation: worktree                 # optional
 color: blue                         # optional
 initialPrompt: ...                  # optional
 experimental: {}                    # optional
+omitClaudeMd: true                  # optional — subagent skips loading CLAUDE.md
 ---
 ```
 
@@ -322,7 +326,7 @@ When adding skills to either plugin:
 4. Update plugin README.md
 5. Test skill activation
 
-**IMPORTANT:** Only use the 19 frontmatter fields documented above. Keep SKILL.md under 500 lines — move reference material to separate files. Descriptions say what AND when, in third person, at most 1024 chars (`tools/check.py` enforces this). Add eval cases for the new skill (see below).
+Only use the 20 frontmatter fields documented above. Keep SKILL.md under 500 lines — move reference material to separate files. Descriptions say what AND when, in third person, at most 1024 chars (the Skills API limit, stricter than Claude Code's 1,536; `tools/check.py` enforces it). Add eval cases for the new skill (see below).
 
 ### Creating New Commands
 
@@ -348,10 +352,9 @@ When adding slash commands:
 
 **Documentation:**
 - `README.md` - Repository overview
-- `trading/README.md` - Trading plugin documentation (607 lines)
-- `dev-workflow/README.md` - Dev-workflow documentation (819 lines)
+- `trading/README.md` - Trading plugin documentation
+- `dev-workflow/README.md` - Dev-workflow documentation
 - `PLUGINS_INSTALLATION.md` - Installation guide
-- `SPEC_COMPLIANCE_REPORT.md` - Compliance verification
 - `TEMPLATES_USAGE.md` - Template usage guide
 
 **Design Documents:**
@@ -362,7 +365,7 @@ When adding slash commands:
 
 **Templates:**
 - Trading: `trading/templates/` (strategy-doc.md, backtest-results.md, pattern-library.md)
-- Dev-workflow: `dev-workflow/templates/` (requirements.md, design.md, tasks.md)
+- Dev-workflow: `dev-workflow/templates/` (plan.md, requirements.md, design.md, tasks.md)
 
 ## docx/ Storage Convention
 
@@ -437,6 +440,7 @@ cat trading/templates/backtest-results.md
 cat trading/templates/pattern-library.md
 
 # Dev-workflow templates
+cat dev-workflow/templates/plan.md
 cat dev-workflow/templates/requirements.md
 cat dev-workflow/templates/design.md
 cat dev-workflow/templates/tasks.md
@@ -446,18 +450,11 @@ Skills reference and copy these templates during workflow execution.
 
 ## Compliance & Standards
 
-**Status:** ✅ 100% Compliant with Official Claude Code Plugin Spec
-
-**Key Compliance Points:**
-- ✅ Correct directory structure
-- ✅ Valid plugin manifests (JSON validated)
-- ✅ Spec-compliant skill frontmatter (no extra fields)
-- ✅ Proper command format
-- ✅ Clean, validated syntax
+Run `claude plugin validate ./trading` and `claude plugin validate ./dev-workflow` plus `python3 tools/check.py` before a release.
 
 **References:**
 - Plugin Guide: https://code.claude.com/docs/en/plugins
-- Plugin Reference: https://code.claude.com/docs/en/plugins-reference
+- Plugin Manifest Reference: https://code.claude.com/docs/en/plugins/manifest-reference
 - Skills Guide: https://code.claude.com/docs/en/skills
 
 ## Statistics
@@ -470,5 +467,4 @@ Skills reference and copy these templates during workflow execution.
 
 **Combined:**
 - 31 skills, 8 agents, 7 commands, 7 templates
-- 58 files, ~10,060 lines
-- Language-agnostic, spec-compliant
+- Language-agnostic

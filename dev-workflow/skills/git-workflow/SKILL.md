@@ -160,15 +160,7 @@ Closes #[issue number]
 
 1. **Commit Often** — Small, frequent commits over large, infrequent ones
 2. **One Concern Per Commit** — Each commit represents one logical change
-3. **Write Good Messages** — Future you will thank present you
-4. **Review Before Push** — Always review your own changes first
-5. **Use Branches** — Never work directly on main
-6. **Create PRs** — Always use pull requests, even for solo projects
-7. **Keep History Clean** — Meaningful commits, not "WIP" or "fix"
-
-## Notes
-
-- Always prioritize safety over convenience
-- Default to the safer option when in doubt
-- Prevent destructive operations with clear warnings
-- Make it easy to do the right thing
+3. **Review Before Push** — Always review your own changes first
+4. **Use Branches** — Never work directly on main
+5. **Create PRs** — Always use pull requests, even for solo projects
+6. **Keep History Clean** — Meaningful commits, not "WIP" or "fix"
