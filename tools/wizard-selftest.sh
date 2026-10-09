@@ -2,6 +2,9 @@
 # Behavioural checks for dev-workflow/skills/wizard/assets/template.sh, run under the system bash
 # (3.2 on macOS) because that is what a user's `bash script.sh` gets.
 set -u
+# A pre-commit hook exports GIT_DIR (and friends); left set, the temp repos' `git init`
+# would write to the real repo's config (e.g. core.bare=true).
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR GIT_PREFIX GIT_OBJECT_DIRECTORY
 TEMPLATE="${1:-$(dirname "$0")/../dev-workflow/skills/wizard/assets/template.sh}"
 pass=0; fail=0
 ok()  { pass=$((pass+1)); printf '  ok   %s\n' "$1"; }
