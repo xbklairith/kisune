@@ -92,7 +92,7 @@ The plugin includes 27 integrated skills organized into planning, implementation
 **Key Features:**
 - One question at a time (no overwhelming)
 - Explores 2-3 alternatives before recommending
-- Presents information incrementally (200-300 word sections)
+- Presents the design in short sections
 - Validates each section before proceeding
 - Dual-phase usage:
   - **Phase 2 (Requirements):** Explores WHAT to build, clarifies scope
@@ -529,8 +529,8 @@ The plugin ships with 8 proactive agents that auto-activate based on context. Un
 | `code-reviewer` | Auto-reviews code after changes | After writing or modifying code |
 | `tdd-guide` | Enforces write-tests-first methodology | New features, bug fixes, refactoring |
 | `security-reviewer` | Flags vulnerabilities in auth, input, APIs | Auth code, user input, API endpoints |
-| `planner` | Plans complex features and refactoring | Complex feature requests, large refactors |
-| `architect` | Software architecture specialist for system design and scalability | Planning new features, architectural decisions |
+| `planner` | Plans implementation once the architecture is settled | Multi-file features, complex refactors |
+| `architect` | Software architecture specialist for system design and scalability | System-design or technology decisions, comparing architectural options |
 | `build-error-resolver` | Fixes build/compilation errors with minimal diffs | Build fails, compilation errors |
 | `database-reviewer` | PostgreSQL/Supabase query optimization and schema design | Writing SQL, designing schemas |
 | `refactor-cleaner` | Dead code cleanup and consolidation specialist | Dead code, duplicates, unused dependencies |
@@ -771,7 +771,21 @@ MIT License
 
 ## Version History
 
-**v2.2.0 (Current)**
+**v2.2.1 (Current)**
+
+Prompt audit for current Claude models: dated emphasis, duplicated rules and stale facts removed from skills, agents and commands.
+
+**Changed**
+- `brainstorming` and `grilling`: the HARD-GATE blocks are now plain sentences; brainstorming presents the design in short sections instead of 200-300 words.
+- `review` reviews the current diff by default instead of offering a menu, and reports metrics only from tools.
+- `code-reviewer` runs the `review` checklist; `architect` points ADRs to `domain-modeling`; `build-error-resolver` runs auto-fixers only on files named in the errors; `planner` and `architect` descriptions split settled-architecture planning from design decisions.
+- `/dev-workflow:spec:create`, `:execute` and `:list` handle Quick mode (`plan.md`) as well as Full mode (`tasks.md`).
+- `AGENTS.md` lists all 8 agents.
+
+**Fixed**
+- `tools/wizard-selftest.sh` and `tools/test_skill_scripts.py` no longer inherit a pre-commit hook's `GIT_DIR`; run from a worktree, their temp repos' `git init` set `core.bare=true` on the real repo.
+
+**v2.2.0**
 
 Skills rewritten against Anthropic's [skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices), with each change checked by before/after behaviour evals on Sonnet and Opus.
 

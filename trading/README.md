@@ -31,7 +31,7 @@ git clone git@github.com:xbklairith/kisune.git && cd kisune
 
 ```bash
 # List plugins to confirm installation
-claude plugins list
+claude plugin list
 
 # You should see "trading" in the list
 ```
@@ -50,6 +50,7 @@ Comprehensive multi-market analysis using:
 - **Chart Patterns:** Head & Shoulders, Triangles, Flags, Breakouts
 - **Multi-Timeframe:** Analyze higher timeframes for context, lower for entries
 - **Risk/Reward:** Calculate specific R:R ratios for trade ideas
+- **Data First:** Give it a CSV export or pasted candles and it computes the readings with code. Without data, it says so and asks for some instead of inventing price levels.
 
 **Outputs:** Structured markdown reports with actionable trading ideas
 
@@ -78,13 +79,15 @@ Identify and document chart patterns:
 ### 4. Translate Skill
 
 Convert strategies into code:
-- **Python:** Pandas-compatible functions for custom backtesting frameworks
+- **Python:** A backtest with indicator, signal, sizing and backtest functions; uses pandas when installed, plain Python otherwise
 - **Pine Script:** TradingView indicators and strategies (v6, non-repainting)
-- **Parameterized:** All values configurable, no hardcoding
-- **Documented:** Clear docstrings and usage examples
-- **Production-Ready:** Error handling, type hints, best practices
+- **No Lookahead:** Signals from a candle's close fill at the next candle's open; higher-timeframe values come only from completed bars
+- **Standard Math:** Wilder RSI and ATR; stops checked within each candle, with gap fills at the open
+- **Costs:** Fees and slippage applied to every fill
+- **Parameterized:** Periods, thresholds and risk settings live in one place
+- **Run Once:** Executes the code on your data and reports trade count, win rate, return and drawdown
 
-**Outputs:** Clean, reusable code ready for implementation
+**Outputs:** Backtest code that matches the strategy document, plus its first results
 
 ---
 
@@ -153,8 +156,9 @@ Personal pattern library template with:
    → Converts strategy doc to Python code
    → Output: strategy_rsi_mean_reversion.py
 
-4. Backtest Phase (User runs in their framework)
-   → Execute backtest using generated Python code
+4. Backtest Phase
+   → Translate runs the code once on your data and reports the results
+   → Run it further in your own framework if you have one
    → Record results using backtest-results template
 
 5. Analysis Phase
@@ -314,8 +318,8 @@ Create feedback loops:
 
 Most powerful when combining multiple skills:
 - Use **research** to document strategy
-- Use **translator** to code it
-- Use **analysis** to find entries
+- Use **translate** to code it
+- Use **analyze** to find entries
 - Use **pattern** to validate setups
 
 ---
@@ -392,12 +396,13 @@ Share your experience:
 
 ## License
 
-MIT License - See LICENSE file for details
+MIT License. See [LICENSE](../LICENSE).
 
 ---
 
 ## Version History
 
+- **v1.3.1** — `pattern` replaces textbook pattern definitions with a house-conventions table (trigger, stop, target). README updated; MIT LICENSE added at the repo root.
 - **v1.3.0** — Skills rewritten to Anthropic's skill best practices: `research`, `translate`, and `analyze` cut from 1,063 to about 150 lines combined. `analyze` now computes readings from the data you give it and says so plainly when it has none, instead of filling in levels. `translate` enforces next-bar fills, Wilder RSI/ATR, intrabar stops, fees, and runs the code; Pine Script output moves to v6. `research` fills the shared `templates/strategy-doc.md` with no placeholders left and adds a "why it might not work" section. New behaviour evals in `evals/` (`claude plugin eval`).
 
 - **v1.2.0** — Output paths moved into the `docx/` knowledge base. `research` now writes strategy docs to `docx/strategies/` (was `strategies/`) and `pattern` writes to `docx/patterns/` (was `patterns/`). Existing documents are not moved — relocate them by hand, or keep using the old paths by pointing the skill at them explicitly.
