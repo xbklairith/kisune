@@ -97,7 +97,7 @@ Engineer-to-engineer: precise, mechanism-first, written for someone who will gre
 ## Output Flow
 
 1. Confirm destination (default: `docx/postmortems/<bug-name>.md`). Other valid targets: issue tracker comment (JIRA, GitHub Issues, Linear), PR description, internal wiki. Shape is the same — only the wrapping changes.
-2. Produce the draft as a single block.
+2. Produce the draft as a single block, with its sentences tightened by `dev-workflow:deslop` (sections, labels and order stay).
 3. For issue tracker back-post (JIRA, GitHub Issues, Linear): show the exact payload, wait for explicit "post it" / "go ahead" / "yes," then post. Print-only output needs no approval.
 
 ## Worked Example — Partial (JIRA-12345)

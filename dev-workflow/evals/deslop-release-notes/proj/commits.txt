@@ -1,0 +1,5 @@
+a1f3c2e Stream rows in export_csv() instead of loading the whole file
+9b2d7a1 Accept \t for --delimiter
+4c8e0f3 Add 6 tests for export edge cases (empty file, BOM, CRLF)
+e7a9b14 Drop Python 3.8 support
+0d3f6c9 Fix crash when a column header is empty (#88)

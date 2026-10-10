@@ -118,8 +118,9 @@ refactor: Extract strategy validation into separate function
 Closes #[issue number]
 ```
 
-4. **Create PR:** Use `gh pr create --title "[Type]: Brief description" --body "..."`
-5. **Return PR URL** with next steps (request reviewers, monitor CI, address feedback)
+4. **Tighten the prose** with `dev-workflow:deslop` (Summary and Changes only; checkboxes and issue links stay).
+5. **Create PR:** Use `gh pr create --title "[Type]: Brief description" --body "..."`
+6. **Return PR URL** with next steps (request reviewers, monitor CI, address feedback)
 
 ### 4. Safety Checks
 

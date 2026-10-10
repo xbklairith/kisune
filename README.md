@@ -40,7 +40,7 @@ claude --plugin-dir ./dev-workflow
 
 ## Dev-Workflow Plugin
 
-27 skills, 8 agents, 7 commands. Language-agnostic, focused on spec-driven development discipline.
+28 skills, 8 agents, 7 commands. Language-agnostic, focused on spec-driven development discipline.
 
 ### Commands
 
@@ -97,6 +97,7 @@ claude --plugin-dir ./dev-workflow
 | `spec-review` | "review this spec", "check my requirements/design" |
 | `handoff` | `/handoff` — compact this conversation for a fresh agent |
 | `explain-in-html` | "show me visually", "diagram it", 3+ structured questions — renders the output as an HTML page |
+| `deslop` | "tighten the wording", "this reads like AI", lessons, explanations, research notes, docs, PRs (English or Thai): reorders, plain words, no ambiguity, keeps every fact |
 
 ### Agents (auto-activate proactively)
 
@@ -115,12 +116,17 @@ claude --plugin-dir ./dev-workflow
 
 ## Stats
 
-- **31 skills** (4 trading + 27 dev-workflow)
+- **32 skills** (4 trading + 28 dev-workflow)
 - **8 agents** (proactive, auto-activate)
 - **7 commands** (`/dev-workflow:spec` and its 6 subcommands)
 - **7 templates** (4 dev-workflow + 3 trading)
 - **59 files**, ~9,918 lines
 - Language-agnostic, spec-compliant
+
+## Acknowledgments
+
+- Skill and documentation prose edited with [humanizer](https://github.com/blader/humanizer) (MIT), which flags the signs of AI writing catalogued by Wikipedia
+- `wayfinder`, `retro` and `wizard` adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT)
 
 ## License
 

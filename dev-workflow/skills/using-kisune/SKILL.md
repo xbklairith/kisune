@@ -26,7 +26,7 @@ Rigid skills (`test-driven-development`, `completion-validation`, `security-revi
 
 When several apply: process first (`brainstorming`, `systematic-debug`), then gates (`test-driven-development`, `completion-validation`), then execution (`spec-driven-*`, `git-workflow`).
 
-## Kisune Skill Index (26 skills)
+## Kisune Skill Index (27 skills)
 
 | Skill | Use for |
 |---|---|
@@ -56,3 +56,4 @@ When several apply: process first (`brainstorming`, `systematic-debug`), then ga
 | `retro` | session retrospective |
 | `handoff` | `/handoff` only |
 | `explain-in-html` | diagrams, visual explanations, 3+ structured questions |
+| `deslop` | tighten any prose (English or Thai): lessons, explanations, research notes, docs, PR text |

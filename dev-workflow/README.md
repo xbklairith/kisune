@@ -52,7 +52,7 @@ The Dev-Workflow plugin provides a comprehensive, systematic approach to softwar
 
 ## Core Skills
 
-The plugin includes 27 integrated skills organized into planning, implementation, and quality categories.
+The plugin includes 28 integrated skills organized into planning, implementation, and quality categories.
 
 ### Planning & Design Skills
 
@@ -509,6 +509,7 @@ The dev-workflow plugin is fully self-contained with integrated supporting skill
 **Communication Skills:**
 - `handoff` - Compact the conversation for a fresh agent to pick up
 - `explain-in-html` - Render structure as an HTML page — Mermaid/UML/SVG diagrams, or a question round answered in-browser. Owns the medium, not the decision
+- `deslop` - Rewrite prose in English or Thai (lessons, explanations, research notes, docs, PR descriptions, changelogs) so it reads like a person wrote it: reorder so the point comes first, plain words instead of LLM vocabulary, no ambiguity, every fact kept. Adapted from humanizer (MIT)
 
 **Skill Integration:**
 Skills automatically activate and work together based on context. For example:
@@ -768,10 +769,18 @@ MIT License
 - TDD methodology based on Kent Becks practices
 - Git workflow patterns from industry best practices
 - Integration with Claude Code platform by Anthropic
+- Skill and documentation prose edited with [humanizer](https://github.com/blader/humanizer) (MIT), which flags the signs of AI writing catalogued by Wikipedia
 
 ## Version History
 
-**v2.2.1 (Current)**
+**v2.3.0 (Current)**
+
+**Added**
+- `deslop` skill: rewrites existing prose in English or Thai (lessons, explanations, research notes, docs, PR descriptions, changelogs) so it reads like a person wrote it. It puts the point and prerequisites first, swaps LLM vocabulary for words people in the field use, replaces unclear pronouns, keeps a requirement's strength, and flags gaps instead of guessing. Facts, numbers, identifiers, citations, hedges and EARS lines stay exactly as written, and nothing is added. Thai tells in `references/thai.md`. Adapted from [humanizer](https://github.com/blader/humanizer) (MIT).
+- `git-workflow` tightens a PR's Summary and Changes with `deslop`; `post-mortem` tightens its sentences, keeping sections, labels and order.
+- 10 `deslop` eval cases: fires and stays quiet, PR text, engineering doc, release notes, Thai guide, ambiguity, lesson, research notes, pasted text. All pass 3/3 on Sonnet; on Opus 9 of 10 pass 3/3 and research notes passes 2/3.
+
+**v2.2.1**
 
 Prompt audit for current Claude models: dated emphasis, duplicated rules and stale facts removed from skills, agents and commands.
 

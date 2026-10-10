@@ -22,7 +22,7 @@ kisune/
 │   └── README.md              # Complete documentation
 ├── dev-workflow/              # Dev-workflow plugin
 │   ├── .claude-plugin/        # Plugin metadata
-│   ├── skills/                # 27 skills (planning, implementation, quality, review, comms)
+│   ├── skills/                # 28 skills (planning, implementation, quality, review, comms)
 │   ├── agents/                # 8 agents (code-reviewer, tdd-guide, security-reviewer, planner)
 │   ├── commands/              # 7 slash commands (spec + 6 spec:* subcommands)
 │   ├── templates/             # 4 spec-driven templates
@@ -43,7 +43,7 @@ kisune/
 - `pattern` - Chart pattern identification and personal library
 - `translate` - Convert strategies to Python + Pine Script
 
-### Dev-Workflow Plugin (27 skills, 8 agents, 7 commands)
+### Dev-Workflow Plugin (28 skills, 8 agents, 7 commands)
 
 **Bootstrap:**
 - `using-kisune` - Loads at session start; enforces skill-check before any action and indexes the skill registry
@@ -81,6 +81,7 @@ kisune/
 **Communication Skills:**
 - `handoff` - Compact the conversation into a handoff doc for a fresh agent (user-invoked via `/handoff`)
 - `explain-in-html` - Render structure as an HTML page (Mermaid, UML, inline SVG) or a question round answered in-browser; delegates design to `Artifact quickstart` and figures to `artifact-diagramming`
+- `deslop` - Rewrite prose in English or Thai (lessons, explanations, research notes, docs, PRs, changelogs) so it reads human: reorder, plain words, no ambiguity, every fact kept (adapted from humanizer, MIT)
 
 **Agents (proactive):**
 - `code-reviewer` - Auto-reviews code after changes
@@ -463,8 +464,8 @@ Run `claude plugin validate ./trading` and `claude plugin validate ./dev-workflo
 - 4 skills, 3 templates
 
 **Dev-Workflow Plugin:**
-- 27 skills, 8 agents, 7 commands, 4 templates
+- 28 skills, 8 agents, 7 commands, 4 templates
 
 **Combined:**
-- 31 skills, 8 agents, 7 commands, 7 templates
+- 32 skills, 8 agents, 7 commands, 7 templates
 - Language-agnostic
