@@ -778,6 +778,8 @@ MIT License
 **Added**
 - `domain-modeling` groups the glossary by bounded context once a project has two, so *Account* can mean a login in `auth/` and a billing party in `billing/` without one definition blending both. A term that crosses contexts says where the two are translated, and a one-context project keeps a flat list.
 - 3 `domain-modeling` eval cases: a one-context repo stays flat, a two-meaning term is split, and a plain code change does not start a glossary. All pass 3/3 on Sonnet.
+- Every eval case has `tags:`: the skills it exercises, plus `routing` when it only checks that a skill fires or stays quiet. `claude plugin eval . --tag deslop` runs one skill's cases.
+- `impl-quick` grader `ticks-each-task`: `plan.md` has a ticked box before Task 2 writes its first file.
 
 **Changed**
 - `test-driven-development`: before a refactor, write tests that pass on the current code, so they pin the behavior the refactor must keep. A good test fails when the behavior breaks and still passes after a rename. Every new behavior gets a test through the public interface, a rule `tdd-guide` and `review` now share.
@@ -787,12 +789,16 @@ MIT License
 - `build-error-resolver` never casts just to silence a type error, and adds a null check only where null is a legal state.
 - `refactor-cleaner`, during feature work, removes what the change makes obsolete and leaves unrelated dead code for a separate cleanup.
 - `deslop` flags a colon that joins two clauses.
+- `spec-driven-implementation` Quick mode: every box of a task, its steps and its Progress line, is ticked before the next task starts, never in one sweep after the last task. On `impl-quick`, Sonnet now ticks per task in 12 of 12 runs, up from 6 of 15 (Fisher two-sided p = 0.001); Opus did already and stays at 6 of 6.
 
 **Fixed**
 - `wizard` template: values are written single-quoted, so `source .env` works with spaces, `#`, `$` and quotes. An existing `.env` keeps its mode and stays a symlink, a new one is created at 0600, EOF at a prompt stops the wizard, the missing-browser warning now shows, and `write_env` also sets `$KEY`. Stages run inside `run_wizard`, so bash parses the whole file before the first prompt. Ported from `mattpocock/skills` (`868c4cf`, `49dd158`) with one correction for macOS `/bin/bash` 3.2, where upstream reads a stored `it's` back as `it\'s`. `tools/wizard-selftest.sh` grows from 6 to 16 cases.
 - Install commands use the real marketplace id, `dev-workflow@kisune` and `trading@kisune`. The docs said `@xbklairith-kisune`, which no marketplace answers to. `README.md` and `PLUGINS_INSTALLATION.md` share one install block with update steps, and `tools/check.py` fails on a wrong id in any install or update line, including the one-step `--marketplace xbklairith/kisune` form. This README's Installation section now uses them too, replacing a step that copied the plugin into `~/.claude-code/plugins/`.
 - `grilling` is documented as model-invoked (also `/grilling`), matching its frontmatter. `tools/check.py` now fails when a doc labels a skill user-only or model-invoked against its `disable-model-invocation` setting.
 - Six eval cases ship their input documents: `deslop-ambiguity`, `deslop-engineering-doc`, `deslop-thai` and the three `domain-model` cases. A contributor's global `docs` ignore had kept them out of git, so a fresh clone ran those cases without them. `.gitignore` re-includes eval `docs/` folders, and `tools/check.py` fails when an ignore rule outside the repo hides an eval file.
+- `impl-full` order graders read the trace, so a test or code file written with Write or through Bash counts. The old `tool_order` graders only saw files written with Edit and failed those runs. `red-run-before-code` now also needs the test run to fail, not just to happen.
+- `deslop-ambiguity` grader `backup-first` checks the order of the steps. It had failed an Opus rewrite whose intro sentence named `bin/migrate` before step 1, "Back up the database".
+- `plan-full-spec`: one LLM judge checked EARS form, coverage and placeholders together, and failed 2 of 6 Sonnet files that pass the mechanical checks. EARS form and placeholders are now regex graders, and the judge checks only that the delimiter, skip-header and missing-column cases are covered.
 
 **v2.3.0**
 

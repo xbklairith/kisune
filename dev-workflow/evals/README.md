@@ -15,4 +15,5 @@ claude plugin eval . --trust-plugin --scaffold \
 - Judge with `--judge-model sonnet`; an `llm` grader with `focus: files` sees only the list of changed file names, so judge content with `focus: {source: file, path: …}`.
 - Pin the model with `--model`. Per-case model lives under `execution:`, not at the top level.
 - Cases named "indicator (unscored)" are measured, not gated; their graders omit `arm: both`.
-- Run on Sonnet and Opus before and after changing `using-kisune` or a skill's description. Full suite ≈ $2.5 (Sonnet) / $5.7 (Opus) at 3 runs.
+- Each case is tagged with the skills it exercises, plus `routing` when it only checks that a skill fires or stays quiet. `--tag deslop` runs one skill's cases, and several tags match any of them (`--tag deslop wizard`). Use tags while iterating on one skill; `--tag routing` is a quick first look after a description change.
+- Run the full suite on Sonnet and Opus before and after changing `using-kisune` or a skill's description. Full suite ≈ $2.5 (Sonnet) / $5.7 (Opus) at 3 runs.

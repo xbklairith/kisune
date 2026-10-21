@@ -12,4 +12,5 @@ DOCKER_CONFIG=$(mktemp -d) claude plugin eval . --trust-plugin --scaffold \
 - `data/*.csv` fixtures are synthetic (seeded random walk: a 150-candle decline, then a 150-candle rally). The ground truth in `analyze-csv/graders/readings-match-data.md` was computed from that file; regenerate both together.
 - The sandbox Python may lack pandas. Prompts don't promise it; the agent falls back to the standard library.
 - Prefer `regex` graders for long artifacts; `llm` judges get noisy past ~10k characters, so keep their rubrics to the points that need judgement.
+- Each case is tagged with the skill it exercises (`analyze`, `research`, `translate`), or `routing` for the quiet case; `--tag analyze` runs just those.
 - Full suite ≈ $2.1 (Sonnet) / $4.6 (Opus) at 3 runs.

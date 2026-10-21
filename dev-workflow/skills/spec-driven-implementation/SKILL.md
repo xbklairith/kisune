@@ -76,13 +76,14 @@ For each task in the plan:
    - **Edit `plan.md`** to flip the step's `- [ ]` → `- [x]` immediately after completing it
 3. **Commit** using the message from the plan (the commit step itself is one of the checkboxed steps)
 4. **Mark task complete** — Edit the Progress section: `- [→] Task N` → `- [x] Task N`
+5. **Check before the next task** — every box of Task N in `plan.md` (its steps and its Progress line) is `[x]` before Task N+1's first step runs. Never save the ticks for one sweep after the last task: if the run stops between tasks, the plan must show which tasks are done.
 
 ### Quick mode rules
 
 - **No RED-GREEN-REFACTOR enforcement.** If the plan lists a test step, do it. If not, don't invent one.
 - **Opting into TDD per-task is allowed.** If a specific task warrants a test, the plan author adds an explicit test step (e.g., "1. Write failing test in `tests/foo.test.ts` ... 2. Verify: `npm test foo` → expect FAIL"). Execute it as ordinary verification. No test step in the plan = no test required.
 - **Don't expand scope.** The plan is the contract. New ideas → tell the user, don't silently add tasks.
-- **Use Edit on `plan.md`**, don't just announce progress. Mark step-level checkboxes (`- [ ]` → `- [x]`) as you complete each numbered step within a task — this preserves resumability if interrupted mid-task.
+- **Use Edit on `plan.md`**, don't just announce progress. Mark step-level checkboxes (`- [ ]` → `- [x]`) as you complete each numbered step within a task — this preserves resumability if interrupted mid-task. A task's boxes are all ticked before the next task starts; "I'll update the checkboxes at the end" is the failure this rule exists to stop.
 - **Stop when blocked.** Failing verification, missing file, ambiguous step → ask.
 - **No quality gate between tasks** beyond what the plan specifies. (Optionally invoke `dev-workflow:review` before commits if the user requested it.)
 

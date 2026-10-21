@@ -1,5 +1,6 @@
 schema_version: "1.1"
 name: domain model keeps one context flat
+tags: [domain-modeling]
 context:
   scaffold_script: scaffold.sh
 execution:
