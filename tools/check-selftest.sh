@@ -59,6 +59,11 @@ trysh length    $SK "seq 520 >> $SK"
 trysh toc       dev-workflow/skills/more-creativity/references/long.md "seq 120 > dev-workflow/skills/more-creativity/references/long.md"
 trysh links     $SK "printf '\\n[x](references/a/b.md)\\n' >> $SK"
 trysh links     $SK "printf '\\n[x](references\\\\x.md)\\n' >> $SK"
+# A throwaway excludes file stands in for a contributor's ~/.gitignore, so the
+# seed touches nothing outside the repo and works without that global rule.
+EX=$(mktemp); printf 'stray.md\n' > "$EX"
+trysh fixtures  dev-workflow/evals/deslop-fires/stray.md "printf 'x\\n' > dev-workflow/evals/deslop-fires/stray.md; export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=core.excludesFile GIT_CONFIG_VALUE_0=$EX"
+unset GIT_CONFIG_COUNT GIT_CONFIG_KEY_0 GIT_CONFIG_VALUE_0; rm -f "$EX"
 
 echo
 if ! python3 tools/check.py >/dev/null 2>&1; then

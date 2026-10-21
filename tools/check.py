@@ -9,7 +9,7 @@ cannot fail is decoration -- so prove it with tools/check-selftest.sh.
 
 Usage: python3 tools/check.py        (exit 1 on any failure)
 """
-import json, re, sys
+import json, re, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -213,16 +213,35 @@ def check_skill_authoring():
                     fail("toc", f"{ref.relative_to(ROOT)}: over 100 lines with no Contents heading")
 
 
+# --- 13. no eval file is hidden by an ignore rule outside the repo --------
+# A `docs` line in one contributor's ~/.gitignore kept six fixture documents
+# out of every commit, so a fresh clone ran those cases without their inputs.
+# Only the repo's own .gitignore files may decide what an eval folder omits.
+def check_fixtures():
+    def git(*args):
+        return subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True).stdout
+    hidden = git("ls-files", "--others", "--ignored", "--exclude-standard", "--", "dev-workflow/evals", "trading/evals").split("\n")
+    hidden = [p for p in hidden if p]
+    if not hidden:
+        return
+    for line in git("check-ignore", "-v", "--", *hidden).splitlines():
+        source, path = line.split("\t", 1)
+        # repo .gitignore sources are relative; global and .git/info/exclude ones are not ours
+        if source.startswith("/") or source.startswith(".git/"):
+            rule = source.rsplit(":", 2)
+            fail("fixtures", f"{path}: hidden by `{rule[-1]}` in {rule[0]}, outside the repo; negate it in .gitignore and commit the file")
+
+
 # Names that WERE skills and must never be referenced again.
 STALE_SKILL_NAMES = {"explain-in", "management-talk"}
 
 
 if __name__ == "__main__":
-    for fn in (check_versions, check_counts, check_index, check_references, check_install, check_invocation, check_skill_authoring):
+    for fn in (check_versions, check_counts, check_index, check_references, check_install, check_invocation, check_skill_authoring, check_fixtures):
         fn()
     if fails:
         print(f"FAIL ({len(fails)}):")
         for check, msg in fails:
             print(f"  [{check}] {msg}")
         sys.exit(1)
-    print("ok: versions, counts, index, references, install ids, invocation labels, skill authoring all consistent")
+    print("ok: versions, counts, index, references, install ids, invocation labels, skill authoring, eval fixtures all consistent")
