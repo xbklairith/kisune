@@ -29,8 +29,8 @@ description: Expert code review specialist. Use PROACTIVELY after writing or mod
 ```markdown
 ## Code Review: [File/Feature]
 
-### Strengths
-[What's done well]
+### What I checked
+[Files read, paths traced, commands run]
 
 ### Issues Found
 

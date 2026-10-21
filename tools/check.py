@@ -2,7 +2,8 @@
 """Fail when a fact kisune keeps in more than one place has drifted.
 
 kisune keeps ~35 facts by hand: version strings across three manifests, skill
-counts in four documents, and the using-kisune index. Doc/index drift has
+counts in four documents, install ids in six, invocation labels, and the
+using-kisune index. Doc/index drift has
 shipped three times. Each check below must be able to fail -- a guard that
 cannot fail is decoration -- so prove it with tools/check-selftest.sh.
 
@@ -95,7 +96,73 @@ def check_references():
                     fail("references", f"{rel} references removed skill `{ref}`")
 
 
-# --- 5-10. skill-authoring rules (Anthropic skill best-practices guide) ---
+# --- 5. install lines name the marketplace that actually exists ---------
+# marketplace.json's `name` is the id users type after `@`; the docs once
+# shipped `@xbklairith-kisune`, which no marketplace answers to. Update lines
+# carry the same id: `plugin update x@y` and `plugin marketplace update y`.
+INSTALL_RE = re.compile(r"plugin (?:install|update) ([a-z0-9-]+)@([A-Za-z0-9_.-]+)")
+MARKET_UPDATE_RE = re.compile(r"plugin marketplace update ([A-Za-z0-9_.-]+)")
+# The one-step form names the GitHub repo instead: `--marketplace owner/repo`.
+ONE_STEP_RE = re.compile(r"plugin install ([a-z0-9-]+) --marketplace ([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)")
+SKIP_DIRS = {".git", "docx", "node_modules", "results"}
+
+
+def check_install():
+    mk = json.loads((ROOT / ".claude-plugin/marketplace.json").read_text())
+    ours = {p["name"] for p in mk["plugins"]}
+    repo = json.loads((ROOT / "dev-workflow/.claude-plugin/plugin.json").read_text())["repository"]
+    slug = re.search(r"github\.com/([^/\s]+/[^/\s]+?)(?:\.git)?/?$", repo).group(1)
+    for f in sorted(ROOT.rglob("*.md")):
+        rel = f.relative_to(ROOT)
+        if SKIP_DIRS & set(rel.parts):
+            continue
+        for n, line in enumerate(f.read_text().splitlines(), 1):
+            for plugin, market in INSTALL_RE.findall(line):
+                if plugin in ours and market != mk["name"]:
+                    fail("install", f"{rel}:{n}: `{plugin}@{market}` should be `{plugin}@{mk['name']}`")
+            for market in MARKET_UPDATE_RE.findall(line):
+                if market != mk["name"]:
+                    fail("install", f"{rel}:{n}: `marketplace update {market}` should be `marketplace update {mk['name']}`")
+            for plugin, src in ONE_STEP_RE.findall(line):
+                if plugin in ours and src != slug:
+                    fail("install", f"{rel}:{n}: `--marketplace {src}` should be `--marketplace {slug}`")
+
+
+# --- 6. invocation labels match each skill's frontmatter --------------------
+# A skill with `disable-model-invocation: true` runs only when the user types
+# /name; the model can invoke every other one. grilling was documented as
+# user-only twice after it became model-invocable. The subject of a line is
+# the first skill it names in backticks. Version History describes past
+# states, so it is not checked.
+LABEL_RE = re.compile(r"\b(user|model)-invoked\b|`/[a-z0-9-]+` only\b")
+SUBJECT_RE = re.compile(r"`/?([a-z][a-z0-9-]*)`")
+
+
+def check_invocation():
+    known = skills("dev-workflow")
+    user_only = set()
+    for sk in (ROOT / "dev-workflow/skills").glob("*/SKILL.md"):
+        fm, _ = frontmatter(sk.read_text())
+        if fm and fm.get("disable-model-invocation") == "true":
+            user_only.add(sk.parent.name)
+    for f in sorted(ROOT.rglob("*.md")):
+        rel = f.relative_to(ROOT)
+        if SKIP_DIRS & set(rel.parts):
+            continue
+        current = f.read_text().split("\n## Version History")[0]
+        for n, line in enumerate(current.splitlines(), 1):
+            m = LABEL_RE.search(line)
+            subject = next((s for s in SUBJECT_RE.findall(line) if s in known), None) if m else None
+            if subject is None:
+                continue
+            says_user_only = m.group(1) != "model"
+            if says_user_only and subject not in user_only:
+                fail("invocation", f"{rel}:{n}: `{subject}` is labelled user-only, but its frontmatter lets the model invoke it")
+            elif not says_user_only and subject in user_only:
+                fail("invocation", f"{rel}:{n}: `{subject}` is labelled model-invoked, but it sets disable-model-invocation: true")
+
+
+# --- 7-12. skill-authoring rules (Anthropic skill best-practices guide) ---
 # https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 # description <= 1024 is the API limit; Claude Code allows 1536, but a skill
 # that should also work on claude.ai / the API must fit the stricter one.
@@ -151,11 +218,11 @@ STALE_SKILL_NAMES = {"explain-in", "management-talk"}
 
 
 if __name__ == "__main__":
-    for fn in (check_versions, check_counts, check_index, check_references, check_skill_authoring):
+    for fn in (check_versions, check_counts, check_index, check_references, check_install, check_invocation, check_skill_authoring):
         fn()
     if fails:
         print(f"FAIL ({len(fails)}):")
         for check, msg in fails:
             print(f"  [{check}] {msg}")
         sys.exit(1)
-    print("ok: versions, counts, index, references, skill authoring all consistent")
+    print("ok: versions, counts, index, references, install ids, invocation labels, skill authoring all consistent")

@@ -86,39 +86,33 @@ refactor: Extract strategy validation into separate function
 **Process:**
 
 1. **Analyze all commits:** `git log main..HEAD --oneline` and `git diff main...HEAD`
-2. **Review changes** — overall purpose, key changes, breaking changes, testing needs
+2. **Review changes** — overall purpose, key changes, breaking changes, what could break
 3. **Generate PR description** using this template:
 
 ```markdown
-## Summary
-[Brief overview of what this PR does and why]
+## Why
+[The problem this solves, and for whom]
 
-## Changes
+## What changed
 - [Key change 1]
 - [Key change 2]
 
-## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Breaking change
-- [ ] Documentation update
+## Scope
+[What this deliberately leaves out or doesn't touch]
 
-## Testing
-- [ ] Unit tests pass
-- [ ] Integration tests pass
-- [ ] Manual testing completed
+## Blast radius
+[What else could break: callers, stored data, config, other services]
 
-## Code Quality
-- [ ] Follows project style guidelines
-- [ ] Self-review completed
-- [ ] No debug code left
-- [ ] Documentation updated
+## Verification
+- `[command that was run]` → [its result, e.g. 48 passed]
 
-## Related Issues
+## Related issues
 Closes #[issue number]
 ```
 
-4. **Tighten the prose** with `dev-workflow:deslop` (Summary and Changes only; checkboxes and issue links stay).
+List under Verification only what was actually run in this session, with its output. Nothing goes there as a tick.
+
+4. **Tighten the prose** with `dev-workflow:deslop` (Why, What changed, Scope and Blast radius only; Verification output and issue links stay as they are).
 5. **Create PR:** Use `gh pr create --title "[Type]: Brief description" --body "..."`
 6. **Return PR URL** with next steps (request reviewers, monitor CI, address feedback)
 

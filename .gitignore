@@ -1,5 +1,6 @@
-# Documentation and planning (project-specific)
-docx/
+# Documentation and planning (project-specific); decision records are committed
+/docx/*
+!/docx/decisions/
 
 # Example plugins (reference only)
 examples/

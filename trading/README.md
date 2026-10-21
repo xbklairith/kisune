@@ -21,7 +21,7 @@ Perfect for traders who want to systematically develop, document, and implement 
 ```bash
 # Option 1: Plugin marketplace (recommended)
 /plugin marketplace add xbklairith/kisune
-/plugin install trading@xbklairith-kisune
+/plugin install trading@kisune
 
 # Option 2: Clone repo and cd — plugins auto-load
 git clone git@github.com:xbklairith/kisune.git && cd kisune

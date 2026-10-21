@@ -60,6 +60,7 @@ Full catalogue with examples: `references/patterns.md`. The most common:
 | Bold-label bullets: `- **Reliability:** …` | A plain bullet that starts with the change |
 | Title Case Headings | Sentence case headings |
 | Em and en dashes | Comma, colon, parentheses or a new sentence |
+| A colon joining two clauses: "The fix was simple: we cached it." | Two sentences, or "because" / "so". A colon before a list or an example is fine |
 | "It's not just X, it's Y", forced groups of three | One plain statement |
 | Chatbot residue: "I hope this helps", "Let me know if…", "Great question" | Delete |
 | Stock outlook endings: "the future looks bright", "Moving forward…" | End on the last fact |

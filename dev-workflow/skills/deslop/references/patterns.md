@@ -23,7 +23,7 @@ Condensed from humanizer's catalogue (see `NOTICE.md`), with technical examples.
 
 ## Style
 
-14. **Em and en dashes.** Replace with a comma, colon, parentheses or a new sentence.
+14. **Em and en dashes.** Replace with a comma, colon, parentheses or a new sentence. A colon introduces a list or an example; don't use one to join two clauses ("The fix was simple: we cached it."). Write two sentences, or use "because" or "so".
 15. **Bold sprinkled on phrases.** Bold only what a skimmer must not miss.
 16. **Bold-label bullets.** `- **Performance:** Performance improved…` → `- Export streams rows instead of loading the file.`
 17. **Title Case Headings.** Sentence case.

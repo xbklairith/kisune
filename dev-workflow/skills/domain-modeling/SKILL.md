@@ -39,6 +39,31 @@ which reverses payment on an Order that already shipped.
 
 `docx/glossary.md` is a **glossary and nothing else** — no implementation detail, no spec, no scratch notes. An entry describing how something is built belongs in `design.md`.
 
+## Bounded contexts
+
+A term has one meaning *inside a bounded context*: the part of the system (a module, service, or team's area) where one model applies. The same word can correctly mean different things in two contexts. Catalog's *Product* (what is listed for sale, with a price and description) and Warehouse's *Product* (a stock item in a bin, with a quantity) are both right; merging them into one definition blends two models, and the code built on it starts mixing them too.
+
+- **Find the contexts from the code** — top-level modules, services, separate schemas — not from the docs, which often blur them.
+- **Ask "which context?" before "which meaning?"** When a word looks overloaded, first check whether each use stays inside its own context. If so, it is two terms, not a conflict to resolve.
+- **Group the glossary by context once there are two.** One `## <Context>` section each; terms that mean the same thing everywhere go under `## Shared`. A one-context project stays a flat list.
+- **Map the seam.** When a term crosses contexts, add one line under the second entry saying how the two relate and where they are translated: "A Catalog Product maps to one or more Warehouse Products by SKU (`catalog/stock.py`)."
+- **Don't split to look thorough.** A word used the same way everywhere is one entry.
+
+```markdown
+## Catalog
+
+### Product
+
+What a shopper can buy: a name, a price, and a description.
+
+## Warehouse
+
+### Product
+
+A stock item on a shelf: a SKU, a bin, and a quantity. A Catalog Product
+maps to one or more Warehouse Products by SKU.
+```
+
 ## Offer ADRs sparingly
 
 Record a decision **only when all three hold**:

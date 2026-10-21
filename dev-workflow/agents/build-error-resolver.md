@@ -33,8 +33,8 @@ For each error:
 | Error Category | Typical Fix |
 |----------------|-------------|
 | Missing import/symbol | Add import statement or dependency |
-| Type mismatch | Fix type annotation, add conversion, or cast |
-| Null/nil reference | Add null check or optional handling |
+| Type mismatch | Fix the type annotation or add a real conversion. Never cast just to silence the error |
+| Null/nil reference | If null is a legal state there, handle it. If not, fix what produced it, or report it when that fix is beyond a build fix |
 | Missing dependency | Install package or add to dependency manifest |
 | API change/deprecation | Update to new API signature |
 | Config syntax | Fix configuration file syntax |
@@ -45,7 +45,7 @@ For each error:
 
 **DO:**
 - Add type annotations where missing
-- Add null/nil checks where needed
+- Add null/nil checks where null is a legal state
 - Fix imports and module resolution
 - Add missing dependencies
 - Update API calls to match signatures

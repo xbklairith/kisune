@@ -297,7 +297,9 @@ ModelName:
 - [Component 1]: [What functionality to test]
 - [Component 2]: [What functionality to test]
 
-**Test Coverage Target:** [e.g., 80% code coverage]
+**Behaviors to Test:** [Each REQ-ID and the test that proves it]
+
+**Coverage:** Equal to or higher than before this feature. Baseline: [X%] from `<test-coverage-command>`, plus the CI threshold if the project has one
 
 ### Integration Tests
 

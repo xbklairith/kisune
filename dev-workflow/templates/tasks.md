@@ -294,17 +294,17 @@
 
 #### Task N+9: Test Coverage Review
 
-**Objective:** Ensure comprehensive test coverage
+**Objective:** Every behavior has a test, and coverage is no lower than before the feature
 
 **Tasks:**
 - [ ] Run coverage report: `<test-coverage-command>`
-- [ ] Identify untested code paths
-- [ ] Add tests for uncovered areas
-  - Target: [X%] coverage
+- [ ] Compare with the baseline: [X%], from the same command on the base branch
+- [ ] Add tests for untested branches in the new code
 - [ ] Verify edge cases covered
 
 **Acceptance Criteria:**
-- [ ] Test coverage > [X%]
+- [ ] Every REQ-ID has a passing test
+- [ ] Coverage is equal to or higher than the baseline, and meets the CI threshold if there is one
 - [ ] All critical paths tested
 - [ ] Edge cases have tests
 
@@ -379,7 +379,7 @@
 - [ ] All tests passing: `<test-command>`
 - [ ] No linter errors: `<lint-command>`
 - [ ] No type errors: `<typecheck-command>`
-- [ ] Test coverage meets threshold
+- [ ] Coverage equal to or higher than the baseline
 - [ ] Documentation updated
 - [ ] Code review completed
 - [ ] No console.log or debug code

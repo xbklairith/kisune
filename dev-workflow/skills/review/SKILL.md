@@ -37,7 +37,7 @@ Activate this skill when:
 **Function Length**
 - Check: Functions under 50 lines (prefer under 30)
 - Red Flag: Functions over 100 lines
-- Fix: Break into smaller, composable functions
+- Fix: Split only where it lowers what a reader must trace or hold in mind. A split that adds pass-through layers makes it worse (see `codebase-design`)
 
 **Naming Clarity**
 - Check: Names clearly describe purpose
@@ -54,7 +54,7 @@ Activate this skill when:
 **All Errors Caught**
 - Check: Error handling around risky operations
 - Red Flag: Unhandled exceptions, missing error handling
-- Fix: Add comprehensive error handling
+- Fix: Handle each error where the code can act on it (retry, fall back, report clearly); elsewhere let it propagate
 
 **No Silent Failures**
 - Check: Errors are logged or surfaced
@@ -74,7 +74,7 @@ Activate this skill when:
 **Edge Cases Covered**
 - Check: Boundary conditions handled (null, empty, zero)
 - Red Flag: Assumptions about inputs
-- Fix: Add defensive checks and validation
+- Fix: Validate where data enters the system (user input, config, network, external APIs). Inside, trust the parsed types instead of re-checking in every layer
 
 ### 3. Security
 
@@ -135,7 +135,7 @@ Activate this skill when:
 **Tests Exist**
 - Check: Tests cover new functionality
 - Red Flag: No tests for new code
-- Fix: Write tests for all new functions/components
+- Fix: Write a test for each new behavior, through the public interface
 
 **Edge Cases Tested**
 - Check: Boundary conditions handled
@@ -217,12 +217,12 @@ If review reveals fundamental architectural problems, activate deep thinking:
 ```markdown
 ## Code Review: [File/Feature Name]
 
-### Strengths
+### What I checked
 
-[List what's done well - be specific and encouraging]
-- Clear function naming in authentication module
-- Comprehensive error handling for API calls
-- Good test coverage (87%)
+[What the review covered and how: files read, paths traced, commands run]
+- Traced `login()` through both callers
+- Ran the test suite: 48 passed
+- Checked the new endpoints for auth and input validation
 
 ### Issues Found
 

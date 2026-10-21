@@ -7,10 +7,15 @@ Two plugins for Claude Code: **trading analysis** and **dev-workflow** toolkit.
 ### Option 1: Plugin Marketplace (recommended)
 
 ```bash
-# Add this repo as a marketplace, then install
+# In Claude Code: add this repo as a marketplace, then install
 /plugin marketplace add xbklairith/kisune
-/plugin install trading@xbklairith-kisune
-/plugin install dev-workflow@xbklairith-kisune
+/plugin install trading@kisune
+/plugin install dev-workflow@kisune
+
+# Later, from a terminal: pull the latest versions, then restart Claude Code
+claude plugin marketplace update kisune
+claude plugin update trading@kisune
+claude plugin update dev-workflow@kisune
 ```
 
 ### Option 2: Local Development
@@ -66,7 +71,7 @@ claude --plugin-dir ./dev-workflow
 |-------|----------|
 | `spec-driven-planning` | "plan new feature", "create specs" |
 | `brainstorming` | "not sure how to approach this" |
-| `grilling` | `/grilling` — user-invoked; batched-round interrogation of a plan |
+| `grilling` | "grill me", "tear my plan apart", or `/grilling`; batched-round interrogation of a plan |
 | `grill-with-docs` | `/grill-with-docs` — grilling plus `domain-modeling` |
 | `domain-modeling` | fuzzy terminology, glossary entries, recording an ADR |
 | `codebase-design` | module interfaces, seam placement, deep-module vocabulary |
@@ -127,6 +132,7 @@ claude --plugin-dir ./dev-workflow
 
 - Skill and documentation prose edited with [humanizer](https://github.com/blader/humanizer) (MIT), which flags the signs of AI writing catalogued by Wikipedia
 - `wayfinder`, `retro` and `wizard` adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT)
+- Several dev-workflow rules (tests of behavior rather than functions, validation at the system edge, PR verification from real command output) follow principles in [pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan (MIT)
 
 ## License
 
