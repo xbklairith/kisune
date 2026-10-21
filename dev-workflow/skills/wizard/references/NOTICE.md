@@ -4,6 +4,12 @@
 https://github.com/mattpocock/skills. kisune changes: an `.env` git-ignore guard in
 `write_env`, a script-not-a-document rule, and redaction rules.
 
+The library includes two later upstream fixes: `868c4cf` (2026-10-06; issues #741,
+#770, #774, #811, #852) and `49dd158` (2026-10-09; #1220, #1142, #1081, #1041,
+#1003). One kisune correction to them: `_existing` undoes the quoting with a
+variable instead of a literal `\'`, because bash 3.2 (macOS `/bin/bash`) keeps that
+backslash and would read a stored `it's` back as `it\'s`.
+
 Licensed MIT; the full notice is reproduced below as that licence requires.
 
 ```

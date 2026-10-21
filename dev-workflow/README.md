@@ -23,32 +23,31 @@ The Dev-Workflow plugin provides a comprehensive, systematic approach to softwar
 
 ## Installation
 
-1. **Copy Plugin to Claude Code Plugins Directory:**
-   ```bash
-   # macOS/Linux
-   cp -r dev-workflow ~/.claude-code/plugins/
+```bash
+# In Claude Code: add the kisune marketplace, then install
+/plugin marketplace add xbklairith/kisune
+/plugin install dev-workflow@kisune
 
-   # Windows
-   xcopy dev-workflow %USERPROFILE%\.claude-code\plugins\dev-workflow /E /I
-   ```
+# Claude Code 2.1.275 or later can do both in one step
+/plugin install dev-workflow --marketplace xbklairith/kisune
 
-2. **Verify Installation:**
-   ```bash
-   # In Claude Code
-   /help
-   # Should show /dev-workflow:spec command
-   ```
+# Later, from a terminal: pull the latest version, then restart Claude Code
+claude plugin marketplace update kisune
+claude plugin update dev-workflow@kisune
+```
 
-3. **Update Plugin Metadata (Optional):**
-   Edit `.claude-plugin/plugin.json` to add your author information:
-   ```json
-   {
-     "author": {
-       "name": "Your Name",
-       "email": "your.email@example.com"
-     }
-   }
-   ```
+To work on the plugin itself, load it from a clone with `claude --plugin-dir ./dev-workflow`. Either way, `/help` in Claude Code should then list `/dev-workflow:spec`.
+
+In a fork, put your own author details in `.claude-plugin/plugin.json`:
+
+```json
+{
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  }
+}
+```
 
 ## Core Skills
 
@@ -208,7 +207,7 @@ WHERE premium subscription is active the system SHALL enable advanced analytics
    - Maintainable tests
 
 **Review Output Format:**
-- Strengths (what's done well)
+- What I checked (files read, paths traced, commands run)
 - Issues by priority (High/Medium/Low)
 - Refactoring suggestions with code examples
 - Code metrics (complexity, coverage, maintainability)
@@ -480,9 +479,9 @@ The dev-workflow plugin is fully self-contained with integrated supporting skill
 - `spec-driven-planning` - Feature creation, requirements gathering (EARS), technical design
 - `more-creativity` - Divergent idea and hypothesis generation — cross-domain techniques, evaluation suppressed while generating, non-obviousness gate
 - `brainstorming` - Collaborative exploration for requirements and design (WHAT and HOW)
-- `grilling` - Round-based interrogation of an existing plan (user-invoked via `/grilling`) — batches the unblocked frontier, recommends an answer per question
+- `grilling` - Round-based interrogation of an existing plan (model-invoked, or run `/grilling`) — batches the unblocked frontier, recommends an answer per question
 - `grill-with-docs` - Composes `grilling` + `domain-modeling`
-- `domain-modeling` - Glossary and ADR discipline — `docx/glossary.md`, `docx/decisions/`
+- `domain-modeling` - Glossary and ADR discipline — `docx/glossary.md` (grouped by bounded context when a term means different things in different modules), `docx/decisions/`
 - `codebase-design` - Deep-module vocabulary for interface and seam decisions
 - `prototype` - Throwaway code that answers one design question
 - `investigate` - Research against primary sources; cited findings to `docx/research/`
@@ -587,9 +586,9 @@ Running git diff --cached...
 
 ## Code Review: Authentication Module
 
-### Strengths
-- Clean separation of concerns
-- Comprehensive test coverage
+### What I checked
+- Traced the login flow through both callers
+- Ran the test suite: 48 passed
 
 ### Issues Found
 
@@ -770,10 +769,38 @@ MIT License
 - Git workflow patterns from industry best practices
 - Integration with Claude Code platform by Anthropic
 - Skill and documentation prose edited with [humanizer](https://github.com/blader/humanizer) (MIT), which flags the signs of AI writing catalogued by Wikipedia
+- Several v2.4.0 rules (tests of behavior rather than functions, validation at the system edge, PR verification from real command output) follow principles in [pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan (MIT)
 
 ## Version History
 
-**v2.3.0 (Current)**
+**v2.4.0 (Current)**
+
+**Added**
+- `domain-modeling` groups the glossary by bounded context once a project has two, so *Account* can mean a login in `auth/` and a billing party in `billing/` without one definition blending both. A term that crosses contexts says where the two are translated, and a one-context project keeps a flat list.
+- 3 `domain-modeling` eval cases: a one-context repo stays flat, a two-meaning term is split, and a plain code change does not start a glossary. All pass 3/3 on Sonnet.
+- Every eval case has `tags:`: the skills it exercises, plus `routing` when it only checks that a skill fires or stays quiet. `claude plugin eval . --tag deslop` runs one skill's cases.
+- `impl-quick` grader `ticks-each-task`: `plan.md` has a ticked box before Task 2 writes its first file.
+
+**Changed**
+- `test-driven-development`: before a refactor, write tests that pass on the current code, so they pin the behavior the refactor must keep. A good test fails when the behavior breaks and still passes after a rename. Every new behavior gets a test through the public interface, a rule `tdd-guide` and `review` now share.
+- Coverage: `tdd-guide`, `AGENTS.md` and the requirements, design and tasks templates drop the fixed 80% target. Coverage after a change must be equal to or higher than before it, measured against the base branch, and a project's own CI threshold still applies.
+- `review` validates data where it enters the system instead of adding defensive checks in every layer, handles each error where the code can act on it, and splits a function only when that lowers what a reader must trace. Its report, like `code-reviewer`'s, opens with "What I checked" instead of "Strengths".
+- `git-workflow`: the PR template is Why / What changed / Scope / Blast radius / Verification. Verification lists only commands run in the session, with their output, and has no checkboxes. `deslop` tightens the other four sections, replacing the v2.3.0 Summary and Changes.
+- `build-error-resolver` never casts just to silence a type error, and adds a null check only where null is a legal state.
+- `refactor-cleaner`, during feature work, removes what the change makes obsolete and leaves unrelated dead code for a separate cleanup.
+- `deslop` flags a colon that joins two clauses.
+- `spec-driven-implementation` Quick mode: every box of a task, its steps and its Progress line, is ticked before the next task starts, never in one sweep after the last task. On `impl-quick`, Sonnet now ticks per task in 12 of 12 runs, up from 6 of 15 (Fisher two-sided p = 0.001); Opus did already and stays at 6 of 6.
+
+**Fixed**
+- `wizard` template: values are written single-quoted, so `source .env` works with spaces, `#`, `$` and quotes. An existing `.env` keeps its mode and stays a symlink, a new one is created at 0600, EOF at a prompt stops the wizard, the missing-browser warning now shows, and `write_env` also sets `$KEY`. Stages run inside `run_wizard`, so bash parses the whole file before the first prompt. Ported from `mattpocock/skills` (`868c4cf`, `49dd158`) with one correction for macOS `/bin/bash` 3.2, where upstream reads a stored `it's` back as `it\'s`. `tools/wizard-selftest.sh` grows from 6 to 16 cases.
+- Install commands use the real marketplace id, `dev-workflow@kisune` and `trading@kisune`. The docs said `@xbklairith-kisune`, which no marketplace answers to. `README.md` and `PLUGINS_INSTALLATION.md` share one install block with update steps, and `tools/check.py` fails on a wrong id in any install or update line, including the one-step `--marketplace xbklairith/kisune` form. This README's Installation section now uses them too, replacing a step that copied the plugin into `~/.claude-code/plugins/`.
+- `grilling` is documented as model-invoked (also `/grilling`), matching its frontmatter. `tools/check.py` now fails when a doc labels a skill user-only or model-invoked against its `disable-model-invocation` setting.
+- Six eval cases ship their input documents: `deslop-ambiguity`, `deslop-engineering-doc`, `deslop-thai` and the three `domain-model` cases. A contributor's global `docs` ignore had kept them out of git, so a fresh clone ran those cases without them. `.gitignore` re-includes eval `docs/` folders, and `tools/check.py` fails when an ignore rule outside the repo hides an eval file.
+- `impl-full` order graders read the trace, so a test or code file written with Write or through Bash counts. The old `tool_order` graders only saw files written with Edit and failed those runs. `red-run-before-code` now also needs the test run to fail, not just to happen.
+- `deslop-ambiguity` grader `backup-first` checks the order of the steps. It had failed an Opus rewrite whose intro sentence named `bin/migrate` before step 1, "Back up the database".
+- `plan-full-spec`: one LLM judge checked EARS form, coverage and placeholders together, and failed 2 of 6 Sonnet files that pass the mechanical checks. EARS form and placeholders are now regex graders, and the judge checks only that the delimiter, skip-header and missing-column cases are covered.
+
+**v2.3.0**
 
 **Added**
 - `deslop` skill: rewrites existing prose in English or Thai (lessons, explanations, research notes, docs, PR descriptions, changelogs) so it reads like a person wrote it. It puts the point and prerequisites first, swaps LLM vocabulary for words people in the field use, replaces unclear pronouns, keeps a requirement's strength, and flags gaps instead of guessing. Facts, numbers, identifiers, citations, hedges and EARS lines stay exactly as written, and nothing is added. Thai tells in `references/thai.md`. Adapted from [humanizer](https://github.com/blader/humanizer) (MIT).

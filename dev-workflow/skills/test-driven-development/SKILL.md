@@ -98,7 +98,9 @@ Confirm:
 - Failure message is expected
 - Fails because feature missing (not typos)
 
-**Test passes?** You're testing existing behavior. Fix test.
+**Test passes?** For new behavior, you're testing something that already exists. Fix the test.
+
+**Refactoring?** Here a passing test is the goal. Before moving any structure, write tests that pass on the current code. They pin the behavior the refactor must keep. Type check and lint are not a pin.
 
 **Test errors?** Fix error, re-run until it fails correctly.
 
@@ -166,6 +168,7 @@ Next failing test for next feature.
 | **Minimal** | One thing. "and" in name? Split it. | `test "validates email and domain and whitespace"` |
 | **Clear** | Name describes behavior | `test "test1"` |
 | **Shows intent** | Demonstrates desired API | Obscures what code should do |
+| **Tests behavior** | Fails when the behavior breaks, passes when only the internals change | Fails after a rename or an internal refactor that changed no behavior |
 
 ## Common Rationalizations
 
@@ -187,7 +190,7 @@ Next failing test for next feature.
 
 - Code before test
 - Test after implementation
-- Test passes immediately
+- Test for new behavior passes immediately (a refactor's pin tests should pass)
 - Can't explain why test failed
 - Tests added "later"
 - Rationalizing "just this once"
@@ -205,9 +208,9 @@ Next failing test for next feature.
 
 Before marking work complete:
 
-- [ ] Every new function/method has a test
-- [ ] Watched each test fail before implementing
-- [ ] Each test failed for expected reason (feature missing, not typo)
+- [ ] Every new behavior has a test that goes through the public interface
+- [ ] Watched each test fail before implementing (refactor: watched the pins pass on the old code)
+- [ ] Each new-behavior test failed for expected reason (feature missing, not typo)
 - [ ] Wrote minimal code to pass each test
 - [ ] All tests pass
 - [ ] Output pristine (no errors, warnings)

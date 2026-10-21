@@ -52,9 +52,9 @@ kisune/
 - `spec-driven-planning` - 3-phase workflow (Feature → Requirements/EARS → Design)
 - `more-creativity` - Divergent generation of ideas and hypotheses — 15 techniques, intensity dial, quota-and-discard, non-obviousness gate
 - `brainstorming` - Collaborative refinement for requirements and design
-- `grilling` - Round-based interrogation of an existing plan (user-invoked via `/grilling`); batches the unblocked frontier, one recommended answer per question
+- `grilling` - Round-based interrogation of an existing plan (model-invoked, or run `/grilling`); batches the unblocked frontier, one recommended answer per question
 - `grill-with-docs` - Composes `grilling` + `domain-modeling` (user-invoked via `/grill-with-docs`)
-- `domain-modeling` - Glossary and ADR discipline — writes `docx/glossary.md` and `docx/decisions/NNNN-*.md`
+- `domain-modeling` - Glossary and ADR discipline — writes `docx/glossary.md` (grouped by bounded context once there are two) and `docx/decisions/NNNN-*.md`
 - `codebase-design` - Deep-module vocabulary: module, interface, depth, seam, adapter
 - `prototype` - Throwaway code that answers one design question, then gets deleted
 - `investigate` - Research against primary sources via background agent; cited findings to `docx/research/`
@@ -141,8 +141,8 @@ Run on Sonnet and Opus before and after changing `using-kisune`, a skill descrip
 ```bash
 # Option 1: Plugin marketplace (recommended)
 /plugin marketplace add xbklairith/kisune
-/plugin install trading@xbklairith-kisune
-/plugin install dev-workflow@xbklairith-kisune
+/plugin install trading@kisune
+/plugin install dev-workflow@kisune
 
 # Option 2: Local development (cd into this directory)
 # Plugins auto-load when Claude Code starts in this directory

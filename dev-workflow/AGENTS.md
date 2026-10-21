@@ -3,7 +3,7 @@
 ## Core Principles
 
 1. **Agent-First** — Delegate to specialized agents for quality
-2. **Test-Driven** — 80%+ coverage required
+2. **Test-Driven** — every new behavior has a test through the public interface, and coverage never drops
 3. **Plan Before Execute** — Use spec-driven planning for features
 
 ## Agent Registry

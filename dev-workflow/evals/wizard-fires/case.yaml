@@ -1,5 +1,6 @@
 schema_version: "1.1"
 name: wizard fires on new-machine setup
+tags: [wizard, routing]
 context:
   scaffold_script: scaffold.sh
 execution:

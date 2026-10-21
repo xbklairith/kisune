@@ -84,7 +84,7 @@ Availability and reliability requirements.
 
 Code quality and maintenance requirements.
 
-- [REQ-019] The system SHALL [maintainability requirement, e.g., "maintain test coverage above 80%"]
+- [REQ-019] The system SHALL [maintainability requirement, e.g., "keep test coverage at or above its level before each change"]
 - [REQ-020] The system SHALL [documentation requirement]
 
 ## Constraints

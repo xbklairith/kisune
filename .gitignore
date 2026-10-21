@@ -1,5 +1,6 @@
-# Documentation and planning (project-specific)
-docx/
+# Documentation and planning (project-specific); decision records are committed
+/docx/*
+!/docx/decisions/
 
 # Example plugins (reference only)
 examples/
@@ -31,3 +32,8 @@ logs/
 # Plugin eval run output
 dev-workflow/evals/results/
 trading/evals/results/
+
+# Eval fixtures keep input documents in docs/; a global ignore of `docs` must
+# not hide them (tools/check.py fails when a rule outside the repo does)
+!/dev-workflow/evals/*/docs/
+!/trading/evals/*/docs/

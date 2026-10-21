@@ -42,6 +42,13 @@ try versions   .claude-plugin/marketplace.json            's/"version": "[0-9][0
 try counts     CLAUDE.md                                  's/### Dev-Workflow Plugin ([0-9][0-9]* skills/### Dev-Workflow Plugin (999 skills/'
 try index      dev-workflow/skills/using-kisune/SKILL.md   's/^| `review` |/| `no-such-skill` |/'
 try references dev-workflow/skills/post-mortem/SKILL.md    's/They are the index\./They are the index. See `explain-in`./'
+try install    README.md                                  's#^/plugin install dev-workflow@[A-Za-z0-9_.-]*#/plugin install dev-workflow@no-such-market#'
+try install    dev-workflow/README.md                     's#--marketplace xbklairith/kisune#--marketplace someone/else#'
+try install    README.md                                  's#^claude plugin update dev-workflow@kisune#claude plugin update dev-workflow@no-such-market#'
+try install    README.md                                  's#^claude plugin marketplace update kisune#claude plugin marketplace update no-such-market#'
+try invocation CLAUDE.md                                  's#(model-invoked, or run `/grilling`)#(user-invoked via `/grilling`)#'
+try invocation CLAUDE.md                                  's#(user-invoked via `/handoff`)#(model-invoked, or run `/handoff`)#'
+try invocation dev-workflow/skills/using-kisune/SKILL.md  's#^| `grilling` | .*#| `grilling` | `/grilling` only |#'
 # Skill-authoring rules from Anthropic's skill best-practices guide.
 SK=dev-workflow/skills/review/SKILL.md
 try name        $SK 's/^name: review$/name: Review_Skill/'
@@ -52,6 +59,11 @@ trysh length    $SK "seq 520 >> $SK"
 trysh toc       dev-workflow/skills/more-creativity/references/long.md "seq 120 > dev-workflow/skills/more-creativity/references/long.md"
 trysh links     $SK "printf '\\n[x](references/a/b.md)\\n' >> $SK"
 trysh links     $SK "printf '\\n[x](references\\\\x.md)\\n' >> $SK"
+# A throwaway excludes file stands in for a contributor's ~/.gitignore, so the
+# seed touches nothing outside the repo and works without that global rule.
+EX=$(mktemp); printf 'stray.md\n' > "$EX"
+trysh fixtures  dev-workflow/evals/deslop-fires/stray.md "printf 'x\\n' > dev-workflow/evals/deslop-fires/stray.md; export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=core.excludesFile GIT_CONFIG_VALUE_0=$EX"
+unset GIT_CONFIG_COUNT GIT_CONFIG_KEY_0 GIT_CONFIG_VALUE_0; rm -f "$EX"
 
 echo
 if ! python3 tools/check.py >/dev/null 2>&1; then

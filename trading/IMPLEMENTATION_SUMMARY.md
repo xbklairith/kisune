@@ -181,7 +181,7 @@ Total Lines of Code/Documentation: 3,499
 ```bash
 # Plugin marketplace
 /plugin marketplace add xbklairith/kisune
-/plugin install trading@xbklairith-kisune
+/plugin install trading@kisune
 ```
 
 ### Test Skills

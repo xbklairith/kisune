@@ -7,12 +7,15 @@
 If this repo is on GitHub:
 
 ```bash
-# In Claude Code, add this repo as a marketplace
+# In Claude Code: add this repo as a marketplace, then install
 /plugin marketplace add xbklairith/kisune
+/plugin install trading@kisune
+/plugin install dev-workflow@kisune
 
-# Install the plugins
-/plugin install trading@xbklairith-kisune
-/plugin install dev-workflow@xbklairith-kisune
+# Later, from a terminal: pull the latest versions, then restart Claude Code
+claude plugin marketplace update kisune
+claude plugin update trading@kisune
+claude plugin update dev-workflow@kisune
 ```
 
 ### Option 2: Local Development (for testing)

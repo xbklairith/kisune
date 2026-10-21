@@ -66,11 +66,11 @@ After each batch:
 2. **Test often** — after every batch
 3. **Be conservative** — when in doubt, don't remove
 4. **Document** — descriptive commit messages per batch
-5. **Never remove** during active feature development or before deploys
+5. **During feature work, remove only what the change makes obsolete.** Leave unrelated dead code for a separate cleanup, and never clean up right before a deploy
 
 ## When NOT to Use
 
-- During active feature development
+- On dead code unrelated to a feature that is in progress
 - Right before production deployment
 - Without proper test coverage
 - On code you don't understand

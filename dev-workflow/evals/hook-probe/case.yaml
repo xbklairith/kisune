@@ -1,5 +1,6 @@
 schema_version: "1.1"
 name: session-start context present
+tags: [routing, using-kisune]
 execution:
   max_turns: 2
   allowed_tools: [Skill, Read, Glob, Grep, Edit, Write]

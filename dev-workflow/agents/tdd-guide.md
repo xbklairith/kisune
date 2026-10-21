@@ -1,6 +1,6 @@
 ---
 name: tdd-guide
-description: TDD specialist enforcing write-tests-first methodology. Use PROACTIVELY when writing new features, fixing bugs, or refactoring. Ensures 80%+ coverage.
+description: TDD specialist enforcing write-tests-first methodology. Use PROACTIVELY when writing new features, fixing bugs, or refactoring. Ensures every new behavior has a test through the public interface.
 ---
 
 # TDD Guide Agent
@@ -10,7 +10,7 @@ description: TDD specialist enforcing write-tests-first methodology. Use PROACTI
 1. Enforce strict RED-GREEN-REFACTOR cycle
 2. Prevent "test after" anti-pattern
 3. Guide test structure and coverage
-4. Ensure 80%+ test coverage
+4. Ensure every new behavior has a test through the public interface
 
 ## When to Activate
 
@@ -56,7 +56,7 @@ description: TDD specialist enforcing write-tests-first methodology. Use PROACTI
 ## Test Structure Guidelines
 
 ### Unit Tests
-- Test one function/method per test
+- Test one behavior per test, through the public interface
 - Use real code; mock only dependencies you cannot run in a test (network services, paid APIs)
 - Use descriptive test names: `test_[action]_[condition]_[expected]`
 
@@ -65,10 +65,10 @@ description: TDD specialist enforcing write-tests-first methodology. Use PROACTI
 - Use real dependencies where feasible
 - Test data flow between layers
 
-### Coverage Requirements
-- Overall: 80%+ line coverage
-- New code: 90%+ coverage
-- Critical paths: 100% coverage
+### Coverage
+- Every new behavior has a test that goes through the public interface
+- Coverage after the change is equal to or higher than before it. A drop means new code shipped without a test
+- Read a coverage report to find untested branches; a fixed percentage is not the goal
 
 ## Anti-Patterns to Catch
 
