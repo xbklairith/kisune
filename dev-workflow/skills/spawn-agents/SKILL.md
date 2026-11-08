@@ -33,14 +33,24 @@ Parallelism in Claude Code is:
 
 > **Multiple `Agent` tool invocations in a single assistant message.**
 
-The harness runs them concurrently. Sequential `Agent` calls across messages run sequentially.
-
-```
-✅ One message containing 3 Agent tool calls → all 3 run in parallel
-❌ Three messages, one Agent call each → all 3 run sequentially
-```
-
 When dispatching N parallel agents, emit all N tool calls in one block.
+
+```
+✅ One message containing 3 Agent tool calls → all 3 start together
+❌ Three messages, one Agent call each → in the foreground they run one after another;
+   in the background they overlap, but each extra message costs a turn
+```
+
+### Background agents
+
+An `Agent` call can return at once with the agent's ID while the agent keeps running. A notification arrives when it finishes.
+
+- **Don't poll, sleep, or redo its work** while you wait. Do unrelated work, or stop.
+- **Never predict or invent a pending agent's result.** If the user asks before the notice arrives, say it is still running.
+- **Start dependent work only after the notice.** An `Agent` call returning is not the agent returning.
+- **`SendMessage`** with the agent's ID or name continues it with its context intact; a new `Agent` call starts from nothing.
+- **`effort: "lower"`** suits mechanical fan-out (bounded lookups, grep-and-report). Omit it for agents that need real reasoning.
+- **The `fork` subagent type** inherits your whole conversation instead of a written brief. A fork executes its task directly and does not delegate again.
 
 ## Subagent Dynamics
 

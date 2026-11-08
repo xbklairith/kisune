@@ -3,12 +3,13 @@
 
 Usage: python3 tools/test_skill_scripts.py
 """
-import os, subprocess, sys, tempfile, unittest
+import os, shutil, subprocess, sys, tempfile, unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 FRONTIER = ROOT / "dev-workflow/skills/wayfinder/scripts/frontier.py"
 SESSION_LOG = ROOT / "dev-workflow/skills/retro/scripts/session_log.py"
+DOT_SVG = ROOT / "dev-workflow/skills/explain-in-html/scripts/dot_svg.py"
 HOOK_GIT_VARS = ("GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR",
                  "GIT_PREFIX", "GIT_OBJECT_DIRECTORY")
 # Run from a pre-commit hook, these point at the real repo; the temp repos below
@@ -87,6 +88,40 @@ class SessionLog(unittest.TestCase):
     def test_rejects_traversal(self):
         r = self.run_it(self.repo, "show", "../other/x")
         self.assertNotEqual(r.returncode, 0)
+
+
+class DotSvg(unittest.TestCase):
+    """Graphviz output pasted inline must follow the page's light/dark colour."""
+
+    def run_it(self, dot, env=None):
+        return subprocess.run([sys.executable, DOT_SVG], input=dot, capture_output=True,
+                              text=True, env=env)
+
+    @unittest.skipUnless(shutil.which("dot"), "needs graphviz")
+    def test_inline_svg_follows_page_colour(self):
+        r = self.run_it('digraph { a -> b; c [color=crimson, fontcolor=crimson]; b -> c }')
+        self.assertEqual(r.returncode, 0, r.stderr)
+        svg = r.stdout.strip()
+        self.assertTrue(svg.startswith("<svg"), svg[:80])
+        for gone in ("<?xml", "<!DOCTYPE", "<!--", "#000000", '"black"', 'id="node'):
+            self.assertNotIn(gone, svg)
+        self.assertIn('stroke="currentColor"', svg)
+        root = svg.split(">", 1)[0]
+        self.assertIn('fill="currentColor"', root)  # text with no fill inherits it
+        self.assertIn("max-width:100%", root)
+        self.assertIn("crimson", svg)
+
+    @unittest.skipUnless(shutil.which("dot"), "needs graphviz")
+    def test_bad_dot_fails_with_graphviz_error(self):
+        r = self.run_it("digraph { a -> }")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("syntax error", r.stderr)
+        self.assertEqual(r.stdout, "")
+
+    def test_missing_graphviz_says_so(self):
+        r = self.run_it("digraph { a -> b }", env=dict(os.environ, PATH="/nonexistent"))
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("graphviz", r.stderr.lower())
 
 
 class HookEnvironment(unittest.TestCase):

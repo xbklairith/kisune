@@ -773,7 +773,22 @@ MIT License
 
 ## Version History
 
-**v2.4.0 (Current)**
+**v2.4.1 (Current)**
+
+**Changed**
+- `explain-in-html` works with either artifact tool: the built-in `Artifact` tool or the `claude-artifacts` MCP server. A table maps each step to its call on both: page rules (`quickstart` or `guide`), diagram rules (`artifact-diagramming` or `guide diagrams`), publish and capabilities (`capabilities` on the publish, or `read_declaration` then `declare_capabilities`), and reading answers back (`ArtifactData` or `db_query`/`db_get`/`db_list`).
+- `explain-in-html` picks the diagram form by kind: inline SVG by default, Mermaid for sequence, state and ER, and Graphviz for a dependency graph too big to place by hand. The new `scripts/dot_svg.py` renders DOT as inline SVG in `currentColor`, so it shows on dark pages. Recipes live in `references/diagrams.md`.
+- 2 `explain-in-html` eval cases: `explain-diagram` (a state machine in a local page) and `explain-mermaid` (the user asks for Mermaid). Both pass 3/3 on Sonnet. `tools/test_eval_graders.py` runs their regex grader under node and bun against pages written to pass or fail it.
+- `spawn-agents` covers background agents. An `Agent` call can return before its agent finishes, so the skill says to wait for the completion notice, never to invent a pending result, to continue an agent with `SendMessage`, to pass `effort: "lower"` for mechanical fan-out, and that a `fork` inherits the conversation and does not delegate again.
+- `skill-maker` names TaskCreate or TodoWrite for its checklist, or a checklist in the reply when the session has neither.
+- `skill-maker/references/plugin-evals.md` says what each grader `target` holds. `files` lists created paths only, and `{source: file, path}` reads one file. A forked skill's calls and result are in `trace`, not `last_message`. It also covers reading a run back with `--keep-temp`.
+- 2 eval cases. `spawn-three-bugs` gives three unrelated bugs and checks that the `Agent` calls share one message and that all three root causes are found; it passes 2/2 on Sonnet. `spec-review-quick` reviews a Quick-mode plan and checks the 2 review agents and the consolidated report. It settles whether a forked skill (`spec-review` has `context: fork`) can dispatch agents: in 2 Sonnet runs, each fork ran both agents in sequence and handed back the report, so `spec-review` needs no change. Its report grader first read `last_message`, which held the main session's paraphrase. It now reads the fork's result in the trace and passes both saved runs.
+
+**Fixed**
+- `explain-in-html` said Mermaid renders "natively — no CDN" everywhere. Only the built-in `Artifact` tool renders it; on the server and in a local file the source shows as text. Pages there now load `mermaid@11.16.1`, the build the built-in tool injects, at that exact version. On the unchanged skill, all 3 Sonnet runs asked for Mermaid loaded a floating `mermaid@11`.
+- `spawn-agents` said `Agent` calls in separate messages always run one after another. With background agents they overlap, and the real cost is an extra turn per message.
+
+**v2.4.0**
 
 **Added**
 - `domain-modeling` groups the glossary by bounded context once a project has two, so *Account* can mean a login in `auth/` and a billing party in `billing/` without one definition blending both. A term that crosses contexts says where the two are translated, and a one-context project keeps a flat list.

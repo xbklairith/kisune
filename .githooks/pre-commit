@@ -10,6 +10,10 @@ python3 "$root/tools/test_skill_scripts.py" >/dev/null 2>&1 || {
   echo "pre-commit: tools/test_skill_scripts.py failed — run it to see which" >&2
   exit 1
 }
+python3 "$root/tools/test_eval_graders.py" >/dev/null 2>&1 || {
+  echo "pre-commit: tools/test_eval_graders.py failed — run it to see which" >&2
+  exit 1
+}
 /bin/bash "$root/tools/wizard-selftest.sh" >/dev/null 2>&1 || {
   echo "pre-commit: tools/wizard-selftest.sh failed — run it to see which" >&2
   exit 1

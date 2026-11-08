@@ -229,7 +229,7 @@ If SKILL.md exceeds the target, move reference material to a `references/` subfo
 
 ## Skill Creation Checklist
 
-Use TaskCreate to create todos for EACH item.
+Track EACH item with the session's task-list tool (TaskCreate or TodoWrite), or as a checklist in the reply when neither exists.
 
 **RED Phase:**
 - [ ] Create pressure scenarios (3+ combined pressures for discipline skills)
