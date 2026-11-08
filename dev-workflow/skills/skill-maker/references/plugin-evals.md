@@ -57,6 +57,10 @@ arm: both                  # score it; without this it is an unscored indicator
 | `tool_order` | `before`, `after` (fails if either tool never runs) |
 | `file_exists` | `path` (glob), `exists` |
 | `regex` | `pattern`, `flags` (JS: `i`, `m`…; no inline `(?i)`), `match: contains\|not_contains\|count:N`, `target: last_message\|trace\|files` |
+
+**What a `target` holds.** `trace` is the run's JSONL: one line per content block, compact JSON, and the blocks of one assistant message share its `"id":"msg_…"`. `files` is only the list of paths the run created, not their contents. To grade what a file says, name it: `target: {source: file, path: docx/out.html}`.
+
+**A forked skill** (`context: fork`) runs in a subagent. Its tool calls are in `trace` and count for `tool_used`. Its output is the result line `Skill "<name>" completed (forked execution)`. `last_message` is the main session's reply, which often paraphrases that result, so grade the skill's own output on `trace`.
 | `llm` | body = rubric; `focus: last_message\|trace\|files`; judge defaults to haiku |
 
 ## The three cases every skill gets
@@ -74,3 +78,9 @@ claude plugin eval <plugin-dir> --trust-plugin --scaffold \
 ```
 
 Run on every model the plugin targets. Add `--ablation none` to skip the no-plugin arm when comparing two versions of the same skill.
+
+## Reading a run back
+
+The working directory is deleted after each run. Add `--keep-temp` to keep it under the system temp dir (`/private/tmp/e-*` on macOS). `out/trace.jsonl` there is readable and holds every tool call, including the full content of each `Write`. The `sealed/` directory is mode 000; `chmod 700` it (and the run directory) before reading, and delete the kept directories when done.
+
+Test a regex grader against strings built to pass and to fail before trusting a run's score. The eval runner uses JavaScript regexes, so run the pattern under node, not Python's `re`.

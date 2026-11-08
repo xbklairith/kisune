@@ -80,7 +80,7 @@ kisune/
 
 **Communication Skills:**
 - `handoff` - Compact the conversation into a handoff doc for a fresh agent (user-invoked via `/handoff`)
-- `explain-in-html` - Render structure as an HTML page (Mermaid, UML, inline SVG) or a question round answered in-browser; delegates design to `Artifact quickstart` and figures to `artifact-diagramming`
+- `explain-in-html` - Render structure as an HTML page (Mermaid, UML, inline SVG) or a question round answered in-browser; works with the built-in `Artifact` tool or the `claude-artifacts` server; inline SVG by default, Mermaid for sequence/state/ER, Graphviz via `scripts/dot_svg.py` for big graphs
 - `deslop` - Rewrite prose in English or Thai (lessons, explanations, research notes, docs, PRs, changelogs) so it reads human: reorder, plain words, no ambiguity, every fact kept (adapted from humanizer, MIT)
 
 **Agents (proactive):**

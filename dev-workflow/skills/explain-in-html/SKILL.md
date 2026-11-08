@@ -1,7 +1,7 @@
 ---
 name: explain-in-html
 description: Render structure as an HTML page instead of terminal text — Mermaid diagrams, UML, ER and state charts, comparison tables — or put a multi-question round in the browser for the user to answer. Use when the shape of the thing is the point (schemas, state machines, dependency graphs), or when asking three or more structured questions at once. This is the output medium only; skills that decide what to ask, plan or review keep that job and hand the rendering here.
-allowed-tools: Artifact, ArtifactData, Write, Read
+allowed-tools: Artifact, ArtifactData, mcp__claude-artifacts__guide, mcp__claude-artifacts__describe_capabilities, mcp__claude-artifacts__read_declaration, mcp__claude-artifacts__db_query, mcp__claude-artifacts__db_get, mcp__claude-artifacts__db_list, Write, Read
 ---
 
 # Explain in HTML
@@ -23,14 +23,37 @@ Do not ask which mode. Read the content. **Mixed content is one page** — a sho
 
 Use the page whenever the content has structure worth seeing. Fall back to terminal text only for a trivial confirm — a yes/no, a single pick from two obvious options. One question is a sentence; three are a page; at two, use the page if the choices interact.
 
+## Which artifact tool
+
+Use whichever this session has. The two differ at every step:
+
+| Step | Built-in `Artifact` tool | `claude-artifacts` server |
+|---|---|---|
+| Page rules | `Artifact` `quickstart`, `intent: "other"`; do not also load `artifact-design` | `claude-artifacts:guide` topics `pages`, then `design` |
+| Diagram rules | the `artifact-diagramming` skill | `claude-artifacts:guide` topic `diagrams` |
+| Publish | `Artifact`, with `capabilities` on the same call | `claude-artifacts:publish_files`; then, for capabilities, `read_declaration` and `declare_capabilities` |
+| Read answers | `ArtifactData` | `claude-artifacts:db_query`, `db_get`, `db_list` |
+| Mermaid | renders natively: bare `<pre class="mermaid">`, load nothing | nothing renders it: load the pinned build |
+
+Neither tool: see Fallbacks. In a local file, too, nothing renders Mermaid.
+
 ## How to build it
 
-1. **`Artifact quickstart`** with `intent: "other"` — it returns the page-design contract. Do not also load `artifact-design`.
-2. **Figures — delegate, never improvise.** Both of these are built-in skills that own their own rules; do not restate them here, load them.
-   - Mechanism — how it works, what talks to what, before/after → **`artifact-diagramming`**
+1. **Load the page rules** for your tool (table above).
+2. **Figures — delegate, never improvise.** Load the rule-owners; do not restate them here.
+   - Mechanism — how it works, what talks to what, before/after → the diagram rules for your tool
    - Quantities — magnitude, distribution, change over time → **`dataviz`**, which has hard requirements of its own (run its palette validator; never a dual-axis chart)
-   - Within a diagram: **Mermaid** (`<pre class="mermaid">`, rendered natively — no CDN) for sequence, state, ER and flow; **hand-authored inline SVG** for before/after and side-by-side, which Mermaid renders badly.
-3. **Publish** via `Artifact`. Interact pages follow `grilling`'s rule — **every question carries a recommended answer**, so a user who agrees can say "yes to all" and move on. For interact mode declare `capabilities: {db: {}, user: {}}` — that is what makes answers savable and readable back. Add `downloads: true` only if the user wants a file too. Explain mode needs none.
+
+   Pick the form by the kind of diagram:
+
+   | Diagram | Form |
+   |---|---|
+   | Mechanism, before/after, side-by-side (the default) | hand-authored inline SVG |
+   | Sequence, state, ER | Mermaid |
+   | A dependency graph too big to place by hand | Graphviz, rendered here by `scripts/dot_svg.py` |
+
+   **Mermaid source with no renderer shows as plain text.** Only the built-in `Artifact` tool renders it; on the server and in a local file, load the exact pinned version, never `@11`. Loader and Graphviz recipes: `references/diagrams.md`.
+3. **Publish.** Interact pages follow `grilling`'s rule — **every question carries a recommended answer**, so a user who agrees can say "yes to all" and move on. For interact mode declare `{db: {}, user: {}}` — that is what makes answers savable and readable back (on the server, read `claude-artifacts:describe_capabilities` for `db` before writing the page code). Add `downloads: true` only if the user wants a file too. Explain mode needs none.
 
 ## Getting the answers back
 
@@ -46,13 +69,13 @@ Publishing does not wake the session — a published version **starts no turn an
 
 `<a download>`, blob saves and `window.print()` are inert in the viewer sandbox. The `downloads` capability is a separate mechanism and does work — but it is not what "save" means here.
 
-Read answers back with `ArtifactData`. It is a deferred tool: load its schema via `ToolSearch` before calling it.
+Read answers back with `ArtifactData` or the server's `db_*` tools. These are deferred tools: load the schema via `ToolSearch` before the first call.
 
 ## Fallbacks
 
-| Artifact unavailable | Do this |
+| No artifact tool | Do this |
 |---|---|
-| explain mode | Write a standalone `.html` to `docx/explainers/<slug>.html` and give the path |
+| explain mode | Write a standalone `.html` to `docx/explainers/<slug>.html` and give the path; Mermaid needs the pinned loader |
 | interact mode | Fall back to `AskUserQuestion` — never silently drop the questions |
 
 Save to `docx/explainers/<slug>.html` only when asked.
